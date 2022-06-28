@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Dashboard</title> 
+    <link rel="shortcut icon" href="{% static 'images/logo.png' %}" />
+    <style>
+      body{
+        background-image: url("{% static 'images/logi.jpg' %}");
+        width: 100%;
+      }
+      .op{
+        background-color: black;
+      }
+      .dt{
+        padding-top: 65px;
+      }
+      .pic{
+        width: 1000px;
+        height: 295px;
+      }
+      .b{ 
+        text-align: center;
+        color: rgba(255, 255, 255, 0.541);
+      }
+      .hd{
+        background-color: rgba(236, 164, 57, 0.712);
+        padding-bottom: 20px;
+      }
+      .mn{
+        background-color: rgba(212, 212, 218, 0.89);
+        color: white;
+      }
+      .sd{
+        display: flex;
+        justify-content: center;
+        align-items:center !important;
+        height: 100vh;
+      }
+      .form{
+        width: 350px;
+        height: 300px;
+        background-color: rgba(41, 39, 39, 0.3);
+        box-shadow: 0 5px 30px black;
+      }
+      .btn button {
+        padding: 3px;
+        margin: 30px 0px 40px 30px;
+        border-style: none;
+        background-color: transparent;
+        color: beige;
+        font-size: 18px;
+        font-weight: 550;
+      }
+      .formGroup{
+        display: flex;
+        justify-content: center;
+      }
+      .formGroup input{
+        border: none;
+        width: 80%;
+        border-bottom: 2px solid white;
+        padding: 10px;
+        margin-bottom: 20px;
+        font-size: 14px;
+        font-weight: bold;
+        background-color: transparent;
+        color: white;
+      }
+      input:focus {
+        outline: none !important;
+        border-bottom: 2px solid rgb(91, 243, 131);
+        font-size: 17px;
+        font-weight: bold;
+        color: white;
+      }
+      ::placeholder {
+        color: white;
+      }
+      .btn2{
+        padding: 10px;
+        width: 150px;
+        border-radius: 20px;
+        background-color: rgb(10, 136, 43);
+        border-style: none;
+        color: white;
+        font-weight: 600;
+      }
+      .btn2:hover{
+        background-color: rgba(10, 136, 43, 0.5);
+        cursor: pointer;
+      }
+      .cv{
+        padding-top: 1px;
+      }
+      .ps{
+        border: 1px ;
+        padding: 1px;
+        margin-bottom: 1px;
+        padding-left: 50px;
+        color: rgb(255, 241, 255);
+      }
+      .as{
+        color: rgb(216, 219, 15);
+      }
+      .as:hover{
+        color: rgb(8, 34, 182);
+      }
+      .kl{
+        color: white;
+      }
+    </style>
+    <script charset="utf-8" src="https://platform.twitter.com/js/moment~timeline.c7de492113f2eac2bb49ff9013aa2889.js"></script>
+    <script charset="utf-8" src="https://platform.twitter.com/js/timeline.55167c7072ca7f4363bf18820295ba93.js"></script>
+  </head>
+  <body>
+    
+  
+    <div class="container sd">
+      <div class="form">
+        <form class="signup" action="" method="post">
+          {% csrf_token %}
+          <div class="formGroup">
+            <h4 class="kl"><b>LOGIN</b></h4>
+          </div>
+          <div class="formGroup">
+            <input type="text" name="username" id="username" placeholder="User Name" autocomplete="off" required>
+          </div>
+          <div class="formGroup">
+            <input type="password" name="password" id="password" placeholder="Password" autocomplete="off" required>
+          </div>
+          <p class="ps">Not a member?<a class="as" href="{% url 'registration'%}">Signup</a></p><br><br>
+          <div class="formGroup cv">
+           <button type="submit" class="btn2">LOGIN</button>
+          </div>
+        </form>
+      </div>
+    </div>   
+   
+  </body>
+
+   <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        {% if msg_error %}
+  <script>
+      Swal.fire({
+          icon: 'error',
+          title: '',
+          text: '{{ msg_error }}',
+      }).then(function () {
+          javascript: history.go(-2);
+      })
+  </script>
+  {%endif%}
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  
+
+
+</html>

@@ -1,0 +1,62 @@
+{% extends 'Admin_index.html'%}
+{% load static %}
+{% block content %}
+
+<div class="row">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Periodic Tests Details</h4>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="background-color: green; color: #fff;">
+                    User Name
+                </th>
+                <th style="background-color: green; color: #fff;">
+                 Tests
+                </th>
+                <th style="background-color: green; color: #fff;">
+                  Place
+                 </th>
+                <th style="background-color: green; color: #fff;">
+                   Date Measured
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Measurement
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in var %}
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>{{i.user}}</td>
+                <td>{{i.tests}}</td>
+                <td>{{i.place}}</td>
+                <td>{{i.date|date:"d-m-Y"}}</td>
+                <td>{{i.measurement}}</td>
+              </tr>
+              {% endfor %}
+              <!-- <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>EC</td>
+                <td></td>
+                <td></td>               
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>PH</td>
+                <td></td>
+                <td></td>           
+              </tr>             -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

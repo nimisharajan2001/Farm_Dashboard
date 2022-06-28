@@ -1,0 +1,114 @@
+{%extends 'Staff_index.html'%} 
+{% load static %} 
+{% block content %}
+
+{% for i in var %}
+
+<div class="row">
+    <div class="col-md-9 grid-margin stretch-card">
+        <div class="card" style="height: auto;">
+    
+            <div class="card-body">
+                <div class="col-12 grid-margin">
+                    <h3>Edit Plant Details</h3>
+                </div>
+                <form method="post" action="{% url 'Staff_plantdetails_update' i.id%}" enctype="multipart/form-data">
+                     {% csrf_token %} 
+                    <div class="form-group row">
+                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                            Plant Name
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="plant" value="{{i.plant_name}}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                            Flowering Date
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="date" class="form-control form-control-sm"  name="flowering" value="{{i.flowering_date|date:'Y-m-d'}}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                          Fruiting Date
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="date" class="form-control form-control-sm" autocomplete="off" name="fruiting" value="{{i.fruiting_date|date:'Y-m-d'}}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                          Fertilization Date
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="date" class="form-control form-control-sm" autocomplete="off" name="fertilization" value="{{i.fertilization_date|date:'Y-m-d'}}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                          Harvesting Date
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="date" class="form-control form-control-sm" autocomplete="off" name="harvesting" value="{{i.harvesting_date|date:'Y-m-d'}}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                          Harvested Data
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="harvesteddata" value="{{i.harvested_data}}" required>
+                        </div>
+                    </div>
+                      
+                    </div>
+                    
+                    <div>
+                        <center>
+                            <button type="submit" style="background-color: green; color: #fff;" class="btn  btn-icon-text mb-4">SUBMIT</button>
+                            <a href="{% url 'Staff_plant_details' %}" class="btn btn-info mb-4"> BACK</a>
+                        </center>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{%endfor%}
+<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        {% if msg_success %}
+    <script>
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            text: '{{ msg_success }}',
+            showConfirmButton: false,
+            timer: 3000
+        }).then(function () {
+            javascript: history.go(-2);
+        })
+        
+    </script>
+    {% endif %}
+    
+{% endblock %}

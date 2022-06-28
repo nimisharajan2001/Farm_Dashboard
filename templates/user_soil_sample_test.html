@@ -1,0 +1,201 @@
+{% extends 'user_index.html'%}
+{% load static %}
+{% block content %}
+
+<div class="row">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-5 col-lg-10"></div>
+          <div class="col-7 col-sm-4 col-md-3 col-lg-2">
+              <a href="{% url 'user_add_soil_sample_test' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>
+          </div>
+        </div>
+        <h4 class="card-title">Entered Details</h4>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="background-color: green; color: #fff;">
+                    Tests
+                </th>
+                <th style="background-color: green; color: #fff;">
+                  Place
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Date
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Result
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Unit
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Method
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Level
+                </th>
+                <th style="background-color: green; color: #fff;">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in var %}
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>{{i.tests}}</td>
+                <td>{{i.place}}</td>
+                <td>{{i.date|date:"d-m-Y"}}</td>
+                <td>{{i.result}}</td>
+                <td>{{i.unit}}</td>
+                <td>{{i.method}}</td>
+                <td>{{i.level}}</td>
+                <td>
+                  <a href="{% url 'user_viewedit_soilsampletest'  i.id%}">
+                    <div class="btn  btn-sm" style="color: white;  background-color: maroon;"><i class="ti-reload pr-2"></i>View/Edit</div>
+                  </a>                 
+                </td>
+              </tr>
+              {% endfor %}
+              <!-- <tr style="background-color: rgb(241, 249, 252);">
+                <td>EC</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>Calcium</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>Mg-Magnesium</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>Sodium-Na</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>Potassium-K</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>Zinc-Zn</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>Manganese-Mn</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>Copper-Cu</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>Nickel-Ni</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>Nitrate-N3</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>Sulphate</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>Phosphate</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>Boron-B</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>Free Lime-FL</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>ESP</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>CEC</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr> -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

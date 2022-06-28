@@ -1,0 +1,129 @@
+{%extends 'Staff_index.html'%} 
+{% load static %} 
+{% block content %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% for i in var %}
+
+
+<div class="row">
+    <div class="col-md-9 grid-margin stretch-card">
+        <div class="card" style="height: auto;">
+    
+            <div class="card-body">
+                <div class="col-12 grid-margin">
+                    <h3>Edit Farm Weather Details</h3>
+                </div>
+                <form method="post" action="{% url 'Staff_farmweather_update' i.id%}" enctype="multipart/form-data"> {% csrf_token %} 
+
+
+                    <div class="form-group row">
+                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                            Parameters
+                        </label>
+                        <div class="col-sm-9">
+                            <!-- <input type="text" class="form-control form-control-sm" autocomplete="off" name="parameter" value="{{i.parameters}}" required> -->
+                            <select class="form-control" name="parameter" >
+                                <option value="{{i.parameters}}" style="color: black;">{{i.parameters}}</option> 
+                                <option>Temperature</option>
+                                <option>Humidity</option>
+                                <option>Sunlight</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                            Date
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="date" class="form-control form-control-sm" autocomplete="off" value="{{ab.date|date:'Y-m-d'}}" name="date"  required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                          Morning
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" id="temp1" class="form-control form-control-sm" autocomplete="off" name="morning" value="{{i.morning}}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                          Evening
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" id="temp2" class="form-control form-control-sm" autocomplete="off" name="evening" value="{{i.evening}}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <!-- <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                          Average
+                        </label> -->
+                        <div class="col-sm-9">
+                            <input type="hidden" id="avg" class="form-control form-control-sm" autocomplete="off" name="average" value="{{i.average}}" required>
+                        </div>
+                    </div>
+                    </div>           
+                    <div>
+                        <center>
+                            <button type="submit" style="background-color: green; color: #fff;" class="btn  btn-icon-text mb-4">SUBMIT</button>
+                            <a href="{% url 'Staff_farm_weather' %}" class="btn btn-info mb-4"> BACK</a>
+                        </center>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(function() {
+    $("#temp1, #temp2").on("keyup", total);
+ 	function total() {
+ 	$("#avg").val((Number($("#temp1").val()) + Number($("#temp2").val()))/2);
+ 	
+	}
+ });
+</script>
+{%endfor%}
+<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        {% if msg_success %}
+    <script>
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            text: '{{ msg_success }}',
+            showConfirmButton: false,
+            timer: 3000
+        }).then(function () {
+            javascript: history.go(-2);
+        })
+        
+    </script>
+    {% endif %}
+    
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'Admin_index.html'%}
+{% load static %}
+{% block content %}
+
+<div class="row">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Fertilizer Applications Details</h4>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="background-color: green; color: #fff;">
+                   User Name
+                </th> 
+                <th style="background-color: green; color: #fff;">
+                  Name of Fertilizer
+                </th>
+                <th style="background-color: green; color: #fff;">
+                  Brand Name
+                </th>
+                <th style="background-color: green; color: #fff;">
+                   Applied Quantity
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Applied Date
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in var %}
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>{{i.user}}</td>
+                <td>{{i.fertilizer}}</td>
+                <td>{{i.brand_name}}</td>
+                <td>{{i.applied_quantity}}</td>
+                <td>{{i.applied_date|date:"d-m-Y"}}</td>
+              </tr>
+              {% endfor %}
+              <!-- <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>NPK</td>
+                <td></td>
+                <td></td>              
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>MKP</td>
+                <td></td>
+                <td></td>           
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>130045</td>
+                <td></td>
+                <td></td>    
+              </tr>             -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

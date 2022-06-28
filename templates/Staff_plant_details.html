@@ -1,0 +1,95 @@
+{% extends 'Staff_index.html'%}
+{% load static %}
+{% block content %}
+
+<div class="row">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-5 col-lg-10"></div>
+          <div class="col-7 col-sm-4 col-md-3 col-lg-2">
+              <a href="{% url 'Staff_add_plant_details' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>
+          </div>
+        </div>
+        <h4 class="card-title">Entered Details</h4>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="background-color: green; color: #fff;">
+                  Plant Name
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Flowering Date
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Fruiting Date
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Fertilization date
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Harvesting date
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Harvested data
+                </th>
+                <th style="background-color: green; color: #fff;">
+                  Action
+                </th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in var %}
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>{{i.plant_name}}</td>
+                <td>{{i.flowering_date|date:"d-m-Y"}}</td>
+                <td>{{i.fruiting_date|date:"d-m-Y"}}</td>
+                <td>{{i.fertilization_date|date:"d-m-Y"}}</td>
+                <td>{{i.harvesting_date|date:"d-m-Y"}}</td>
+                <td>{{i.harvested_data}}</td>
+                <td>
+                  <a href="{% url 'Staff_viewedit_plantdetails'  i.id%}">
+                    <div class="btn  btn-sm" style="color: white;  background-color: maroon;"><i class="ti-reload pr-2"></i>View/Edit</div>
+                  </a>
+                  
+                </td>
+              </tr>
+              {%endfor%}
+              <!-- <tr style="background-color: rgb(241, 249, 252);">
+                <td>Cucumber</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>Tomato</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>Mango</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr> -->
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

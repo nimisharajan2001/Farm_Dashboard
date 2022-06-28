@@ -1,0 +1,97 @@
+{% extends 'Staff_index.html'%}
+{% load static %}
+{% block content %}
+
+<div class="row">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Plant Details</h4>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="background-color: green; color: #fff;">
+                    User Name
+                </th>
+                <th style="background-color: green; color: #fff;">
+                  Plant Name
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Flowering Date
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Fruiting Date
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Fertilization date
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Harvesting date
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Harvested data
+                </th>
+                
+              </tr>
+            </thead>
+            <tbody>
+
+                {% for j in mem %}
+                {% for k in one %}
+              {% for i in var %}
+              {% if j.name == i.team ==s  %}
+              {% if k.user == s.id %}
+              <tr data-href="{% url 'Staff_clientdashboard' i.id %}">
+            
+                <td>{{k.user}}</td>
+                <td>{{k.plant_name}}</td>
+                <td>{{k.flowering_date|date:"d-m-Y"}}</td>
+                <td>{{k.fruiting_date|date:"d-m-Y"}}</td>
+                <td>{{k.fertilization_date|date:"d-m-Y"}}</td>
+                <td>{{k.harvesting_date|date:"d-m-Y"}}</td>
+                <td>{{k.harvested_data}}</td>
+          </tr>
+              {%endif%}
+              {%endif%}
+              {% endfor %}
+              {% endfor %}
+              {% endfor %}
+              <!-- <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>Cucumber</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>Tomato</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>Mango</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr> -->
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

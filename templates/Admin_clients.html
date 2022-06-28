@@ -1,0 +1,116 @@
+{% extends 'Admin_index.html' %} {% load static %} {% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<style>
+    table tr {
+  cursor: pointer;
+  }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#myTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+    </script>
+<div class="row ">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+
+                <h3 class="card-title">Clients List</h3>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name" >
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr class="header" data-href="#">
+                                <th> SlNo</th>
+                                <th> Name </th>
+                                <th> Email </th>
+                                <th> Guide </th>
+                                <th> Mobile </th>                                
+                            </tr>
+                        </thead>
+                        <tbody id="myTable">   
+                            {% for i in var %}  
+                            <tr data-href="{% url 'Admin_clentdashboard' i.id %}">
+                                <td>{{forloop.counter}}</td>
+                                <td>{{i.name}}</td>
+                                <td>{{i.email}}</td>
+                                <td>{{i.team}}</td>
+                                <td>{{i.mobile}}</td>
+                            </tr>    
+                            {%endfor%}                 
+                            <!-- <tr data-href="{% url 'user_dashboard' %}">
+                                <td>01</td>
+                                <td>Henry Klein</td>
+                                <td>henry@gmail.com</td>
+                                <td>31-03-2022</td>
+                                <td>9865612255</td>                               
+                            </tr>  
+                            <tr data-href="{% url 'user_dashboard' %}">
+                                <td>02</td>
+                                <td>Estella Bryan</td>
+                                <td>estella@gmail.com</td>
+                                <td>14-02-2022</td>
+                                <td>7563214098</td>                               
+                            </tr>  
+                            <tr data-href="{% url 'user_dashboard' %}">
+                                <td>03</td>
+                                <td>Lucy Abbott</td>
+                                <td>lucy@gmail.com</td>
+                                <td>21-08-2021</td>
+                                <td>88965321444</td>                               
+                            </tr> 
+                            <tr data-href="{% url 'user_dashboard' %}">
+                                <td>04</td>
+                                <td>Amal</td>
+                                <td>amal@gmail.com</td>
+                                <td>06-05-2021</td>
+                                <td>9635214087</td>                               
+                            </tr>                        -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    $(document).ready(function() {
+        $('table tr').click(function() {
+            window.location = $(this).data('href');
+            return false;
+        });
+    });
+</script>
+
+{% endblock %}

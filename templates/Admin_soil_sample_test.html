@@ -1,0 +1,208 @@
+{% extends 'Admin_index.html'%}
+{% load static %}
+{% block content %}
+
+<div class="row">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Soil Sample Test Details</h4>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="background-color: green; color: #fff;">
+                    User Name
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Tests
+                </th>
+                <th style="background-color: green; color: #fff;">
+                  Place
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Date
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Result
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Unit
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Method
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Level
+                </th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in var %}
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>{{i.user}}</td>
+                <td>{{i.tests}}</td>
+                <td>{{i.place}}</td>
+                <td>{{i.date|date:"d-m-Y"}}</td>
+                <td>{{i.result}}</td>
+                <td>{{i.unit}}</td>
+                <td>{{i.method}}</td>
+                <td>{{i.level}}</td>
+              </tr>
+              {% endfor %}
+              <!-- <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>EC</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>Calcium</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>Mg-Magnesium</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>Sodium-Na</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>Potassium-K</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>Zinc-Zn</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>Manganese-Mn</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>Copper-Cu</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>Nickel-Ni</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>Nitrate-N3</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>Sulphate</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>Phosphate</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>Boron-B</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>Free Lime-FL</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>ESP</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>CEC</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr> -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

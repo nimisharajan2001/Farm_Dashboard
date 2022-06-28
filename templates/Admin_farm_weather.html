@@ -1,0 +1,79 @@
+{% extends 'Admin_index.html'%}
+{% load static %}
+{% block content %}
+
+<div class="row">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Farm Weather Details</h4>
+        <div class="table-responsive ">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="background-color: green; color: #fff;">
+                    User Name
+                </th> 
+                <th style="background-color: green; color: #fff;">
+                  Parameters
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Date
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Morning
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Evening
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Average
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in var %}
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>{{i.user}}</td>
+                <td>{{i.parameters}}</td>
+                <td>{{i.date|date:"d-m-Y"}}</td>
+                <td>{{i.morning}}</td>
+                <td>{{i.evening}}</td>
+                <td>{{i.average}}</td>
+              </tr>
+              {% endfor %}
+              <!-- <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>Temperature</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>Humidity</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td></td>
+                <td>Sun Light</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr> -->
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

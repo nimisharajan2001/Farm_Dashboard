@@ -1,0 +1,97 @@
+{%extends 'Staff_index.html'%}
+{%load static%}
+{%block content%}
+<style>
+	@media (min-width: 576px){
+	
+    .d-sm-flex {
+       display: inline-flex !important;
+}}
+</style>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	{% for i in mem %}
+	<div class="bg-white shadow rounded-lg d-block d-sm-flex ">
+		<div class="profile-tab-nav border-right ">
+			<div class="p-4">
+				<div class="img-circle text-center mb-3">
+					<img src="{{i.photo.url}}" alt="Image" class="circle-loader">
+				</div>
+				<h4 class="text-center">{{i.name}}</h4>
+			</div>
+			<div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">			
+                <a class="nav-link active pr-lg-5" id="password-tab" data-toggle="pill" href="#password" role="tab" aria-controls="password" aria-selected="true">
+					<i class="fa fa-key mr-1">Password</i> 		
+				</a>		                     
+			</div>
+		</div>
+		<div class="container">
+			<div class="tab-pane fade show active" id="password" role="tabpanel" aria-labelledby="password-tab">
+				<form action="{% url 'Staff_change_password' i.id%}" method="post" enctype="multipart/form-data">
+					{% csrf_token %} 
+					<h3 class="mb-4 mt-2 ml-3 mr-2">Password Settings</h3>					
+					<div class="row">
+						<div class="col-md-6 ">
+							<div class="form-group">
+							  	<label class="m-2">New password</label>
+							  	<input type="password" name="Password" class="form-control" id="newpass" required >
+							</div>
+						</div>
+						<div class="col-md-6 ">
+							<div class="form-group">
+								<label class="m-2">Confirm password</label>
+							  	<input type="password" name="confirmPassword" class="form-control" id="conpassword" required>
+							</div>
+						</div>
+						<br>
+          				<span id='message' class="ml-5"></span>
+                		<br>
+                		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+     					<script>
+ 							$('#conpassword').on('change', function () {
+  								if ($('#newpass').val() == $('#conpassword').val()) {
+    							$('#message').html('Matching').css('color', 'green');
+  							} else 
+   								$('#message').html('Not Matching').css('color', 'red');
+							});
+    					</script>
+					</div>
+					<div class="text-center mb-3">
+						<button class="btn btn-primary mt-2" type="submit">Update</button>
+						<button class="btn btn-warning mt-2">Cancel</button>
+					</div>				
+				</form>				
+			</div>
+		</div>
+	</div>
+	{%endfor%}	       
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        {% if msg_success %}
+    <script>
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            text: '{{ msg_success }}',
+            showConfirmButton: false,
+            timer: 3000
+        }).then(function () {
+            javascript: history.go(-2);
+        })
+        
+    </script>
+    {% endif %}
+    
+
+
+{% endblock %}

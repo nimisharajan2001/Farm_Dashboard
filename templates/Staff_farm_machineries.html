@@ -1,0 +1,87 @@
+{% extends 'Staff_index.html'%}
+{% load static %}
+{% block content %}
+
+<div class="row">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-5 col-lg-10"></div>
+          <div class="col-7 col-sm-4 col-md-3 col-lg-2">
+              <a href="{% url 'Staff_add_farm_machineries' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>
+          </div>
+        </div>
+        <h4 class="card-title">Entered Details</h4>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="background-color: green; color: #fff;">
+                 Name of Machine
+                </th>
+                <th style="background-color: green; color: #fff;">
+                  Machine ID
+                </th>
+                <th style="background-color: green; color: #fff;">
+                  Place
+                </th>
+                <th style="background-color: green; color: #fff;">
+                  Date
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Number of Machines used
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Total Working hours
+                </th>
+                <th style="background-color: green; color: #fff;">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in var %}
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>{{i.machine_name}}</td>
+                <td>{{i.machine_id}}</td>
+                <td>{{i.place}}</td>
+                <td>{{i.date|date:"d-m-Y"}}</td>
+                <td>{{i.number_of_machines}}</td>
+                <td>{{i.working_hours}}</td>
+                <td>
+                  <a href="{% url 'Staff_viewedit_farmmachineries' i.id%}">
+                    <div class="btn  btn-sm" style="color: white;  background-color: maroon;"><i class="ti-reload pr-2"></i>View/Edit</div>
+                  </a>
+                </td>
+              </tr>
+              {% endfor %}
+              <!-- <tr style="background-color: rgb(241, 249, 252);">
+                <td>Tiller</td>
+                <td></td>
+                <td></td>
+                
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>Tractor</td>
+                <td></td>
+                <td></td>
+            
+              </tr>
+              <tr style="background-color: rgb(241, 249, 252);">
+                <td>Sprayor</td>
+                <td></td>
+                <td></td>
+            
+              </tr>
+               -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
