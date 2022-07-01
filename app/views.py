@@ -126,10 +126,10 @@ def Admin_clentdashboard(request,id):
         var= register.objects.filter(id=id)
         labels = []
         data = [] 
-        queryset = chart.objects.filter(user_id=id)
-        for i in queryset:
-            labels=[i.a,i.b,i.c]         
-            data=[i.a,i.b,i.c]      
+        queryset = farm_expenses.objects.filter(user_id=id)
+        for j in queryset:
+            labels=[j.price,j.total_cost,j.quantity]         
+            data=[j.price,j.total_cost,j.quantity]       
         return render(request,'Admin_clentdashboard.html',{'var':var,'user':user,'labels':labels,'data':data})
     else:
         return redirect('/')
@@ -157,23 +157,11 @@ def Admin_staffdashboard(request,id):
         var= register.objects.filter(id=id)
         labels = []
         data = [] 
-        # queryset = chart.objects.filter(user_id=id)
-        # for i in queryset:
-        #     labels=[i.a,i.b,i.c]         
-        #     data=[i.a,i.b,i.c] 
-        # label = []
-        # datas = []
         queryset = farm_expenses.objects.filter(user_id=id)
         for j in queryset:
             labels=[j.price,j.total_cost,j.quantity]         
             data=[j.price,j.total_cost,j.quantity]   
-        label = []
-        datas = []  
-        queryset = chart.objects.filter(user_id=id)
-        for i in queryset:
-            label=[i.a,i.b,i.c]         
-            datas=[i.a,i.b,i.c] 
-        
+    
         return render(request,'Admin_staffdashboard.html',{'var':var,'user':user,'labels':labels,'data':data,'label':label,'datas':datas})
     else:
         return redirect('/')
@@ -414,11 +402,29 @@ def user_dashboard(request):
         var = register.objects.filter(id = c_id)
         labels = []
         data = []
-        queryset = chart.objects.filter(user_id=c_id)
-        for i in queryset:
-            labels=[i.a,i.b,i.c]         
-            data=[i.a,i.b,i.c]      
+        queryset = farm_expenses.objects.filter(user_id=c_id)
+        for j in queryset:
+            labels=[j.price,j.total_cost,j.quantity]         
+            data=[j.price,j.total_cost,j.quantity]       
         return render(request,'user_dashboard.html',{'mem1':mem1,'var':var,'labels':labels,'data':data})
+    else:
+        return redirect('/')
+
+def user_chart(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        var = register.objects.filter(id = c_id)
+        labels = []
+        data = []
+        queryset = farm_revenue.objects.filter(user_id=c_id)
+        for j in queryset:
+            labels=[j.quantity,j.revenue]         
+            data=[j.quantity,j.revenue]
+        return render(request,'user_chart.html',{'mem1':mem1,'var':var,'labels':labels,'data':data})
     else:
         return redirect('/')
 
@@ -1036,7 +1042,10 @@ def user_farmrevenue_update(request,id):
             abc.type_description = request.POST.get('type_description')
             abc.quantity = request.POST.get('quantity')
             abc.revenue = request.POST.get('revenue')
-            abc.save()            
+            abc.save()     
+            c = chart.objects.get(id=id)
+            c.b = request.POST.get('revenue')
+            c.save()
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'user_viewedit_farmrevenue.html',{'msg_success': msg_success})
         return render(request,'user_viewedit_farmrevenue.html')
@@ -1053,11 +1062,13 @@ def user_add_farm_revenue(request):
         if request.method == 'POST':
             r1 = request.POST['revenue_type']
             r2 = request.POST['type_description']
-            r3 = request.POST['quantity ']
+            r3 = request.POST['quantity']
             r4 = request.POST['revenue']
             test = farm_revenue(revenue_type = r1,type_description = r2,quantity = r3,
                 revenue = r4, user_id = c_id)
             test.save()
+            c = chart(b = r4, user_id = c_id)
+            c.save()
             msg_success = "Details added successfully"
             return render(request,'user_add_farm_revenue.html',{'msg_success':msg_success})
         return render(request,'user_add_farm_revenue.html',{'mem1':mem1})
@@ -1092,10 +1103,10 @@ def Staff_dashboard(request):
         mem = register.objects.filter(id=s_id)  
         labels = []
         data = []
-        queryset = chart.objects.filter(user_id=s_id)
-        for i in queryset:
-            labels=[i.a,i.b,i.c]         
-            data=[i.a,i.b,i.c]      
+        queryset = farm_expenses.objects.filter(user_id=s_id)
+        for j in queryset:
+            labels=[j.price,j.total_cost,j.quantity]         
+            data=[j.price,j.total_cost,j.quantity]      
         return render(request,'Staff_dashboard.html',{'mem':mem,'labels':labels,'data':data})
     else:
         return redirect('/') 
@@ -1752,6 +1763,11 @@ def Staff_farmrevenue_update(request,id):
             abc.quantity = request.POST.get('quantity')
             abc.revenue = request.POST.get('revenue')
             abc.save()           
+
+            c =  chart.objects.get(user_id=s_id)
+            c.b = request.POST.get('revenue')
+            c.save
+
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'Staff_viewedit_farmrevenue.html',{'msg_success': msg_success})
         return render(request,'Staff_viewedit_farmrevenue.html')
@@ -1768,12 +1784,15 @@ def Staff_add_farm_revenue(request):
         if request.method == 'POST':
             r1 = request.POST['revenue_type']
             r2 = request.POST['type_description']
-            r3 = request.POST['quantity ']
+            r3 = request.POST['quantity']
             r4 = request.POST['revenue']
             test = farm_revenue(revenue_type = r1,type_description = r2,quantity = r3,
                 revenue = r4, user_id = s_id)
             test.save()
             msg_success = "Details added successfully"
+
+            c = chart(b = r4, user_id = s_id)
+            c.save()
             return render(request,'Staff_add_farm_revenue.html',{'msg_success':msg_success})
         return render(request,'Staff_add_farm_revenue.html',{'mem1':mem1})
     else:

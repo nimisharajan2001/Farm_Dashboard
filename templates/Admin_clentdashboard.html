@@ -140,7 +140,7 @@
               <div class="col-12 col-sm-6 col-md-6 col-lg-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Over View</h4>
+                    <h4 class="card-title">Farm Expense</h4>
                     <canvas id="chart" style="height: 230px"></canvas>
                   </div>
                 </div>
@@ -177,7 +177,7 @@
           let chart = new Chart(ctx, {
           type: "bar",
           data: {
-          labels: ['a','b','c'],
+          labels: ['Price','Totalcost','Quantity'],
           datasets: [
           {
             // label: "Performance",
@@ -204,7 +204,7 @@
               yAxes: [{
                   ticks: {
                       beginAtZero: true,
-                        max:100
+                        max:10000
                   }
               }]
           }

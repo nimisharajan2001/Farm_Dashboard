@@ -73,6 +73,8 @@ urlpatterns = [
         name='user_index'),
     re_path(r'^user_dashboard$', views.user_dashboard, 
         name='user_dashboard'),
+    re_path(r'^user_chart$', views.user_chart, 
+        name='user_chart'),
     re_path(r'^user_settings$', views.user_settings, 
         name='user_settings'),
     re_path(r'^user_change_password/(?P<id>\d+)$', views.user_change_password, 

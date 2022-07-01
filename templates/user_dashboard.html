@@ -154,6 +154,15 @@
             </div>
           </div> -->
           <div class="row">
+            
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6  grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Farm Expense</h4>
+                  <canvas id="chart" style="height: 230px"></canvas>
+                </div>
+              </div>
+            </div>
             <div class="col-12 col-sm-6 col-md-6 col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
@@ -162,14 +171,21 @@
                 </div>
               </div>
             </div>
-            <div class="col-12 col-sm-6 col-md-6 col-lg-6  grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Over View</h4>
-                  <canvas id="chart" style="height: 230px"></canvas>
+          </div>
+          <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+              <a href="{% url 'user_chart'%}" style="text-decoration: none; color: white;">
+                <div class="card " style="background-color: rgb(24, 192, 38);">
+                  <div class="card-body">
+                  <center>
+                    <h4 class="card-title" style="color: #fff;">More Details</h4>
+                  </center>
+                  </div>
                 </div>
-              </div>
+              </a>
             </div>
+            <div class="col-md-4"></div>
           </div>
           
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -195,7 +211,7 @@
                   ],
                 }],
                 
-                labels: ['total','price','quantity'],
+                labels: ['price','total','quantity'],
           
               },      
               options: {
@@ -215,7 +231,7 @@
           let chart = new Chart(ctx, {
           type: "bar",
           data: {
-          labels: ['a','b','c'],
+          labels: ['Price','Totalcost','Quantity'],
           datasets: [
           {
             // label: "Performance",
@@ -242,7 +258,7 @@
               yAxes: [{
                   ticks: {
                       beginAtZero: true,
-                        max:100
+                        max:100000
                   }
               }]
           }

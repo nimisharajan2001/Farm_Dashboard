@@ -97,10 +97,7 @@ class farm_revenue(models.Model):
     user = models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)
     revenue_type = models.CharField(max_length=200,null=True,blank=True)
     type_description = models.CharField(max_length=200,null=True,blank=True)
-    farm_inputs = models.CharField(max_length=200)
-    quantity = models.CharField(max_length=200)
-    selling_price = models.CharField(max_length=200)
-    total = models.CharField(max_length=200)
+    quantity = models.CharField(max_length=200,null=True,blank=True)
     revenue = models.CharField(max_length=200,null=True,blank=True)
 
 class chart(models.Model):
@@ -108,3 +105,4 @@ class chart(models.Model):
     a = models.IntegerField(default='0')
     b = models.IntegerField(default='0')
     c = models.IntegerField(default='0')
+
