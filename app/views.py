@@ -162,7 +162,7 @@ def Admin_staffdashboard(request,id):
             labels=[j.price,j.total_cost,j.quantity]         
             data=[j.price,j.total_cost,j.quantity]   
     
-        return render(request,'Admin_staffdashboard.html',{'var':var,'user':user,'labels':labels,'data':data,'label':label,'datas':datas})
+        return render(request,'Admin_staffdashboard.html',{'var':var,'user':user,'labels':labels,'data':data})
     else:
         return redirect('/')
 
