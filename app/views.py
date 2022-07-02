@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import auth, User
 from django.contrib.auth import authenticate
 from datetime import datetime,date
-
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def index(request):
@@ -134,6 +134,26 @@ def Admin_clentdashboard(request,id):
     else:
         return redirect('/')
 
+
+def Admin_client_chart(request,id):
+    if 'SAdm_id' in request.session:
+        if request.session.has_key('SAdm_id'):
+            SAdm_id = request.session['SAdm_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=SAdm_id)
+        var = register.objects.filter(id = id)
+        labels = []
+        data = []
+        queryset = farm_revenue.objects.filter(user_id=id)
+        for j in queryset:
+            labels=[j.quantity,j.revenue]         
+            data=[j.quantity,j.revenue]
+        return render(request,'Admin_clientchart.html',{'mem1':mem1,'var':var,'labels':labels,'data':data})
+    else:
+        return redirect('/')
+
+
 def Admin_staffs(request):
     if 'SAdm_id' in request.session:
         if request.session.has_key('SAdm_id'):
@@ -163,6 +183,24 @@ def Admin_staffdashboard(request,id):
             data=[j.price,j.total_cost,j.quantity]   
     
         return render(request,'Admin_staffdashboard.html',{'var':var,'user':user,'labels':labels,'data':data})
+    else:
+        return redirect('/')
+
+def Admin_Staff_chart(request,id):
+    if 'SAdm_id' in request.session:
+        if request.session.has_key('SAdm_id'):
+            SAdm_id = request.session['SAdm_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=SAdm_id)
+        var = register.objects.filter(id = id)
+        labels = []
+        data = []
+        queryset = farm_revenue.objects.filter(user_id=id)
+        for j in queryset:
+            labels=[j.quantity,j.revenue]         
+            data=[j.quantity,j.revenue]
+        return render(request,'Admin_Staffchart.html',{'mem1':mem1,'var':var,'labels':labels,'data':data})
     else:
         return redirect('/')
 
@@ -308,71 +346,6 @@ def Admin_farm_revenue(request):
     else:
         return redirect('/')
 
-def Admin_chart(request):
-    if 'SAdm_id' in request.session:
-        if request.session.has_key('SAdm_id'):
-            SAdm_id = request.session['SAdm_id']
-        else:
-            return redirect('/')
-        user = register.objects.filter(id=SAdm_id)
-        var = chart.objects.all().order_by('-id')
-        return render(request,'Admin_chart.html',{'var':var,'user':user})
-    else:
-        return redirect('/')
-
-def Admin_add_chart(request):
-    if 'SAdm_id' in request.session:
-        if request.session.has_key('SAdm_id'):
-            SAdm_id = request.session['SAdm_id']
-        else:
-            return redirect('/')
-        num = register.objects.all()
-        mem = register.objects.filter(id=SAdm_id)
-        if request.method == 'POST':
-            p1 = request.POST['name']
-            p2 = request.POST['a']
-            p3 = request.POST['b']
-            p4 = request.POST['c']
-            plant = chart( user_id = p1,a=p2,b=p3,c=p4)
-            plant.save()
-            msg_success = "Details added successfully"
-            return render(request,'Admin_add_chart.html',{'msg_success':msg_success})
-        return render(request,'Admin_add_chart.html',{'mem':mem,'num':num})
-    else:
-        return redirect('/')
-
-
-def Admin_viewedit_chart(request,id):
-    if 'SAdm_id' in request.session:
-        if request.session.has_key('SAdm_id'):
-            SAdm_id = request.session['SAdm_id']
-        else:
-            return redirect('/')
-        user = register.objects.filter(id=SAdm_id)
-        var = chart.objects.filter(id=id)
-        return render(request,'Admin_viewedit_chart.html',{'var':var,'user':user})
-    else:
-        return redirect('/')
-
-def Admin_chart_update(request,id):
-    if 'SAdm_id' in request.session:
-        if request.session.has_key('SAdm_id'):
-            SAdm_id = request.session['SAdm_id']
-        else:
-            return redirect('/')
-        mem = register.objects.filter(id=SAdm_id)
-        if request.method == 'POST':
-            abc = chart.objects.get(id=id)
-            abc.a = request.POST.get('a')
-            abc.b = request.POST.get('b')
-            abc.c= request.POST.get('c')
-            abc.save()                    
-            msg_success = "Details updated successfully, Refresh your page"
-            return render(request,'Admin_viewedit_chart.html',{'msg_success': msg_success})
-        return render(request,'Admin_viewedit_chart.html')
-    else:  
-        return redirect('/')
-
 
 def logout_admin(request):
     if 'SAdm_id' in request.session:  
@@ -410,6 +383,7 @@ def user_dashboard(request):
     else:
         return redirect('/')
 
+@csrf_exempt
 def user_chart(request):
     if 'c_id' in request.session:
         if request.session.has_key('c_id'):
@@ -1043,9 +1017,6 @@ def user_farmrevenue_update(request,id):
             abc.quantity = request.POST.get('quantity')
             abc.revenue = request.POST.get('revenue')
             abc.save()     
-            c = chart.objects.get(id=id)
-            c.b = request.POST.get('revenue')
-            c.save()
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'user_viewedit_farmrevenue.html',{'msg_success': msg_success})
         return render(request,'user_viewedit_farmrevenue.html')
@@ -1067,8 +1038,6 @@ def user_add_farm_revenue(request):
             test = farm_revenue(revenue_type = r1,type_description = r2,quantity = r3,
                 revenue = r4, user_id = c_id)
             test.save()
-            c = chart(b = r4, user_id = c_id)
-            c.save()
             msg_success = "Details added successfully"
             return render(request,'user_add_farm_revenue.html',{'msg_success':msg_success})
         return render(request,'user_add_farm_revenue.html',{'mem1':mem1})
@@ -1110,6 +1079,25 @@ def Staff_dashboard(request):
         return render(request,'Staff_dashboard.html',{'mem':mem,'labels':labels,'data':data})
     else:
         return redirect('/') 
+
+def Staff_chart(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=s_id)
+        var = register.objects.filter(id = s_id)
+        labels = []
+        data = []
+        queryset = farm_revenue.objects.filter(user_id=s_id)
+        for j in queryset:
+            labels=[j.quantity,j.revenue]         
+            data=[j.quantity,j.revenue]
+        return render(request,'Staff_chart.html',{'mem1':mem1,'var':var,'labels':labels,'data':data})
+    else:
+        return redirect('/')
+
 
 def Staff_settings(request):
     if 's_id' in request.session:
@@ -1171,9 +1159,33 @@ def Staff_clientdashboard(request,id):
             return redirect('/')
         mem = register.objects.filter(id=s_id)      
         var= register.objects.filter(id=id)
-        return render(request,'Staff_clientdashboard.html',{'mem':mem,'var':var})
+        labels = []
+        data = []
+        queryset = farm_expenses.objects.filter(user_id=id)
+        for j in queryset:
+            labels=[j.price,j.total_cost,j.quantity]         
+            data=[j.price,j.total_cost,j.quantity]      
+        return render(request,'Staff_clientdashboard.html',{'mem':mem,'var':var,'labels':labels,'data':data})
     else:
         return redirect('/') 
+
+def Staff_client_chart(request,id):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=s_id)
+        var = register.objects.filter(id =id)
+        labels = []
+        data = []
+        queryset = farm_revenue.objects.filter(user_id=id)
+        for j in queryset:
+            labels=[j.quantity,j.revenue]         
+            data=[j.quantity,j.revenue]
+        return render(request,'Staff_client_chart.html',{'mem1':mem1,'var':var,'labels':labels,'data':data})
+    else:
+        return redirect('/')
 
 def Staff_plant_details(request):
     if 's_id' in request.session:
@@ -1763,11 +1775,6 @@ def Staff_farmrevenue_update(request,id):
             abc.quantity = request.POST.get('quantity')
             abc.revenue = request.POST.get('revenue')
             abc.save()           
-
-            c =  chart.objects.get(user_id=s_id)
-            c.b = request.POST.get('revenue')
-            c.save
-
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'Staff_viewedit_farmrevenue.html',{'msg_success': msg_success})
         return render(request,'Staff_viewedit_farmrevenue.html')
@@ -1790,9 +1797,6 @@ def Staff_add_farm_revenue(request):
                 revenue = r4, user_id = s_id)
             test.save()
             msg_success = "Details added successfully"
-
-            c = chart(b = r4, user_id = s_id)
-            c.save()
             return render(request,'Staff_add_farm_revenue.html',{'msg_success':msg_success})
         return render(request,'Staff_add_farm_revenue.html',{'mem1':mem1})
     else:

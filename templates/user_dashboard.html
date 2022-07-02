@@ -172,7 +172,7 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
               <a href="{% url 'user_chart'%}" style="text-decoration: none; color: white;">
@@ -186,7 +186,51 @@
               </a>
             </div>
             <div class="col-md-4"></div>
+          </div> -->
+
+          <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+              <a href="{% url 'user_chart'%}" style="text-decoration: none; color: white;">
+              <button type="button" class="btn btn-primary btn-icon-text " id="btnSearch" >Click Here to View Farm Revenue </button>
+            </a>
+            </div>
+            <div class="col-md-4"></div>
           </div>
+          <!-- <div id="hiddendiv">
+          </div> -->
+          
+
+          <script type="text/javascript ">
+            $("#btnSearch").click(function() {
+        
+                const depmt = $("#depmt").val();
+                const csrf = document.getElementById('csrfmiddlewaretoken')
+                console.log("hihsd", depmt)
+                jQuery.ajax({
+                    url: '{% url 'user_chart' %}',
+                    method: 'post',
+                    data: {
+        
+                       
+        
+                    },
+        
+                    success: function(data) {
+                        $("#hiddendiv").html(data);
+                    }
+                });
+            });
+        
+        
+            function showDiv() {
+                document.getElementById('hiddendiv').style.display = "block ";
+            }
+        </script>
+        
+
+
+
           
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>

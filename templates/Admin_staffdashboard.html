@@ -145,155 +145,109 @@
               </div>
             </div>
           </div> -->
-<div class="row">
-  <!-- <div class="col-12 col-sm-6 col-md-6 col-lg-6 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Farm Expense</h4>
-        <canvas id="pie-chart" style="height: 250px"></canvas>
-      </div>
-    </div>
-  </div> -->
-  <div class="col-12 col-sm-6 col-md-6 col-lg-6  grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Farm Expense</h4>
-        <canvas id="chart" style="height: 230px"></canvas>
-      </div>
-    </div>
-  </div>
-  <div class="col-12 col-sm-6 col-md-6 col-lg-6  grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Farm Revenue</h4>
-        <canvas id="bchart" style="height: 230px"></canvas>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="{% static 'assets/vendors/js/vendor.bundle.base.js' %}"></script>
-<script src="{% static 'assets/vendors/chart.js/Chart.min.js' %}"></script>
-<script src="{% static 'assets/js/chart.js' %}"></script>
-
-<script>
-
-  var config = {
-    type: 'pie',
-    data: {
-      
-      datasets: [{
-        
-        data: {{ data|safe }},
-        backgroundColor: ['rgba(255, 99, 132, 0.8)',
-        'rgba(54, 162, 235, 0.8)',
-        'rgba(255, 206, 86, 0.8)'
-        ],
-      }],
-      
-      labels: ['total','price','quantity'],
-
-    },      
-    options: {
-      responsive: true
-    }
-  };
-
-  window.onload = function() {
-    var ctx = document.getElementById('pie-chart').getContext('2d');
-    window.myPie = new Chart(ctx, config);
-  };
-
-</script>
-<script>
-
-let ctx = document.getElementById("chart").getContext("2d");
-let chart = new Chart(ctx, {
-type: "bar",
-data: {
-labels: ['Price','Totalcost','Quantity'],
-datasets: [
-{
-  // label: "Performance",
-  // backgroundColor: "#79AEC8",
-  // borderColor: "#417690",
-
-  data: {{ data|safe }},
-  backgroundColor: ['rgba(255, 99, 132, 0.6)',
-  'rgba(54, 162, 235, 0.6)',
-  'rgba(255, 206, 86, 0.6)'
-  
-  ],
-
-  
-}
-]
-},
-options: {   
-  legend: {
-  display: false
-  },
- 
-  scales: {
-    yAxes: [{
-        ticks: {
-            beginAtZero: true,
-              max:100000
-        }
-    }]
-}
-   
-}
-});
-</script>
-
-<script>
-
-  let ctx = document.getElementById("barchart").getContext("2d");
-  let chart = new Chart(ctx, {
-  type: "bar",
-  data: {
-  labels: ['a','b','c'],
-  datasets: [
-  {
-    // label: "Performance",
-    // backgroundColor: "#79AEC8",
-    // borderColor: "#417690",
-  
-    data: {{ data|safe }},
-    backgroundColor: ['rgba(255, 99, 132, 0.6)',
-    'rgba(54, 162, 235, 0.6)',
-    'rgba(255, 206, 86, 0.6)'
-    
-    ],
-  
-    
-  }
-  ]
-  },
-  options: {   
-    legend: {
-    display: false
-    },
-   
-    scales: {
-      yAxes: [{
-          ticks: {
-              beginAtZero: true,
-                max:100
-          }
-      }]
-  }
-     
-  }
-  });
-  </script>
-  
-     
+          <div class="row">
+            
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6  grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Farm Expense</h4>
+                  <canvas id="chart" style="height: 230px"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Over View</h4>
+                  <canvas id="pie-chart" style="height: 250px"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
           
-{%endfor%}
+          <center>
+            <a href="{% url 'Admin_Staff_chart' i.id%}" style="text-decoration: none; color: white;">
+              <button type="button" class="btn btn-primary btn-icon-text " id="btnSearch" >Click Here to View Farm Revenue </button>
+            </a>
+          </center>
+          {%endfor%}
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+          <script src="{% static 'assets/vendors/js/vendor.bundle.base.js' %}"></script>
+          <script src="{% static 'assets/vendors/chart.js/Chart.min.js' %}"></script>
+          <script src="{% static 'assets/js/chart.js' %}"></script>
+          
+          <script>
+          
+            var config = {
+              type: 'pie',
+              data: {
+                
+                datasets: [{
+                  
+                  data: {{ data|safe }},
+                  backgroundColor: ['rgba(255, 99, 132, 0.8)',
+                  'rgba(54, 162, 235, 0.8)',
+                  'rgba(255, 206, 86, 0.8)'
+                  ],
+                }],
+                
+                labels: ['price','total','quantity'],
+          
+              },      
+              options: {
+                responsive: true
+              }
+            };
+          
+            window.onload = function() {
+              var ctx = document.getElementById('pie-chart').getContext('2d');
+              window.myPie = new Chart(ctx, config);
+            };
+          
+          </script>
+          <script>
+          
+          let ctx = document.getElementById("chart").getContext("2d");
+          let chart = new Chart(ctx, {
+          type: "bar",
+          data: {
+          labels: ['Price','Totalcost','Quantity'],
+          datasets: [
+          {
+            // label: "Performance",
+            // backgroundColor: "#79AEC8",
+            // borderColor: "#417690",
+          
+            data: {{ data|safe }},
+            backgroundColor: ['rgba(255, 99, 132, 0.6)',
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)'
+            
+            ],
+          
+            
+          }
+          ]
+          },
+          options: {   
+            legend: {
+            display: false
+            },
+           
+            scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true,
+                        max:100000
+                  }
+              }]
+          }
+             
+          }
+          });
+          </script>
+
 {% endblock %}

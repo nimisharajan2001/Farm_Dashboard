@@ -100,9 +100,3 @@ class farm_revenue(models.Model):
     quantity = models.CharField(max_length=200,null=True,blank=True)
     revenue = models.CharField(max_length=200,null=True,blank=True)
 
-class chart(models.Model):
-    user = models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)
-    a = models.IntegerField(default='0')
-    b = models.IntegerField(default='0')
-    c = models.IntegerField(default='0')
-
