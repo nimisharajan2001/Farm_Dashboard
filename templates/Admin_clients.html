@@ -42,7 +42,7 @@
                         </thead>
                         <tbody id="myTable">   
                             {% for i in var %}  
-                            <tr data-href="{% url 'Admin_clentdashboard' i.id %}">
+                            <tr data-href="{% url 'Admin_clientdashboard' i.id %}">
                                 <td>{{forloop.counter}}</td>
                                 <td>{{i.name}}</td>
                                 <td>{{i.email}}</td>

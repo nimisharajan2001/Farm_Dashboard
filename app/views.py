@@ -116,7 +116,7 @@ def Admin_clients(request):
     else:
         return redirect('/')
 
-def Admin_clentdashboard(request,id):
+def Admin_clientdashboard(request,id):
     if 'SAdm_id' in request.session:
         if request.session.has_key('SAdm_id'):
             SAdm_id = request.session['SAdm_id']
@@ -130,7 +130,7 @@ def Admin_clentdashboard(request,id):
         for j in queryset:
             labels=[j.price,j.total_cost,j.quantity]         
             data=[j.price,j.total_cost,j.quantity]       
-        return render(request,'Admin_clentdashboard.html',{'var':var,'user':user,'labels':labels,'data':data})
+        return render(request,'Admin_clientdashboard.html',{'var':var,'user':user,'labels':labels,'data':data})
     else:
         return redirect('/')
 
