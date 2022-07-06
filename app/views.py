@@ -38,13 +38,23 @@ def registration(request):
 def log(request):
     client = designation.objects.get(designation="Client")
     staff = designation.objects.get(designation="Staff")
+    Admin = designation.objects.get(designation="Admin")
     if request.method == 'POST':
         username  = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username,password=password)
-        if user is not None:
-            request.session['SAdm_id'] = user.id
-            return redirect( 'Admin_Dashboard')
+        # if user is not None:
+        #     request.session['SAdm_id'] = user.id
+        #     return redirect( 'Admin_Dashboard')
+
+        if register.objects.filter(username=request.POST['username'], password=request.POST['password'],designation=Admin.id).exists():              
+                member=register.objects.get(username=request.POST['username'], password=request.POST['password'])
+                request.session['SAdm_id'] = member.designation_id
+                request.session['usernamets1'] = member.username
+                request.session['SAdm_id'] = member.id 
+                mem=register.objects.filter(id= member.id)  
+                # return render(request,'user_dashboard.html',{'mem':mem})
+                return redirect('Admin_Dashboard')
 
         elif register.objects.filter(username=request.POST['username'], password=request.POST['password'],designation=client.id).exists():              
                 member=register.objects.get(username=request.POST['username'], password=request.POST['password'])
