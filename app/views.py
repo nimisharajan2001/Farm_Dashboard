@@ -272,6 +272,36 @@ def Admin_farm_weather(request):
     else:
         return redirect('/')
 
+def Admin_find_weather(request):
+    if 'SAdm_id' in request.session:
+        if request.session.has_key('SAdm_id'):
+            SAdm_id = request.session['SAdm_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=SAdm_id)
+        var = farm_weather.objects.values('user').distinct()
+        num = register.objects.all()
+        return render(request,'Admin_find_weather.html',{'mem1':mem1,'var':var,'num':num})
+    else:
+        return redirect('/')
+
+def Admin_weather(request):
+    if 'SAdm_id' in request.session:
+        if request.session.has_key('SAdm_id'):
+            SAdm_id = request.session['SAdm_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=SAdm_id)
+        if request.method == "POST":
+            fromdate = request.POST.get('startdate')
+            todate = request.POST.get('enddate') 
+            p1=request.POST.get('parameter') 
+            n1=request.POST.get('name') 
+            var = farm_weather.objects.filter(date__range=[fromdate, todate]).filter(user_id=n1).filter(parameters=p1)
+        return render(request,'Admin_weather.html',{'mem1':mem1,'var':var})
+    else:
+        return redirect('/')
+
 def Admin_soil_sample_test(request):
     if 'SAdm_id' in request.session:
         if request.session.has_key('SAdm_id'):
@@ -577,6 +607,33 @@ def user_farmweather_update(request,id):
             return render(request,'user_viewedit_farmweather.html',{'msg_success': msg_success})
         return render(request,'user_viewedit_farmweather.html')
     else:  
+        return redirect('/')
+
+def user_find_weather(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        return render(request,'user_find_weather.html',{'mem1':mem1})
+    else:
+        return redirect('/')
+
+def user_weather(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        if request.method == "POST":
+            fromdate = request.POST.get('startdate')
+            todate = request.POST.get('enddate') 
+            p1=request.POST.get('parameter') 
+            var = farm_weather.objects.filter(date__range=[fromdate, todate]).filter(user_id=c_id).filter(parameters=p1)
+        return render(request,'user_weather.html',{'mem1':mem1,'var':var})
+    else:
         return redirect('/')
 
 def user_soil_sample_test(request):
@@ -960,6 +1017,7 @@ def user_farmexpense_update(request,id):
             abc.quantity = request.POST.get('quantity')
             abc.price = request.POST.get('price')
             abc.total_cost = request.POST.get('total')
+            abc.date = request.POST.get('date')
             abc.save()                     
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'user_viewedit_farmexpense.html',{'msg_success': msg_success})
@@ -981,8 +1039,9 @@ def user_add_farm_expenses(request):
             e4 = request.POST['quantity']
             e5 = request.POST['price']
             e6 = request.POST['total']
+            e7 = request.POST['date']
             test = farm_expenses( expenditure = e1,expense = e2,type_description = e3,
-                quantity = e4,price = e5,total_cost = e6,user_id = c_id)
+                quantity = e4,price = e5,total_cost = e6, date = e7,user_id = c_id)
             test.save()
             msg_success = "Details added successfully"
             return render(request,'user_add_farm_expenses.html',{'msg_success':msg_success})
@@ -1027,6 +1086,7 @@ def user_farmrevenue_update(request,id):
             abc.type_description = request.POST.get('type_description')
             abc.quantity = request.POST.get('quantity')
             abc.revenue = request.POST.get('revenue')
+            abc.date = request.POST.get('date')
             abc.save()     
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'user_viewedit_farmrevenue.html',{'msg_success': msg_success})
@@ -1046,8 +1106,9 @@ def user_add_farm_revenue(request):
             r2 = request.POST['type_description']
             r3 = request.POST['quantity']
             r4 = request.POST['revenue']
+            r5 = request.POST['date']
             test = farm_revenue(revenue_type = r1,type_description = r2,quantity = r3,
-                revenue = r4, user_id = c_id)
+                revenue = r4,date =r5, user_id = c_id)
             test.save()
             msg_success = "Details added successfully"
             return render(request,'user_add_farm_revenue.html',{'msg_success':msg_success})

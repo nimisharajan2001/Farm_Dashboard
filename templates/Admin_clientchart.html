@@ -16,7 +16,7 @@
             <div class="col-12 col-sm-6 col-md-6 col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Over View</h4>
+                  <h4 class="card-title">Over All</h4>
                   <canvas id="pie-chart" style="height: 250px"></canvas>
                 </div>
               </div>
@@ -25,7 +25,7 @@
           {% for i in var %}
           <div>
             <center>
-                <a href="{% url 'Admin_clentdashboard' i.id %}"><button type="button" style="background-color: green; color: #fff;" class="btn  btn-icon-text mb-4">BACK</button></a>
+                <a href="{% url 'Admin_clientdashboard' i.id %}"><button type="button" style="background-color: green; color: #fff;" class="btn  btn-icon-text mb-4">BACK</button></a>
                 <!-- <a href="{% url 'user_fertilizer_applications' %}" class="btn btn-info mb-4"> BACK</a> -->
             </center>
         </div>

@@ -92,6 +92,7 @@ class farm_expenses(models.Model):
     quantity = models.CharField(max_length=200)
     price = models.CharField(max_length=200)
     total_cost = models.CharField(max_length=200,null=True,blank=True)
+    date = models.DateField(max_length=200,null=True, blank=True)
 
 class farm_revenue(models.Model):
     user = models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)
@@ -99,4 +100,5 @@ class farm_revenue(models.Model):
     type_description = models.CharField(max_length=200,null=True,blank=True)
     quantity = models.CharField(max_length=200,null=True,blank=True)
     revenue = models.CharField(max_length=200,null=True,blank=True)
+    date = models.DateField(max_length=200,null=True, blank=True)
 

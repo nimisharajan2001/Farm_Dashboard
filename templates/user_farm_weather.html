@@ -3,15 +3,28 @@
 {% block content %}
 
 <div class="row">
+
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <div class="row">
-          <div class="col-5 col-lg-10"></div>
-          <div class="col-7 col-sm-4 col-md-3 col-lg-2">
+        <!-- <div class="row">
+          <div class="col-5 col-lg-7"></div>
+          <div class="col-10 col-sm-4 col-md-3 col-lg-3">
               <a href="{% url 'user_add_farm_weather' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>
           </div>
+          <div class="col-11 col-sm-2 col-md-2 col-lg-1">
+            <a href="{% url 'user_find_weather' %}" class="btn" style="background-color: blueviolet; color: white;">Find</a>
+        </div> 
+        </div> -->
+        <div class="row">
+          <div class="col-md-5"></div>
+          <div class="col-md-4"></div>
+          <div class="col-md-3">
+            <a href="{% url 'user_add_farm_weather' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>
+            <a href="{% url 'user_find_weather' %}" class="btn" style="background-color: rgb(8, 26, 41); color: white;">Find</a>
+          </div>
         </div>
+       
         <h4 class="card-title">Entered Details</h4>
         <div class="table-responsive ">
           <table class="table table-bordered">
@@ -42,9 +55,27 @@
               <tr style="background-color: rgb(241, 249, 252);">
                 <td>{{i.parameters}}</td>
                 <td>{{i.date|date:"d-m-Y"}}</td>
+                {% if i.parameters == "Temperature"%}
+                <td>{{i.morning}}°C</td>
+                <td>{{i.evening}}°C</td>
+                <td>{{i.average}}°C</td>
+
+                {% elif i.parameters == "Humidity"%}
+                <td>{{i.morning}}%</td>
+                <td>{{i.evening}}%</td>
+                <td>{{i.average}}%</td>
+
+                {% elif i.parameters == "Sunlight"%}
+                <td>{{i.morning}}Lx</td>
+                <td>{{i.evening}}Lx</td>
+                <td>{{i.average}}Lx</td>
+
+                {% else %}
                 <td>{{i.morning}}</td>
                 <td>{{i.evening}}</td>
                 <td>{{i.average}}</td>
+
+                {%endif%}
                 <td>
                   <a href="{% url 'user_viewedit_farmweather'  i.id%}">
                     <div class="btn  btn-sm" style="color: white;  background-color: maroon;"><i class="ti-reload pr-2"></i>View/Edit</div>
@@ -76,6 +107,7 @@
                -->
             </tbody>
           </table>
+          
         </div>
       </div>
     </div>

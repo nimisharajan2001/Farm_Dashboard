@@ -55,7 +55,7 @@
                           Harvesting Date
                         </label>
                         <div class="col-sm-9">
-                            <input type="date" class="form-control form-control-sm" autocomplete="off" name="harvesting" value="{{i.harvesting_date|date:'Y-m-d'}}" required>
+                            <input type="date" class="form-control form-control-sm" autocomplete="off" name="harvesting" id="mdp-demo" value="{{i.harvesting_date|date:'Y-m-d'}}" required>
                         </div>
                     </div>
 
@@ -64,10 +64,9 @@
                           Harvested Data
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="harvesteddata" value="{{i.harvested_data}}" required>
+                            <input type="text"  class="form-control form-control-sm" autocomplete="off" name="harvesteddata" value="{{i.harvested_data}}" required>
                         </div>
                     </div>
-                      
                     </div>
                     
                     <div>
@@ -83,6 +82,10 @@
     </div>
 
 </div>
+<script>
+$('#mdp-demo').multiDatesPicker();
+	
+</script>
 {%endfor%}
 <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

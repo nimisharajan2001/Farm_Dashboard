@@ -21,6 +21,9 @@
                   Expenditure Type
                 </th>
                 <th style="background-color: green; color: #fff;">
+                  Date
+                </th>
+                <th style="background-color: green; color: #fff;">
                   Expense Type
                 </th>
                 <th style="background-color: green; color: #fff;">
@@ -48,6 +51,7 @@
               {% for i in var %}
               <tr style="background-color: rgb(241, 249, 252);">
                 <td>{{i.expenditure}}</td>
+                <td>{{i.date|date:"d-m-Y"}}</td>
                 <td>{{i.expense}}</td>
                 <td>{{i.type_description}}</td>
                 <!-- <td>{{i.item}}</td> -->
