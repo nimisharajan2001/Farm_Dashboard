@@ -1,5 +1,5 @@
-{%extends 'Staff_index.html'%} 
-{% load static %} 
+{%extends 'Staff_index.html'%}
+{% load static %}
 {% block content %}
 
 {% for i in var %}
@@ -7,12 +7,12 @@
 <div class="row">
     <div class="col-md-9 grid-margin stretch-card">
         <div class="card" style="height: auto;">
-    
+
             <div class="card-body">
                 <div class="col-12 grid-margin">
                     <h3>Edit Soil Sample Details</h3>
                 </div>
-                <form method="post" action="{% url 'Staff_soilsampletest_update' i.id%}" enctype="multipart/form-data"> {% csrf_token %} 
+                <form method="post" action="{% url 'Staff_soilsampletest_update' i.id%}" enctype="multipart/form-data"> {% csrf_token %}
 
 
                     <div class="form-group row">
@@ -26,7 +26,7 @@
 
                     <div class="form-group row">
                         <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
-                            Place
+                            Location
                         </label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control form-control-sm" autocomplete="off" name="place" value="{{i.place}}" required>
@@ -77,9 +77,9 @@
                             <input type="text" class="form-control form-control-sm" autocomplete="off" name="level" value="{{i.level}}" required>
                         </div>
                     </div>
-                      
+
                     </div>
-                    
+
                     <div>
                         <center>
                             <button type="submit" style="background-color: green; color: #fff;" class="btn  btn-icon-text mb-4">SUBMIT</button>
@@ -117,8 +117,8 @@
         }).then(function () {
             javascript: history.go(-2);
         })
-        
+
     </script>
     {% endif %}
-    
+
 {% endblock %}

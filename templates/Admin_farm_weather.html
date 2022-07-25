@@ -6,7 +6,7 @@
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <div class="row">
+          <div class="row">
           <div class="col-md-6"></div>
           <div class="col-md-4"></div>
           <div class="col-md-2">
@@ -20,7 +20,7 @@
               <tr>
                 <th style="background-color: green; color: #fff;">
                     User Name
-                </th> 
+                </th>
                 <th style="background-color: green; color: #fff;">
                   Parameters
                 </th>
@@ -44,9 +44,30 @@
                 <td>{{i.user}}</td>
                 <td>{{i.parameters}}</td>
                 <td>{{i.date|date:"d-m-Y"}}</td>
+                <!--<td>{{i.morning}}</td>-->
+                <!--<td>{{i.evening}}</td>-->
+                <!--<td>{{i.average}}</td>-->
+                {% if i.parameters == "Temperature"%}
+                <td>{{i.morning}}°C</td>
+                <td>{{i.evening}}°C</td>
+                <td>{{i.average}}°C</td>
+
+                {% elif i.parameters == "Humidity"%}
+                <td>{{i.morning}}%</td>
+                <td>{{i.evening}}%</td>
+                <td>{{i.average}}%</td>
+
+                {% elif i.parameters == "Sunlight"%}
+                <td>{{i.morning}}Lx</td>
+                <td>{{i.evening}}Lx</td>
+                <td>{{i.average}}Lx</td>
+
+                {% else %}
                 <td>{{i.morning}}</td>
                 <td>{{i.evening}}</td>
                 <td>{{i.average}}</td>
+
+                {%endif%}
               </tr>
               {% endfor %}
               <!-- <tr style="background-color: rgb(241, 249, 252);">
@@ -73,7 +94,7 @@
                 <td></td>
                 <td></td>
               </tr> -->
-              
+
             </tbody>
           </table>
         </div>
