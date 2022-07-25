@@ -33,6 +33,8 @@ class plantdetails(models.Model):
     fertilization_date= models.DateField(max_length=200)
     harvesting_date= models.DateField(max_length=200)
     harvested_data= models.CharField(max_length=200)
+    planting_date = models.DateField(max_length=200,null=True, blank=True)
+    pest_control_date = models.DateField(max_length=200,null=True, blank=True)
     
 class farm_weather(models.Model):
     user = models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)

@@ -4,13 +4,13 @@
 <div class="row">
     <div class="col-md-9 grid-margin stretch-card">
         <div class="card" style="height: auto;">
-    
+
             <div class="card-body">
                 <div class="col-12 grid-margin">
                     <h3>Add Plant Details</h3>
                 </div>
                 <form method="post" action="" enctype="multipart/form-data">
-                     {% csrf_token %} 
+                     {% csrf_token %}
                     <div class="form-group row">
                         <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
                             Plant Name
@@ -22,10 +22,28 @@
 
                     <div class="form-group row">
                         <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                            Planting Date
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="date" class="form-control form-control-sm"  name="planting" value="" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
                             Flowering Date
                         </label>
                         <div class="col-sm-9">
                             <input type="date" class="form-control form-control-sm" autocomplete="off" name="flowering" value="" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                            Pest Control Date
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="date" class="form-control form-control-sm"  name="pest" value="" required>
                         </div>
                     </div>
 
@@ -64,9 +82,9 @@
                             <input type="text" class="form-control form-control-sm" autocomplete="off" name="harvesteddata" value="" required>
                         </div>
                     </div>
-                      
+
                     </div>
-                    
+
                     <div>
                         <center>
                             <button type="submit" style="background-color: green; color: #fff;" class="btn  btn-icon-text mb-4">SUBMIT</button>
@@ -104,8 +122,8 @@
         }).then(function () {
             javascript: history.go(-2);
         })
-        
+
     </script>
     {% endif %}
-    
+
 {% endblock %}

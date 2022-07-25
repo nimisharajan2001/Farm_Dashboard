@@ -1,4 +1,4 @@
-{% extends 'Staff_index.html'%}
+{% extends 'user_index.html'%}
 {% load static %}
 {% block content %}
 
@@ -9,16 +9,10 @@
         <!-- <div class="row">
           <div class="col-5 col-lg-10"></div>
           <div class="col-7 col-sm-4 col-md-3 col-lg-2">
-              <a href="{% url 'Staff_add_farm_revenue' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>
+              <a href="{% url 'user_add_farm_revenue' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>
           </div>
         </div> -->
         <div class="row">
-          <div class="col-md-5"></div>
-          <div class="col-md-4"></div>
-          <div class="col-md-3">
-            <a href="{% url 'Staff_add_farm_revenue' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>
-            <a href="{% url 'Staff_find_revenue' %}" class="btn" style="background-color: rgb(8, 26, 41); color: white;">Find</a>
-          </div>
         </div>
         <h4 class="card-title">Entered Details</h4>
         <div class="table-responsive">
@@ -31,14 +25,14 @@
                 <th style="background-color: green; color: #fff;">
                  Type Description
                </th>
+               <th style="background-color: green; color: #fff;">
+               Date
+              </th>
                 <th style="background-color: green; color: #fff;">
                    Quantity/Time
                 </th>
                <th style="background-color: green; color: #fff;">
                     Revenue
-                </th>
-                <th style="background-color: green; color: #fff;">
-                  Action
                 </th>
               </tr>
             </thead>
@@ -47,13 +41,9 @@
               <tr style="background-color: rgb(241, 249, 252);">
                 <td>{{i.revenue_type}}</td>
                 <td>{{i.type_description}}</td>
+                <td>{{i.date|date:"d-m-Y"}}</td>
                 <td>{{i.quantity}}</td>
                 <td>{{i.revenue}}</td>
-                <td>
-                  <a href="{% url 'Staff_viewedit_farmrevenue' i.id%}">
-                    <div class="btn  btn-sm" style="color: white;  background-color: maroon;"><i class="ti-reload pr-2"></i>View/Edit</div>
-                  </a>
-                </td> 
               </tr>
               {% endfor %}
               <!-- <tr style="background-color: rgb(241, 249, 252);">

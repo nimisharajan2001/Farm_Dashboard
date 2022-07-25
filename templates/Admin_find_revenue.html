@@ -20,14 +20,14 @@
 
 <body>
   <div class="row ">   
-      <h2><small style="color: blueviolet; margin-left: 15px;">Find Weather </small></h2>   
+      <h2><small style="color: blueviolet; margin-left: 15px;">Find Revenue </small></h2>   
   </div>
     <div class="row">   
         <div class="col-12 col-sm-10 col-md-10 col-lg-12 grid-margin" >
           <div class="card mt-3 mb-5">
             <div class="card-body">
               <div class="card-body"id="personForm">   
-                <form class="forms-sample" action="{% url 'Admin_weather'%}" method="post">
+                <form class="forms-sample" action="{% url 'Admin_revenue'%}" method="post">
                   {% csrf_token %}
                   
                 <div class="col-lg-12">
@@ -42,18 +42,6 @@
                               {%endif%}
                             {%endfor %}
                           {%endfor %}
-                        </select>
-                    </div>
-                </div>
-                  
-                  <div class="col-lg-12 mt-3">
-                    <label class="text-muted">SELECT PARAMETER</label>
-                    <div class="">
-                        <select class="form-control" name="parameter" required>
-                          <option selected="true" disabled="disabled" value="">-Not Selected-</option>
-                            <option>Temperature</option>
-                            <option>Humidity</option>
-                            <option>Sunlight</option>
                         </select>
                     </div>
                 </div>

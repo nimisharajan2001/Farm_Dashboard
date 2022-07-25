@@ -18,7 +18,13 @@
                   Plant Name
                 </th>
                 <th style="background-color: green; color: #fff;">
+                  Planting Date
+                </th>
+                <th style="background-color: green; color: #fff;">
                     Flowering Date
+                </th>
+                <th style="background-color: green; color: #fff;">
+                  Pest Control Date
                 </th>
                 <th style="background-color: green; color: #fff;">
                     Fruiting Date
@@ -32,7 +38,7 @@
                 <th style="background-color: green; color: #fff;">
                     Harvested data
                 </th>
-                
+
               </tr>
             </thead>
             <tbody>
@@ -40,7 +46,9 @@
               <tr style="background-color: rgb(241, 249, 252);">
                 <td>{{i.user}}</td>
                 <td>{{i.plant_name}}</td>
+                <td>{{i.planting_date|date:"d-m-Y"}}</td>
                 <td>{{i.flowering_date|date:"d-m-Y"}}</td>
+                <td>{{i.pest_control_date|date:"d-m-Y"}}</td>
                 <td>{{i.fruiting_date|date:"d-m-Y"}}</td>
                 <td>{{i.fertilization_date|date:"d-m-Y"}}</td>
                 <td>{{i.harvesting_date|date:"d-m-Y"}}</td>
@@ -74,7 +82,7 @@
                 <td></td>
                 <td></td>
               </tr> -->
-              
+
             </tbody>
           </table>
         </div>

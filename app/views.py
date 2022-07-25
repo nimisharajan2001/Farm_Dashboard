@@ -11,7 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 def index(request):
     return render(request,'index.html')
-    
+
 def Reg(request):
     return render(request,'Registration.html')
 
@@ -42,41 +42,40 @@ def log(request):
     if request.method == 'POST':
         username  = request.POST['username']
         password = request.POST['password']
-        user = authenticate(username=username,password=password)
+        # user = authenticate(username=username,password=password)
         # if user is not None:
         #     request.session['SAdm_id'] = user.id
         #     return redirect( 'Admin_Dashboard')
-
-        if register.objects.filter(username=request.POST['username'], password=request.POST['password'],designation=Admin.id).exists():              
+        if register.objects.filter(username=request.POST['username'], password=request.POST['password'],designation=Admin.id).exists():
                 member=register.objects.get(username=request.POST['username'], password=request.POST['password'])
                 request.session['SAdm_id'] = member.designation_id
                 request.session['usernamets1'] = member.username
-                request.session['SAdm_id'] = member.id 
-                mem=register.objects.filter(id= member.id)  
+                request.session['SAdm_id'] = member.id
+                mem=register.objects.filter(id= member.id)
                 # return render(request,'user_dashboard.html',{'mem':mem})
                 return redirect('Admin_Dashboard')
 
-        elif register.objects.filter(username=request.POST['username'], password=request.POST['password'],designation=client.id).exists():              
+        elif register.objects.filter(username=request.POST['username'], password=request.POST['password'],designation=client.id).exists():
                 member=register.objects.get(username=request.POST['username'], password=request.POST['password'])
                 request.session['c_id'] = member.designation_id
                 request.session['usernamets1'] = member.username
-                request.session['c_id'] = member.id 
-                mem=register.objects.filter(id= member.id)  
+                request.session['c_id'] = member.id
+                mem=register.objects.filter(id= member.id)
                 # return render(request,'user_dashboard.html',{'mem':mem})
                 return redirect('user_dashboard')
 
-        elif register.objects.filter(username=request.POST['username'], password=request.POST['password'],designation=staff.id).exists():                
+        elif register.objects.filter(username=request.POST['username'], password=request.POST['password'],designation=staff.id).exists():
                 member=register.objects.get(username=request.POST['username'], password=request.POST['password'])
                 request.session['s_id'] = member.designation_id
                 request.session['usernamets1'] = member.username
-                request.session['s_id'] = member.id 
-                mem1=register.objects.filter(id= member.id)                
+                request.session['s_id'] = member.id
+                mem1=register.objects.filter(id= member.id)
                 # return render(request,'committee_viewworkorder.html',{'mem1':mem1})
                 return redirect('Staff_dashboard')
         else:
             context = {'msg_error': 'Invalid data'}
-            return render(request, 'login.html', context)
-    return render(request,'login.html')
+            return render(request, 'Login.html', context)
+    return render(request,'Login.html')
 
 
 #------------------------ADMIN----------------------------
@@ -135,11 +134,11 @@ def Admin_clientdashboard(request,id):
         user = register.objects.filter(id=SAdm_id)
         var= register.objects.filter(id=id)
         labels = []
-        data = [] 
+        data = []
         queryset = farm_expenses.objects.filter(user_id=id)
         for j in queryset:
-            labels=[j.price,j.total_cost,j.quantity]         
-            data=[j.price,j.total_cost,j.quantity]       
+            labels=[j.price,j.total_cost,j.quantity]
+            data=[j.price,j.total_cost,j.quantity]
         return render(request,'Admin_clientdashboard.html',{'var':var,'user':user,'labels':labels,'data':data})
     else:
         return redirect('/')
@@ -157,7 +156,7 @@ def Admin_client_chart(request,id):
         data = []
         queryset = farm_revenue.objects.filter(user_id=id)
         for j in queryset:
-            labels=[j.quantity,j.revenue]         
+            labels=[j.quantity,j.revenue]
             data=[j.quantity,j.revenue]
         return render(request,'Admin_clientchart.html',{'mem1':mem1,'var':var,'labels':labels,'data':data})
     else:
@@ -186,12 +185,12 @@ def Admin_staffdashboard(request,id):
         user = register.objects.filter(id=SAdm_id)
         var= register.objects.filter(id=id)
         labels = []
-        data = [] 
+        data = []
         queryset = farm_expenses.objects.filter(user_id=id)
         for j in queryset:
-            labels=[j.price,j.total_cost,j.quantity]         
-            data=[j.price,j.total_cost,j.quantity]   
-    
+            labels=[j.price,j.total_cost,j.quantity]
+            data=[j.price,j.total_cost,j.quantity]
+
         return render(request,'Admin_staffdashboard.html',{'var':var,'user':user,'labels':labels,'data':data})
     else:
         return redirect('/')
@@ -208,7 +207,7 @@ def Admin_Staff_chart(request,id):
         data = []
         queryset = farm_revenue.objects.filter(user_id=id)
         for j in queryset:
-            labels=[j.quantity,j.revenue]         
+            labels=[j.quantity,j.revenue]
             data=[j.quantity,j.revenue]
         return render(request,'Admin_Staffchart.html',{'mem1':mem1,'var':var,'labels':labels,'data':data})
     else:
@@ -239,7 +238,7 @@ def registersave(request,id):
         users = register.objects.filter(id=SAdm_id)
         user = register.objects.get(id=id)
         if request.method == 'POST':
-            user.designation_id = request.POST.get('designation')     
+            user.designation_id = request.POST.get('designation')
             user.team = request.POST.get("team")
             user.date = datetime.now()
             user.save()
@@ -278,10 +277,10 @@ def Admin_find_weather(request):
             SAdm_id = request.session['SAdm_id']
         else:
             return redirect('/')
-        mem1 = register.objects.filter(id=SAdm_id)
+        user = register.objects.filter(id=SAdm_id)
         var = farm_weather.objects.values('user').distinct()
         num = register.objects.all()
-        return render(request,'Admin_find_weather.html',{'mem1':mem1,'var':var,'num':num})
+        return render(request,'Admin_find_weather.html',{'user':user,'var':var,'num':num})
     else:
         return redirect('/')
 
@@ -291,14 +290,14 @@ def Admin_weather(request):
             SAdm_id = request.session['SAdm_id']
         else:
             return redirect('/')
-        mem1 = register.objects.filter(id=SAdm_id)
+        user = register.objects.filter(id=SAdm_id)
         if request.method == "POST":
             fromdate = request.POST.get('startdate')
-            todate = request.POST.get('enddate') 
-            p1=request.POST.get('parameter') 
-            n1=request.POST.get('name') 
+            todate = request.POST.get('enddate')
+            p1=request.POST.get('parameter')
+            n1=request.POST.get('name')
             var = farm_weather.objects.filter(date__range=[fromdate, todate]).filter(user_id=n1).filter(parameters=p1)
-        return render(request,'Admin_weather.html',{'mem1':mem1,'var':var})
+        return render(request,'Admin_weather.html',{'user':user,'var':var})
     else:
         return redirect('/')
 
@@ -374,6 +373,36 @@ def Admin_farm_expenses(request):
     else:
         return redirect('/')
 
+def Admin_find_expense(request):
+    if 'SAdm_id' in request.session:
+        if request.session.has_key('SAdm_id'):
+            SAdm_id = request.session['SAdm_id']
+        else:
+            return redirect('/')
+        user = register.objects.filter(id=SAdm_id)
+        var = farm_expenses.objects.values('user').distinct()
+        num = register.objects.all()
+        return render(request,'Admin_find_expense.html',{'user':user,'var':var,'num':num})
+    else:
+        return redirect('/')
+
+def Admin_expense(request):
+    if 'SAdm_id' in request.session:
+        if request.session.has_key('SAdm_id'):
+            SAdm_id = request.session['SAdm_id']
+        else:
+            return redirect('/')
+        user = register.objects.filter(id=SAdm_id)
+        if request.method == "POST":
+            fromdate = request.POST.get('startdate')
+            todate = request.POST.get('enddate')
+            n1=request.POST.get('name')
+            var = farm_expenses.objects.filter(date__range=[fromdate, todate]).filter(user_id=n1)
+        return render(request,'Admin_expense.html',{'user':user,'var':var})
+    else:
+        return redirect('/')
+
+
 def Admin_farm_revenue(request):
     if 'SAdm_id' in request.session:
         if request.session.has_key('SAdm_id'):
@@ -386,13 +415,42 @@ def Admin_farm_revenue(request):
     else:
         return redirect('/')
 
+def Admin_find_revenue(request):
+    if 'SAdm_id' in request.session:
+        if request.session.has_key('SAdm_id'):
+            SAdm_id = request.session['SAdm_id']
+        else:
+            return redirect('/')
+        user = register.objects.filter(id=SAdm_id)
+        var = farm_revenue.objects.values('user').distinct()
+        num = register.objects.all()
+        return render(request,'Admin_find_revenue.html',{'user':user,'var':var,'num':num})
+    else:
+        return redirect('/')
+
+def Admin_revenue(request):
+    if 'SAdm_id' in request.session:
+        if request.session.has_key('SAdm_id'):
+            SAdm_id = request.session['SAdm_id']
+        else:
+            return redirect('/')
+        user = register.objects.filter(id=SAdm_id)
+        if request.method == "POST":
+            fromdate = request.POST.get('startdate')
+            todate = request.POST.get('enddate')
+            n1=request.POST.get('name')
+            var = farm_revenue.objects.filter(date__range=[fromdate, todate]).filter(user_id=n1)
+        return render(request,'Admin_revenue.html',{'user':user,'var':var})
+    else:
+        return redirect('/')
+
 
 def logout_admin(request):
-    if 'SAdm_id' in request.session:  
+    if 'SAdm_id' in request.session:
         request.session.flush()
         return redirect('/')
     else:
-        return redirect('/') 
+        return redirect('/')
 
 #------------------------USER----------------------------
 
@@ -416,8 +474,8 @@ def user_dashboard(request):
         data = []
         queryset = farm_expenses.objects.filter(user_id=c_id)
         for j in queryset:
-            labels=[j.price,j.total_cost,j.quantity]         
-            data=[j.price,j.total_cost,j.quantity]       
+            labels=[j.price,j.total_cost,j.quantity]
+            data=[j.price,j.total_cost,j.quantity]
         return render(request,'user_dashboard.html',{'mem1':mem1,'labels':labels,'data':data})
     else:
         return redirect('/')
@@ -435,7 +493,7 @@ def user_chart(request):
         data = []
         queryset = farm_revenue.objects.filter(user_id=c_id)
         for j in queryset:
-            labels=[j.quantity,j.revenue]         
+            labels=[j.quantity,j.revenue]
             data=[j.quantity,j.revenue]
         return render(request,'user_chart.html',{'mem1':mem1,'var':var,'labels':labels,'data':data})
     else:
@@ -449,7 +507,7 @@ def user_settings(request):
             return redirect('/')
         mem1 = register.objects.filter(id=c_id)
         var = register.objects.filter(id = c_id)
-        return render(request,'user_settings.html',{'mem1':mem1,'var':var})       
+        return render(request,'user_settings.html',{'mem1':mem1,'var':var})
     else:
         return redirect('/')
 
@@ -465,8 +523,8 @@ def user_change_password(request,id):
             c1.password= request.POST.get('Password')
             c1.save()
             msg_success = "Password has been changed successfully"
-            return render(request,'user_settings.html',{'msg_success':msg_success})     
-        return render(request,'user_settings.html',{'mem1':mem1})       
+            return render(request,'user_settings.html',{'msg_success':msg_success})
+        return render(request,'user_settings.html',{'mem1':mem1})
     else:
         return redirect('/')
 
@@ -496,10 +554,13 @@ def user_add_plant_details(request):
             p4 = request.POST['fertilization']
             p5 = request.POST['harvesting']
             p6 = request.POST['harvesteddata']
+            p7 = request.POST['planting']
+            p8 = request.POST['pest']
             plant = plantdetails( plant_name = p1,flowering_date = p2,fruiting_date = p3,
-                fertilization_date = p4,harvesting_date = p5,harvested_data = p6,user_id = c_id)
+                fertilization_date = p4,harvesting_date = p5,harvested_data = p6,
+                planting_date = p7, pest_control_date = p8,user_id = c_id)
             plant.save()
-            msg_success = "Details added successfully"
+            msg_success = "Details added successfully, Refresh your page"
             return render(request,'user_add_plant_details.html',{'msg_success':msg_success})
         return render(request,'user_add_plant_details.html',{'mem1':mem1})
     else:
@@ -527,17 +588,19 @@ def user_plantdetails_update(request,id):
         if request.method == 'POST':
             abc = plantdetails.objects.get(id=id)
             abc.plant_name = request.POST.get('plant')
+            abc.planting_date = request.POST.get('planting')
             abc.flowering_date = request.POST.get('flowering')
+            abc.pest_control_date = request.POST.get('pest')
             abc.fruiting_date = request.POST.get('fruiting')
             abc.fertilization_date = request.POST.get('fertilization')
             abc.harvesting_date = request.POST.get('harvesting')
             abc.harvested_data = request.POST.get('harvesteddata')
-            abc.save()           
+            abc.save()
             print(abc)
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'user_viewedit_plantdetails.html',{'msg_success': msg_success})
         return render(request,'user_viewedit_plantdetails.html',{'mem1':mem1})
-    else:  
+    else:
         return redirect('/')
 
 def user_farm_weather(request):
@@ -568,7 +631,7 @@ def user_add_farm_weather(request):
             farm = farm_weather( parameters = f1,date = f2,morning = f3,
                 evening = f4,average = f5,user_id = c_id)
             farm.save()
-            msg_success = "Details added successfully"
+            msg_success = "Details added successfully, Refresh your page"
             return render(request,'user_add_farm_weather.html',{'msg_success':msg_success})
         return render(request,'user_add_farm_weather.html',{'mem1':mem1})
     else:
@@ -601,12 +664,12 @@ def user_farmweather_update(request,id):
             abc.morning = request.POST.get('morning')
             abc.evening = request.POST.get('evening')
             abc.average = request.POST.get('average')
-            abc.save()           
+            abc.save()
             print(abc)
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'user_viewedit_farmweather.html',{'msg_success': msg_success})
         return render(request,'user_viewedit_farmweather.html')
-    else:  
+    else:
         return redirect('/')
 
 def user_find_weather(request):
@@ -629,12 +692,13 @@ def user_weather(request):
         mem1 = register.objects.filter(id=c_id)
         if request.method == "POST":
             fromdate = request.POST.get('startdate')
-            todate = request.POST.get('enddate') 
-            p1=request.POST.get('parameter') 
+            todate = request.POST.get('enddate')
+            p1=request.POST.get('parameter')
             var = farm_weather.objects.filter(date__range=[fromdate, todate]).filter(user_id=c_id).filter(parameters=p1)
         return render(request,'user_weather.html',{'mem1':mem1,'var':var})
     else:
         return redirect('/')
+
 
 def user_soil_sample_test(request):
     if 'c_id' in request.session:
@@ -676,12 +740,12 @@ def user_soilsampletest_update(request,id):
             abc.method = request.POST.get('method')
             abc.level = request.POST.get('level')
             abc.place = request.POST.get('place')
-            abc.save()           
+            abc.save()
             print(abc)
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'user_viewedit_soilsampletest.html',{'msg_success': msg_success})
         return render(request,'user_viewedit_soilsampletest.html',{'mem1':mem1})
-    else:  
+    else:
         return redirect('/')
 
 
@@ -703,7 +767,7 @@ def user_add_soil_sample_test(request):
             soil = soil_sample_test( tests = s1,date = s2,result = s3,
                 unit = s4,method= s5,level = s6, place = s7,user_id = c_id)
             soil.save()
-            msg_success = "Details added successfully"
+            msg_success = "Details added successfully, Refresh your page"
             return render(request,'user_add_soil_sample_test.html',{'msg_success':msg_success})
         return render(request,'user_add_soil_sample_test.html',{'mem1':mem1})
     else:
@@ -719,7 +783,7 @@ def user_fertilizer_applications(request):
         var = fertilizer_applications.objects.filter(user_id=c_id).order_by('-id')
         return render(request,'user_fertilizer_applications.html',{'mem1':mem1,'var':var})
     else:
-        return redirect('/')   
+        return redirect('/')
 
 def user_viewedit_fertilizer(request,id):
     if 'c_id' in request.session:
@@ -746,11 +810,12 @@ def user_fertilizer_update(request,id):
             abc.applied_quantity = request.POST.get('Applied')
             abc.applied_date = request.POST.get('date')
             abc.brand_name = request.POST.get('brand_name')
-            abc.save()           
+            abc.place = request.POST.get('place')
+            abc.save()
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'user_viewedit_fertilizer.html',{'msg_success': msg_success})
         return render(request,'user_viewedit_fertilizer.html',{'mem1':mem1})
-    else:  
+    else:
         return redirect('/')
 
 def user_add_fertilizer_applications(request):
@@ -765,14 +830,15 @@ def user_add_fertilizer_applications(request):
             f2 = request.POST['Applied']
             f3 = request.POST['date']
             f4 = request.POST['brand_name']
+            f5 = request.POST['place']
             fert = fertilizer_applications( fertilizer = f1,applied_quantity = f2,applied_date = f3,
-                brand_name = f4,user_id = c_id)
+                brand_name = f4,place = f5,user_id = c_id)
             fert.save()
-            msg_success = "Details added successfully"
+            msg_success = "Details added successfully, Refresh your page"
             return render(request,'user_add_fertilizer_applications.html',{'msg_success':msg_success})
         return render(request,'user_add_fertilizer_applications.html',{'mem1':mem1})
     else:
-        return redirect('/') 
+        return redirect('/')
 
 def user_periodic_tests(request):
     if 'c_id' in request.session:
@@ -784,7 +850,7 @@ def user_periodic_tests(request):
         var = periodic_tests.objects.filter(user_id=c_id).order_by('-id')
         return render(request,'user_periodic_tests.html',{'mem1':mem1,'var':var})
     else:
-        return redirect('/') 
+        return redirect('/')
 
 def user_viewedit_periodictest(request,id):
     if 'c_id' in request.session:
@@ -811,13 +877,13 @@ def user_periodictest_update(request,id):
             abc.date = request.POST.get('date')
             abc.measurement = request.POST.get('measurement')
             abc.place = request.POST.get('place')
-            abc.save()           
+            abc.save()
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'user_viewedit_periodictest.html',{'msg_success': msg_success})
         return render(request,'user_viewedit_periodictest.html',{'mem1':mem1})
-    else:  
+    else:
         return redirect('/')
-  
+
 def user_add_periodic_tests(request):
     if 'c_id' in request.session:
         if request.session.has_key('c_id'):
@@ -833,11 +899,11 @@ def user_add_periodic_tests(request):
             test = periodic_tests( tests = p1,date = p2,measurement = p3,
                 place = p4 ,user_id = c_id)
             test.save()
-            msg_success = "Details added successfully"
+            msg_success = "Details added successfully, Refresh your page"
             return render(request,'user_add_periodic_tests.html',{'msg_success':msg_success})
         return render(request,'user_add_periodic_tests.html',{'mem1':mem1})
     else:
-        return redirect('/') 
+        return redirect('/')
 
 def user_farm_machineries(request):
     if 'c_id' in request.session:
@@ -849,7 +915,7 @@ def user_farm_machineries(request):
         var = farm_machineries.objects.filter(user_id=c_id).order_by('-id')
         return render(request,'user_farm_machineries.html',{'mem1':mem1,'var':var})
     else:
-        return redirect('/') 
+        return redirect('/')
 
 def user_viewedit_farmmachineries(request,id):
     if 'c_id' in request.session:
@@ -878,11 +944,11 @@ def user_farmmachineries_update(request,id):
             abc.machine_id = request.POST.get('machine_id')
             abc.place = request.POST.get('place')
             abc.date = request.POST.get('date')
-            abc.save()           
+            abc.save()
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'user_viewedit_farmmachineries.html',{'msg_success': msg_success})
         return render(request,'user_viewedit_farmmachineries.html',{'mem1':mem1})
-    else:  
+    else:
         return redirect('/')
 
 
@@ -903,11 +969,11 @@ def user_add_farm_machineries(request):
             test = farm_machineries( machine_name = f1,number_of_machines = f2,working_hours = f3,
                 machine_id = f4, place = f5, date =f6,user_id = c_id)
             test.save()
-            msg_success = "Details added successfully"
+            msg_success = "Details added successfully, Refresh your page"
             return render(request,'user_add_farm_machineries.html',{'msg_success':msg_success})
         return render(request,'user_add_farm_machineries.html',{'mem1':mem1})
     else:
-        return redirect('/') 
+        return redirect('/')
 
 def user_man_power_usage(request):
     if 'c_id' in request.session:
@@ -919,7 +985,7 @@ def user_man_power_usage(request):
         var = man_power_usage.objects.filter(user_id=c_id).order_by('-id')
         return render(request,'user_man_power_usage.html',{'mem1':mem1,'var':var})
     else:
-        return redirect('/') 
+        return redirect('/')
 
 def user_viewedit_manpower(request,id):
     if 'c_id' in request.session:
@@ -947,11 +1013,11 @@ def user_manpower_update(request,id):
             abc.working_hours = request.POST.get('hours')
             abc.place = request.POST.get('place')
             abc.date = request.POST.get('date')
-            abc.save()           
+            abc.save()
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'user_viewedit_manpower.html',{'msg_success': msg_success})
         return render(request,'user_viewedit_manpower.html',{'mem1':mem1})
-    else:  
+    else:
         return redirect('/')
 
 
@@ -971,11 +1037,11 @@ def user_add_man_power_usage(request):
             test = man_power_usage( job = m1,number_of_peoples = m2,working_hours = m3, place = m4,
                 date = m5, user_id = c_id)
             test.save()
-            msg_success = "Details added successfully"
+            msg_success = "Details added successfully, Refresh your page"
             return render(request,'user_add_man_power_usage.html',{'msg_success':msg_success})
         return render(request,'user_add_man_power_usage.html',{'mem1':mem1})
     else:
-        return redirect('/') 
+        return redirect('/')
 
 def user_farm_expenses(request):
     if 'c_id' in request.session:
@@ -987,7 +1053,7 @@ def user_farm_expenses(request):
         var = farm_expenses.objects.filter(user_id=c_id).order_by('-id')
         return render(request,'user_farm_expenses.html',{'mem1':mem1,'var':var})
     else:
-        return redirect('/') 
+        return redirect('/')
 
 def user_viewedit_farmexpenses(request,id):
     if 'c_id' in request.session:
@@ -1018,11 +1084,11 @@ def user_farmexpense_update(request,id):
             abc.price = request.POST.get('price')
             abc.total_cost = request.POST.get('total')
             abc.date = request.POST.get('date')
-            abc.save()                     
+            abc.save()
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'user_viewedit_farmexpense.html',{'msg_success': msg_success})
         return render(request,'user_viewedit_farmexpense.html',{'mem1':mem1})
-    else:  
+    else:
         return redirect('/')
 
 def user_add_farm_expenses(request):
@@ -1043,9 +1109,36 @@ def user_add_farm_expenses(request):
             test = farm_expenses( expenditure = e1,expense = e2,type_description = e3,
                 quantity = e4,price = e5,total_cost = e6, date = e7,user_id = c_id)
             test.save()
-            msg_success = "Details added successfully"
+            msg_success = "Details added successfully, Refresh your page"
             return render(request,'user_add_farm_expenses.html',{'msg_success':msg_success})
         return render(request,'user_add_farm_expenses.html',{'mem1':mem1})
+    else:
+        return redirect('/')
+
+
+def user_find_expense(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        return render(request,'user_find_expense.html',{'mem1':mem1})
+    else:
+        return redirect('/')
+
+def user_expense(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        if request.method == "POST":
+            fromdate = request.POST.get('startdate')
+            todate = request.POST.get('enddate')
+            var = farm_expenses.objects.filter(date__range=[fromdate, todate]).filter(user_id=c_id)
+        return render(request,'user_expense.html',{'mem1':mem1,'var':var})
     else:
         return redirect('/')
 
@@ -1087,11 +1180,11 @@ def user_farmrevenue_update(request,id):
             abc.quantity = request.POST.get('quantity')
             abc.revenue = request.POST.get('revenue')
             abc.date = request.POST.get('date')
-            abc.save()     
+            abc.save()
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'user_viewedit_farmrevenue.html',{'msg_success': msg_success})
         return render(request,'user_viewedit_farmrevenue.html',{'mem1':mem1})
-    else:  
+    else:
         return redirect('/')
 
 def user_add_farm_revenue(request):
@@ -1108,20 +1201,46 @@ def user_add_farm_revenue(request):
             r4 = request.POST['revenue']
             r5 = request.POST['date']
             test = farm_revenue(revenue_type = r1,type_description = r2,quantity = r3,
-                revenue = r4,date =r5, user_id = c_id)
+                revenue = r4,date=r5, user_id = c_id)
             test.save()
-            msg_success = "Details added successfully"
+            msg_success = "Details added successfully, Refresh your page"
             return render(request,'user_add_farm_revenue.html',{'msg_success':msg_success})
         return render(request,'user_add_farm_revenue.html',{'mem1':mem1})
     else:
         return redirect('/')
 
+def user_find_revenue(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        return render(request,'user_find_revenue.html',{'mem1':mem1})
+    else:
+        return redirect('/')
+
+def user_revenue(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        if request.method == "POST":
+            fromdate = request.POST.get('startdate')
+            todate = request.POST.get('enddate')
+            var = farm_revenue.objects.filter(date__range=[fromdate, todate]).filter(user_id=c_id)
+        return render(request,'user_revenue.html',{'mem1':mem1,'var':var})
+    else:
+        return redirect('/')
+
 def logout_user(request):
-    if 'c_id' in request.session:  
+    if 'c_id' in request.session:
         request.session.flush()
         return redirect('/')
     else:
-        return redirect('/') 
+        return redirect('/')
 
 #------------------------STAFF----------------------------
 def Staff_index(request):
@@ -1133,7 +1252,7 @@ def Staff_index(request):
         mem = register.objects.filter(id=s_id)
         return render(request,'Staff_index.html',{'mem':mem})
     else:
-        return redirect('/') 
+        return redirect('/')
 
 def Staff_dashboard(request):
     if 's_id' in request.session:
@@ -1141,16 +1260,16 @@ def Staff_dashboard(request):
             s_id = request.session['s_id']
         else:
             return redirect('/')
-        mem = register.objects.filter(id=s_id)  
+        mem = register.objects.filter(id=s_id)
         labels = []
         data = []
         queryset = farm_expenses.objects.filter(user_id=s_id)
         for j in queryset:
-            labels=[j.price,j.total_cost,j.quantity]         
-            data=[j.price,j.total_cost,j.quantity]      
+            labels=[j.price,j.total_cost,j.quantity]
+            data=[j.price,j.total_cost,j.quantity]
         return render(request,'Staff_dashboard.html',{'mem':mem,'labels':labels,'data':data})
     else:
-        return redirect('/') 
+        return redirect('/')
 
 def Staff_chart(request):
     if 's_id' in request.session:
@@ -1164,7 +1283,7 @@ def Staff_chart(request):
         data = []
         queryset = farm_revenue.objects.filter(user_id=s_id)
         for j in queryset:
-            labels=[j.quantity,j.revenue]         
+            labels=[j.quantity,j.revenue]
             data=[j.quantity,j.revenue]
         return render(request,'Staff_chart.html',{'mem1':mem1,'var':var,'labels':labels,'data':data})
     else:
@@ -1179,7 +1298,7 @@ def Staff_settings(request):
             return redirect('/')
         mem1 = register.objects.filter(id=s_id)
         var = register.objects.filter(id = s_id)
-        return render(request,'Staff_settings.html',{'mem1':mem1,'var':var})       
+        return render(request,'Staff_settings.html',{'mem1':mem1,'var':var})
     else:
         return redirect('/')
 
@@ -1195,8 +1314,8 @@ def Staff_change_password(request,id):
             c1.password= request.POST.get('Password')
             c1.save()
             msg_success = "Password has been changed successfully"
-            return render(request,'Staff_settings.html',{'msg_success':msg_success})     
-        return render(request,'Staff_settings.html',{'mem1':mem1})       
+            return render(request,'Staff_settings.html',{'msg_success':msg_success})
+        return render(request,'Staff_settings.html',{'mem1':mem1})
     else:
         return redirect('/')
 
@@ -1209,7 +1328,7 @@ def Staff_settings(request):
         mem = register.objects.filter(id=s_id)
         return render(request,'Staff_settings.html',{'mem':mem})
     else:
-        return redirect('/') 
+        return redirect('/')
 
 def Staff_clients(request):
     if 's_id' in request.session:
@@ -1217,11 +1336,11 @@ def Staff_clients(request):
             s_id = request.session['s_id']
         else:
             return redirect('/')
-        mem = register.objects.filter(id=s_id)      
+        mem = register.objects.filter(id=s_id)
         var = register.objects.all()
         return render(request,'Staff_clients.html',{'mem':mem,'var':var})
     else:
-        return redirect('/') 
+        return redirect('/')
 
 def Staff_clientdashboard(request,id):
     if 's_id' in request.session:
@@ -1229,17 +1348,17 @@ def Staff_clientdashboard(request,id):
             s_id = request.session['s_id']
         else:
             return redirect('/')
-        mem = register.objects.filter(id=s_id)      
+        mem = register.objects.filter(id=s_id)
         var= register.objects.filter(id=id)
         labels = []
         data = []
         queryset = farm_expenses.objects.filter(user_id=id)
         for j in queryset:
-            labels=[j.price,j.total_cost,j.quantity]         
-            data=[j.price,j.total_cost,j.quantity]      
+            labels=[j.price,j.total_cost,j.quantity]
+            data=[j.price,j.total_cost,j.quantity]
         return render(request,'Staff_clientdashboard.html',{'mem':mem,'var':var,'labels':labels,'data':data})
     else:
-        return redirect('/') 
+        return redirect('/')
 
 def Staff_client_chart(request,id):
     if 's_id' in request.session:
@@ -1253,7 +1372,7 @@ def Staff_client_chart(request,id):
         data = []
         queryset = farm_revenue.objects.filter(user_id=id)
         for j in queryset:
-            labels=[j.quantity,j.revenue]         
+            labels=[j.quantity,j.revenue]
             data=[j.quantity,j.revenue]
         return render(request,'Staff_client_chart.html',{'mem1':mem1,'var':var,'labels':labels,'data':data})
     else:
@@ -1265,7 +1384,7 @@ def Staff_plant_details(request):
             s_id = request.session['s_id']
         else:
             return redirect('/')
-        mem = register.objects.filter(id=s_id)     
+        mem = register.objects.filter(id=s_id)
         var = plantdetails.objects.filter(user_id=s_id).order_by('-id')
         return render(request,'Staff_plant_details.html',{'mem':mem,'var':var})
     else:
@@ -1286,10 +1405,13 @@ def Staff_add_plant_details(request):
             p4 = request.POST['fertilization']
             p5 = request.POST['harvesting']
             p6 = request.POST['harvesteddata']
+            p7 = request.POST['planting']
+            p8 = request.POST['pest']
             plant = plantdetails( plant_name = p1,flowering_date = p2,fruiting_date = p3,
-                fertilization_date = p4,harvesting_date = p5,harvested_data = p6,user_id = s_id)
+                fertilization_date = p4,harvesting_date = p5,harvested_data = p6,
+                planting_date = p7, pest_control_date = p8,user_id = s_id)
             plant.save()
-            msg_success = "Details added successfully"
+            msg_success = "Details added successfully, Refresh your page"
             return render(request,'Staff_add_plant_details.html',{'msg_success':msg_success})
         return render(request,'Staff_add_plant_details.html',{'mem':mem})
     else:
@@ -1317,17 +1439,19 @@ def Staff_plantdetails_update(request,id):
         if request.method == 'POST':
             abc = plantdetails.objects.get(id=id)
             abc.plant_name = request.POST.get('plant')
+            abc.planting_date = request.POST.get('planting')
             abc.flowering_date = request.POST.get('flowering')
+            abc.pest_control_date = request.POST.get('pest')
             abc.fruiting_date = request.POST.get('fruiting')
             abc.fertilization_date = request.POST.get('fertilization')
             abc.harvesting_date = request.POST.get('harvesting')
             abc.harvested_data = request.POST.get('harvesteddata')
-            abc.save()           
+            abc.save()
             print(abc)
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'Staff_viewedit_plantdetails.html',{'msg_success': msg_success})
         return render(request,'Staff_viewedit_plantdetails.html')
-    else:  
+    else:
         return redirect('/')
 
 
@@ -1359,7 +1483,7 @@ def Staff_add_farm_weather(request):
             farm = farm_weather( parameters = f1,date = f2,morning = f3,
                 evening = f4,average = f5,user_id = s_id)
             farm.save()
-            msg_success = "Details added successfully"
+            msg_success = "Details added successfully, Refresh your page"
             return render(request,'Staff_add_farm_weather.html',{'msg_success':msg_success})
         return render(request,'Staff_add_farm_weather.html',{'mem':mem})
     else:
@@ -1392,12 +1516,39 @@ def Staff_farmweather_update(request,id):
             abc.morning = request.POST.get('morning')
             abc.evening = request.POST.get('evening')
             abc.average = request.POST.get('average')
-            abc.save()           
+            abc.save()
             print(abc)
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'Staff_viewedit_farmweather.html',{'msg_success': msg_success})
         return render(request,'Staff_viewedit_farmweather.html')
-    else:  
+    else:
+        return redirect('/')
+
+def Staff_find_weather(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        return render(request,'Staff_find_weather.html',{'mem':mem})
+    else:
+        return redirect('/')
+
+def Staff_weather(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        if request.method == "POST":
+            fromdate = request.POST.get('startdate')
+            todate = request.POST.get('enddate')
+            p1=request.POST.get('parameter')
+            var = farm_weather.objects.filter(date__range=[fromdate, todate]).filter(user_id=s_id).filter(parameters=p1)
+        return render(request,'Staff_weather.html',{'mem':mem,'var':var})
+    else:
         return redirect('/')
 
 def Staff_soil_sample_test(request):
@@ -1410,7 +1561,7 @@ def Staff_soil_sample_test(request):
         var = soil_sample_test.objects.filter(user_id= s_id).order_by('-id')
         return render(request,'Staff_soil_sample_test.html',{'mem':mem,'var':var})
     else:
-        return redirect('/')    
+        return redirect('/')
 
 def Staff_viewedit_soilsampletest(request,id):
     if 's_id' in request.session:
@@ -1440,12 +1591,12 @@ def Staff_soilsampletest_update(request,id):
             abc.method = request.POST.get('method')
             abc.level = request.POST.get('level')
             abc.place = request.POST.get('place')
-            abc.save()           
+            abc.save()
             print(abc)
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'Staff_viewedit_soilsampletest.html',{'msg_success': msg_success})
         return render(request,'Staff_viewedit_soilsampletest.html')
-    else:  
+    else:
         return redirect('/')
 
 
@@ -1467,7 +1618,7 @@ def Staff_add_soil_sample_test(request):
             soil = soil_sample_test( tests = s1,date = s2,result = s3,
                 unit = s4,method= s5,level = s6, place = s7,user_id = s_id)
             soil.save()
-            msg_success = "Details added successfully"
+            msg_success = "Details added successfully, Refresh your page"
             return render(request,'Staff_add_soil_sample_test.html',{'msg_success':msg_success})
         return render(request,'Staff_add_soil_sample_test.html',{'mem':mem})
     else:
@@ -1483,7 +1634,7 @@ def Staff_fertilizer_applications(request):
         var = fertilizer_applications.objects.filter(user_id=s_id).order_by('-id')
         return render(request,'Staff_fertilizer_applications.html',{'mem':mem,'var':var})
     else:
-        return redirect('/')    
+        return redirect('/')
 
 def Staff_viewedit_fertilizer(request,id):
     if 's_id' in request.session:
@@ -1510,11 +1661,12 @@ def Staff_fertilizer_update(request,id):
             abc.applied_quantity = request.POST.get('Applied')
             abc.applied_date = request.POST.get('date')
             abc.brand_name = request.POST.get('brand_name')
-            abc.save()           
+            abc.place = request.POST.get('place')
+            abc.save()
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'Staff_viewedit_fertilizer.html',{'msg_success': msg_success})
         return render(request,'Staff_viewedit_fertilizer.html')
-    else:  
+    else:
         return redirect('/')
 
 def Staff_add_fertilizer_applications(request):
@@ -1529,14 +1681,14 @@ def Staff_add_fertilizer_applications(request):
             f2 = request.POST['Applied']
             f3 = request.POST['date']
             f4 = request.POST['brand_name']
+            f5 = request.POST['place']
             fert = fertilizer_applications( fertilizer = f1,applied_quantity = f2,applied_date = f3,
-                brand_name = f4,user_id = s_id)
-            fert.save()
-            msg_success = "Details added successfully"
+                brand_name = f4,place = f5,user_id = s_id)
+            msg_success = "Details added successfully, Refresh your page"
             return render(request,'Staff_add_fertilizer_applications.html',{'msg_success':msg_success})
         return render(request,'Staff_add_fertilizer_applications.html',{'mem':mem})
     else:
-        return redirect('/') 
+        return redirect('/')
 
 def Staff_periodic_tests(request):
     if 's_id' in request.session:
@@ -1548,7 +1700,7 @@ def Staff_periodic_tests(request):
         var = periodic_tests.objects.filter(user_id = s_id).order_by('-id')
         return render(request,'Staff_periodic_tests.html',{'mem':mem,'var':var})
     else:
-        return redirect('/')  
+        return redirect('/')
 
 def Staff_viewedit_periodictest(request,id):
     if 's_id' in request.session:
@@ -1575,13 +1727,13 @@ def Staff_periodictest_update(request,id):
             abc.date = request.POST.get('date')
             abc.measurement = request.POST.get('measurement')
             abc.place = request.POST.get('place')
-            abc.save()           
+            abc.save()
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'Staff_viewedit_periodictest.html',{'msg_success': msg_success})
         return render(request,'Staff_viewedit_periodictest.html')
-    else:  
+    else:
         return redirect('/')
-  
+
 def Staff_add_periodic_tests(request):
     if 's_id' in request.session:
         if request.session.has_key('s_id'):
@@ -1597,11 +1749,11 @@ def Staff_add_periodic_tests(request):
             test = periodic_tests( tests = p1,date = p2,measurement = p3,
                 place = p4 ,user_id = s_id)
             test.save()
-            msg_success = "Details added successfully"
+            msg_success = "Details added successfully, Refresh your page"
             return render(request,'Staff_add_periodic_tests.html',{'msg_success':msg_success})
         return render(request,'Staff_add_periodic_tests.html',{'mem':mem})
     else:
-        return redirect('/') 
+        return redirect('/')
 
 def Staff_farm_machineries(request):
     if 's_id' in request.session:
@@ -1613,7 +1765,7 @@ def Staff_farm_machineries(request):
         var = farm_machineries.objects.filter(user_id = s_id).order_by('-id')
         return render(request,'Staff_farm_machineries.html',{'mem':mem,'var':var})
     else:
-        return redirect('/') 
+        return redirect('/')
 
 def Staff_viewedit_farmmachineries(request,id):
     if 's_id' in request.session:
@@ -1642,11 +1794,11 @@ def Staff_farmmachineries_update(request,id):
             abc.machine_id = request.POST.get('machine_id')
             abc.place = request.POST.get('place')
             abc.date = request.POST.get('date')
-            abc.save()           
+            abc.save()
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'Staff_viewedit_farmmachineries.html',{'msg_success': msg_success})
         return render(request,'Staff_viewedit_farmmachineries.html')
-    else:  
+    else:
         return redirect('/')
 
 
@@ -1667,7 +1819,7 @@ def Staff_add_farm_machineries(request):
             test = farm_machineries( machine_name = f1,number_of_machines = f2,working_hours = f3,
                 machine_id = f4, place = f5, date =f6,user_id = s_id)
             test.save()
-            msg_success = "Details added successfully"
+            msg_success = "Details added successfully, Refresh your page"
             return render(request,'Staff_add_farm_machineries.html',{'msg_success':msg_success})
         return render(request,'Staff_add_farm_machineries.html',{'mem':mem})
     else:
@@ -1683,7 +1835,7 @@ def Staff_man_power_usage(request):
         var = man_power_usage.objects.filter(user_id = s_id).order_by('-id')
         return render(request,'Staff_man_power_usage.html',{'mem':mem,'var':var})
     else:
-        return redirect('/') 
+        return redirect('/')
 
 def Staff_viewedit_manpower(request,id):
     if 's_id' in request.session:
@@ -1711,11 +1863,11 @@ def Staff_manpower_update(request,id):
             abc.working_hours = request.POST.get('hours')
             abc.place = request.POST.get('place')
             abc.date = request.POST.get('date')
-            abc.save()           
+            abc.save()
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'Staff_viewedit_manpower.html',{'msg_success': msg_success})
         return render(request,'Staff_viewedit_manpower.html')
-    else:  
+    else:
         return redirect('/')
 
 def Staff_add_man_power_usage(request):
@@ -1734,12 +1886,12 @@ def Staff_add_man_power_usage(request):
             test = man_power_usage( job = m1,number_of_peoples = m2,working_hours = m3, place = m4,
                 date = m5, user_id = s_id)
             test.save()
-            
-            msg_success = "Details added successfully"
+
+            msg_success = "Details added successfully, Refresh your page"
             return render(request,'Staff_add_man_power_usage.html',{'msg_success':msg_success})
         return render(request,'Staff_add_man_power_usage.html',{'mem1':mem1})
     else:
-        return redirect('/') 
+        return redirect('/')
 
 def Staff_farm_expenses(request):
     if 's_id' in request.session:
@@ -1781,11 +1933,12 @@ def Staff_farmexpense_update(request,id):
             abc.quantity = request.POST.get('quantity')
             abc.price = request.POST.get('price')
             abc.total_cost = request.POST.get('total')
-            abc.save()           
+            abc.date = request.POST.get('date')
+            abc.save()
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'Staff_viewedit_farmexpense.html',{'msg_success': msg_success})
         return render(request,'Staff_viewedit_farmexpense.html')
-    else:  
+    else:
         return redirect('/')
 
 def Staff_add_farm_expenses(request):
@@ -1802,12 +1955,39 @@ def Staff_add_farm_expenses(request):
             e4 = request.POST['quantity']
             e5 = request.POST['price']
             e6 = request.POST['total']
+            e7 = request.POST['date']
             test = farm_expenses( expenditure = e1,expense = e2,type_description = e3,
-                quantity = e4,price = e5,total_cost = e6,user_id = s_id)
+                quantity = e4,price = e5,total_cost = e6, date = e7,user_id = s_id)
             test.save()
-            msg_success = "Details added successfully"
+            msg_success = "Details added successfully, Refresh your page"
             return render(request,'Staff_add_farm_expenses.html',{'msg_success':msg_success})
         return render(request,'Staff_add_farm_expenses.html',{'mem':mem})
+    else:
+        return redirect('/')
+
+def Staff_find_expense(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        return render(request,'Staff_find_expense.html',{'mem':mem})
+    else:
+        return redirect('/')
+
+def Staff_expense(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        if request.method == "POST":
+            fromdate = request.POST.get('startdate')
+            todate = request.POST.get('enddate')
+            var = farm_expenses.objects.filter(date__range=[fromdate, todate]).filter(user_id=s_id)
+        return render(request,'Staff_expense.html',{'mem':mem,'var':var})
     else:
         return redirect('/')
 
@@ -1849,11 +2029,12 @@ def Staff_farmrevenue_update(request,id):
             abc.type_description = request.POST.get('type_description')
             abc.quantity = request.POST.get('quantity')
             abc.revenue = request.POST.get('revenue')
-            abc.save()           
+            abc.date = request.POST.get('date')
+            abc.save()
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'Staff_viewedit_farmrevenue.html',{'msg_success': msg_success})
         return render(request,'Staff_viewedit_farmrevenue.html')
-    else:  
+    else:
         return redirect('/')
 
 def Staff_add_farm_revenue(request):
@@ -1868,18 +2049,46 @@ def Staff_add_farm_revenue(request):
             r2 = request.POST['type_description']
             r3 = request.POST['quantity']
             r4 = request.POST['revenue']
+            r5 = request.POST['date']
             test = farm_revenue(revenue_type = r1,type_description = r2,quantity = r3,
-                revenue = r4, user_id = s_id)
+                revenue = r4,date = r5, user_id = s_id)
             test.save()
-            msg_success = "Details added successfully"
+            msg_success = "Details added successfully, Refresh your page"
             return render(request,'Staff_add_farm_revenue.html',{'msg_success':msg_success})
         return render(request,'Staff_add_farm_revenue.html',{'mem':mem})
     else:
         return redirect('/')
 
+def Staff_find_revenue(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        return render(request,'Staff_find_revenue.html',{'mem':mem})
+    else:
+        return redirect('/')
+
+def Staff_revenue(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        if request.method == "POST":
+            fromdate = request.POST.get('startdate')
+            todate = request.POST.get('enddate')
+            var = farm_revenue.objects.filter(date__range=[fromdate, todate]).filter(user_id=s_id)
+        return render(request,'Staff_revenue.html',{'mem':mem,'var':var})
+    else:
+        return redirect('/')
+
+
 def logout_staff(request):
-    if 's_id' in request.session:  
+    if 's_id' in request.session:
         request.session.flush()
         return redirect('/')
     else:
-        return redirect('/') 
+        return redirect('/')
