@@ -104,4 +104,3 @@ class farm_revenue(models.Model):
     quantity = models.CharField(max_length=200,null=True,blank=True)
     revenue = models.CharField(max_length=200,null=True,blank=True)
     date = models.DateField(max_length=200,null=True, blank=True)
-
