@@ -1,5 +1,5 @@
 {%extends 'user_index.html'%}
-{% load static %} 
+{% load static %}
 {% block content %}
 
 {% for i in var %}
@@ -7,12 +7,12 @@
 <div class="row">
     <div class="col-md-9 grid-margin stretch-card">
         <div class="card" style="height: auto;">
-    
+
             <div class="card-body">
                 <div class="col-12 grid-margin">
                     <h3>Edit Man Power Usage Details</h3>
                 </div>
-                <form method="post" action="{% url 'user_manpower_update' i.id%}" enctype="multipart/form-data"> {% csrf_token %} 
+                <form method="post" action="{% url 'user_manpower_update' i.id%}" enctype="multipart/form-data"> {% csrf_token %}
 
 
                     <div class="form-group row">
@@ -26,7 +26,7 @@
 
                     <div class="form-group row">
                         <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
-                            Place
+                            Location
                         </label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control form-control-sm" autocomplete="off" name="place" value="{{i.date}}" required>
@@ -41,7 +41,7 @@
                             <input type="date" class="form-control form-control-sm" autocomplete="off" name="date" value="{{i.date}}" required>
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
                             Number of peoples used
@@ -58,7 +58,7 @@
                         <div class="col-sm-9">
                             <input type="text" class="form-control form-control-sm" autocomplete="off" name="hours" value="{{i.working_hours}}" required>
                         </div>
-                    </div>                 
+                    </div>
                     <div>
                         <center>
                             <button type="submit" style="background-color: green; color: #fff;" class="btn  btn-icon-text mb-4">SUBMIT</button>
@@ -96,8 +96,8 @@
         }).then(function () {
             javascript: history.go(-2);
         })
-        
+
     </script>
     {% endif %}
-    
+
 {% endblock %}
