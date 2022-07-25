@@ -6,6 +6,12 @@
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
+        <!--<div class="row">-->
+        <!--  <div class="col-5 col-lg-10"></div>-->
+        <!--  <div class="col-7 col-sm-4 col-md-3 col-lg-2">-->
+        <!--      <a href="{% url 'user_add_farm_revenue' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>-->
+        <!--  </div>-->
+        <!--</div>-->
         <div class="row">
           <div class="col-md-5"></div>
           <div class="col-md-4"></div>
@@ -26,8 +32,8 @@
                  Type Description
                </th>
                <th style="background-color: green; color: #fff;">
-               Date
-              </th>
+                 Date
+               </th>
                 <th style="background-color: green; color: #fff;">
                    Quantity/Time
                 </th>
@@ -51,7 +57,7 @@
                   <a href="{% url 'user_viewedit_farmrevenue' i.id%}">
                     <div class="btn  btn-sm" style="color: white;  background-color: maroon;"><i class="ti-reload pr-2"></i>View/Edit</div>
                   </a>
-                </td> 
+                </td>
               </tr>
               {% endfor %}
               <!-- <tr style="background-color: rgb(241, 249, 252);">
@@ -72,7 +78,7 @@
                 <td></td>
                 <td></td>
               </tr> -->
-              
+
             </tbody>
           </table>
         </div>
