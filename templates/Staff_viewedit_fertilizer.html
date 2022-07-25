@@ -1,5 +1,5 @@
-{%extends 'Staff_index.html'%} 
-{% load static %} 
+{%extends 'Staff_index.html'%}
+{% load static %}
 {% block content %}
 
 {% for i in var %}
@@ -7,12 +7,12 @@
 <div class="row">
     <div class="col-md-9 grid-margin stretch-card">
         <div class="card" style="height: auto;">
-    
+
             <div class="card-body">
                 <div class="col-12 grid-margin">
                     <h3>Edit Fertilizer Application Details</h3>
                 </div>
-                <form method="post" action="{% url 'Staff_fertilizer_update' i.id%}" enctype="multipart/form-data"> {% csrf_token %} 
+                <form method="post" action="{% url 'Staff_fertilizer_update' i.id%}" enctype="multipart/form-data"> {% csrf_token %}
 
 
                     <div class="form-group row">
@@ -21,6 +21,15 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control form-control-sm" autocomplete="off" name="fertilizer" value="{{i.fertilizer}}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                            Location
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="place" value="{{i.place}}" required>
                         </div>
                     </div>
 
@@ -51,7 +60,7 @@
                         </div>
                     </div>
 
-                   
+
                     <div>
                         <center>
                             <button type="submit" style="background-color: green; color: #fff;" class="btn  btn-icon-text mb-4">SUBMIT</button>
@@ -89,9 +98,9 @@
         }).then(function () {
             javascript: history.go(-2);
         })
-        
+
     </script>
     {% endif %}
 
-    
+
 {% endblock %}

@@ -60,6 +60,7 @@ class fertilizer_applications(models.Model):
     brand_name = models.CharField(max_length=200,null=True, blank=True)
     applied_quantity = models.CharField(max_length=200)
     applied_date = models.DateField(max_length=200)
+    place = models.CharField(max_length=200,null=True, blank=True)
 
 class periodic_tests(models.Model):
     user = models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)
