@@ -39,8 +39,8 @@
           height: 100vh;
         }
         .form{
-          width: 400px;
-          height: 500px;
+          width: 420px;
+          height: 550px;
           background-color: rgba(48, 46, 46, 0.3);
           box-shadow: 0 5px 30px black;
         }
@@ -110,8 +110,8 @@
     <script charset="utf-8" src="https://platform.twitter.com/js/moment~timeline.c7de492113f2eac2bb49ff9013aa2889.js"></script>
     <script charset="utf-8" src="https://platform.twitter.com/js/timeline.55167c7072ca7f4363bf18820295ba93.js"></script>
     </head>
-    
-     <div class="container sd">
+      <body>
+        <div class="container sd">
           <div class="form">
             <form class="signup" action="{% url 'registration'%}" method="post" enctype="multipart/form-data">
               {% csrf_token %}
@@ -125,16 +125,19 @@
                 <input type="text" id="username" name="username" placeholder="User Name" autocomplete="off" required>
               </div>
               <div class="formGroup">
-                <input type="text" id="mobile" name="mobile" placeholder="Mobile Number" autocomplete="off" required>
+                <input type="tel" id="mobile" pattern="^\d{10}$" name="mobile" placeholder="Mobile Number" autocomplete="off" required>
               </div>
               <div class="formGroup">
-                <input type="text" id="email" name="email" placeholder="Email" autocomplete="off" required>
+                <input type="email" id="mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name="email" placeholder="Email" autocomplete="off" required>
               </div>
+              <div class="formGroup">
+                <input type="text" id="id" name="id" placeholder="ID" pattern="[A-Za-z]{3}.{2,}" autocomplete="off" required>
+              </div> 
               <div class="formGroup">
                 <input type="text" id="address" name="address" placeholder="Address" autocomplete="off" required>
               </div>
               <div class="formGroup">
-                <input type="password" id="password" name="password" placeholder="Password" autocomplete="off" required>
+                <input type="password" id="password" pattern=".{6,}" name="password" placeholder="Password" autocomplete="off" required>
               </div>
               <div class="formGroup">
                 <input type="file" name="pic" placeholder="Photo"  required>
@@ -149,11 +152,11 @@
               <div class="formGroup cv">
                 <button type="submit" class="btn2">SIGNUP</button>
               </div>
-            </form>
+          </form>
           </div>
-        </div>
-          
-    </body>
+        </div>        
+      </body>
+    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

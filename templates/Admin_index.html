@@ -26,26 +26,30 @@
       h2{
         font-size: 26px;
       }
+      h3{
+        font-size: large;
+        font-weight: bolder;
+      }
     }
   </style>
-  
+
 </head>
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class=" navbar-brand-wrapper ">
-        <a class=" " href="Trainee_index.html"></a><h2 class="n pt-3 pl-2 st" style="color: #4b49ac;">&nbsp;&nbsp;&nbsp;<b><i>MYTHREE</i></b></h2>
+        <!--<a class=" " href="Trainee_index.html"></a><h2 class="n pt-3 pl-2 st" style="color: #4b49ac;">&nbsp;&nbsp;&nbsp;<b><i>MYTHREE</i></b></h2>-->
+        <a class=" " href="Trainee_index.html"></a><h3 class="n pt-3 pl-2" style="color: #4b49ac;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><i>Smart&nbsp;Sensor</i></b></h3>
         <a class="navbar-brand brand-logo" href="Trainee_index.html"></a>
-        
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
           <span class="icon-menu"></span>
         </button>
-        
+
         <ul class="navbar-nav navbar-nav-right">
-         
+
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
               <img src="{% static 'face24.jpg' %}" alt="profile"/>
@@ -74,7 +78,7 @@
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_settings-panel.html -->
-      
+
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -145,34 +149,27 @@
                   <span class="menu-title">Farm Revenue</span>
                 </a>
               </li>
-              
-             
+
+
         </ul>
       </nav>
-    
 
 
-      
+
+
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper" style="background-color: rgba(52, 196, 206, 0.137);">
           {%block content%} {%endblock%}
         </div>
-        <!-- <div class="row" style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);">
-          <div class="col-md-6"></div>
-          <div class="col-md-3"></div>
-          <div class="col-md-3">
-            <p>Copyright@mythree agrotech2022</p>
-          </div>
-        </div> -->
       </div>
       </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
-       
+
         <!-- partial -->
       </div>
-     
+
       <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->
@@ -203,7 +200,7 @@
   <!-- End custom js for this page-->
 
   <!-- <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        
+
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
              -->
 

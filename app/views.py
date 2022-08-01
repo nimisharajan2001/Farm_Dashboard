@@ -30,7 +30,9 @@ def registration(request):
         reg.photo = request.FILES['pic']
         reg.save()
         msg_success = "Registered successfully"
-        return render(request, 'Registration.html', {'msg_success': msg_success})
+        m = "Registered successfully"
+        return redirect('log')
+        # return render(request, 'Registration.html', {'msg_success': msg_success,'m':m})
     return render(request,'Registration.html')
 
 #**********Login**********
