@@ -558,9 +558,10 @@ def user_add_plant_details(request):
             p6 = request.POST['harvesteddata']
             p7 = request.POST['planting']
             p8 = request.POST['pest']
+            p9 = request.POST['location']
             plant = plantdetails( plant_name = p1,flowering_date = p2,fruiting_date = p3,
                 fertilization_date = p4,harvesting_date = p5,harvested_data = p6,
-                planting_date = p7, pest_control_date = p8,user_id = c_id)
+                planting_date = p7, pest_control_date = p8, location = p9,user_id = c_id)
             plant.save()
             msg_success = "Details added successfully, Refresh your page"
             return render(request,'user_add_plant_details.html',{'msg_success':msg_success})
@@ -597,6 +598,7 @@ def user_plantdetails_update(request,id):
             abc.fertilization_date = request.POST.get('fertilization')
             abc.harvesting_date = request.POST.get('harvesting')
             abc.harvested_data = request.POST.get('harvesteddata')
+            abc.location = request.POST.get('location')
             abc.save()
             print(abc)
             msg_success = "Details updated successfully, Refresh your page"
@@ -1409,9 +1411,10 @@ def Staff_add_plant_details(request):
             p6 = request.POST['harvesteddata']
             p7 = request.POST['planting']
             p8 = request.POST['pest']
+            p9 = request.POST['location']
             plant = plantdetails( plant_name = p1,flowering_date = p2,fruiting_date = p3,
                 fertilization_date = p4,harvesting_date = p5,harvested_data = p6,
-                planting_date = p7, pest_control_date = p8,user_id = s_id)
+                planting_date = p7, pest_control_date = p8, location = p9,user_id = s_id)
             plant.save()
             msg_success = "Details added successfully, Refresh your page"
             return render(request,'Staff_add_plant_details.html',{'msg_success':msg_success})
@@ -1448,6 +1451,7 @@ def Staff_plantdetails_update(request,id):
             abc.fertilization_date = request.POST.get('fertilization')
             abc.harvesting_date = request.POST.get('harvesting')
             abc.harvested_data = request.POST.get('harvesteddata')
+            abc.location = request.POST.get('location')
             abc.save()
             print(abc)
             msg_success = "Details updated successfully, Refresh your page"

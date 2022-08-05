@@ -21,6 +21,9 @@
                   Plant Name
                 </th>
                 <th style="background-color: green; color: #fff;">
+                  Location
+                </th>
+                <th style="background-color: green; color: #fff;">
                   Planting Date
                 </th>
                 <th style="background-color: green; color: #fff;">
@@ -51,6 +54,7 @@
               {% for i in var %}
               <tr style="background-color: rgb(241, 249, 252);">
                 <td>{{i.plant_name}}</td>
+                <td>{{i.location}}</td>
                 <td>{{i.planting_date|date:"d-m-Y"}}</td>
                 <td>{{i.flowering_date|date:"d-m-Y"}}</td>
                 <td>{{i.pest_control_date|date:"d-m-Y"}}</td>
