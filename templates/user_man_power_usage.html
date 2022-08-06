@@ -31,8 +31,11 @@
                     Number of People used
                 </th>
                 <th style="background-color: green; color: #fff;">
-                    Total Working hours
+                    Working Hours
                 </th>
+                <th style="background-color: green; color: #fff;">
+                  Total
+              </th>
                 <th style="background-color: green; color: #fff;">
                   Action
                 </th>
@@ -45,7 +48,8 @@
                 <td>{{i.place}}</td>
                 <td>{{i.date|date:"d-m-Y"}}</td>
                 <td>{{i.number_of_peoples}}</td>
-                <td>{{i.working_hours}}</td>
+                <td>{{i.working_hours}} Hrs</td>
+                <td>{{i.total}} Hrs</td>
                 <td>
                   <a href="{% url 'user_viewedit_manpower' i.id%}">
                     <div class="btn  btn-sm" style="color: white;  background-color: maroon;"><i class="ti-reload pr-2"></i>View/Edit</div>

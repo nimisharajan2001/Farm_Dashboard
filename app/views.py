@@ -789,6 +789,32 @@ def user_fertilizer_applications(request):
     else:
         return redirect('/')
 
+def user_fertilizer(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        var = fertilizer_applications.objects.values('fertilizer').distinct().filter(user_id=c_id)
+        return render(request,'user_fertilizer.html',{'mem1':mem1,'var':var})
+    else:
+        return redirect('/')
+
+def user_fertilizer_list(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        if request.method == "POST":
+            p1=request.POST.get('fertilizer')
+            var = fertilizer_applications.objects.filter(user_id=c_id).filter(fertilizer=p1).order_by('-id')
+        return render(request,'Staff_fertilizer_list.html',{'mem1':mem1,'var':var})
+    else:
+        return redirect('/')
+
 def user_viewedit_fertilizer(request,id):
     if 'c_id' in request.session:
         if request.session.has_key('c_id'):
@@ -815,6 +841,7 @@ def user_fertilizer_update(request,id):
             abc.applied_date = request.POST.get('date')
             abc.brand_name = request.POST.get('brand_name')
             abc.place = request.POST.get('place')
+            abc.plant_name = request.POST.get('plant_name')
             abc.save()
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'user_viewedit_fertilizer.html',{'msg_success': msg_success})
@@ -835,8 +862,9 @@ def user_add_fertilizer_applications(request):
             f3 = request.POST['date']
             f4 = request.POST['brand_name']
             f5 = request.POST['place']
+            f6 = request.POST['plant_name']
             fert = fertilizer_applications( fertilizer = f1,applied_quantity = f2,applied_date = f3,
-                brand_name = f4,place = f5,user_id = c_id)
+                brand_name = f4,place = f5,plant_name = f6,user_id = c_id)
             fert.save()
             msg_success = "Details added successfully, Refresh your page"
             return render(request,'user_add_fertilizer_applications.html',{'msg_success':msg_success})
@@ -1017,6 +1045,7 @@ def user_manpower_update(request,id):
             abc.working_hours = request.POST.get('hours')
             abc.place = request.POST.get('place')
             abc.date = request.POST.get('date')
+            abc.total = request.POST.get('total')
             abc.save()
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'user_viewedit_manpower.html',{'msg_success': msg_success})
@@ -1038,8 +1067,9 @@ def user_add_man_power_usage(request):
             m3 = request.POST['hours']
             m4 = request.POST['place']
             m5 = request.POST['date']
+            m6 = request.POST['total']
             test = man_power_usage( job = m1,number_of_peoples = m2,working_hours = m3, place = m4,
-                date = m5, user_id = c_id)
+                date = m5, total =m6, user_id = c_id)
             test.save()
             msg_success = "Details added successfully, Refresh your page"
             return render(request,'user_add_man_power_usage.html',{'msg_success':msg_success})
@@ -1642,6 +1672,32 @@ def Staff_fertilizer_applications(request):
     else:
         return redirect('/')
 
+def Staff_fertilizer(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        var = fertilizer_applications.objects.values('fertilizer').distinct().filter(user_id=s_id)
+        return render(request,'Staff_fertilizer.html',{'mem':mem,'var':var})
+    else:
+        return redirect('/')
+
+def Staff_fertilizer_list(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        if request.method == "POST":
+            p1=request.POST.get('fertilizer')
+            var = fertilizer_applications.objects.filter(user_id=s_id).filter(fertilizer=p1)
+        return render(request,'Staff_fertilizer_list.html',{'mem':mem,'var':var})
+    else:
+        return redirect('/')
+
 def Staff_viewedit_fertilizer(request,id):
     if 's_id' in request.session:
         if request.session.has_key('s_id'):
@@ -1668,6 +1724,7 @@ def Staff_fertilizer_update(request,id):
             abc.applied_date = request.POST.get('date')
             abc.brand_name = request.POST.get('brand_name')
             abc.place = request.POST.get('place')
+            abc.plant_name = request.POST.get('plant_name')
             abc.save()
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'Staff_viewedit_fertilizer.html',{'msg_success': msg_success})
@@ -1688,8 +1745,10 @@ def Staff_add_fertilizer_applications(request):
             f3 = request.POST['date']
             f4 = request.POST['brand_name']
             f5 = request.POST['place']
+            f6 = request.POST['plant_name']
             fert = fertilizer_applications( fertilizer = f1,applied_quantity = f2,applied_date = f3,
-                brand_name = f4,place = f5,user_id = s_id)
+                brand_name = f4,place = f5, plant_name = f6,user_id = s_id)
+            fert.save()
             msg_success = "Details added successfully, Refresh your page"
             return render(request,'Staff_add_fertilizer_applications.html',{'msg_success':msg_success})
         return render(request,'Staff_add_fertilizer_applications.html',{'mem':mem})
@@ -1869,6 +1928,7 @@ def Staff_manpower_update(request,id):
             abc.working_hours = request.POST.get('hours')
             abc.place = request.POST.get('place')
             abc.date = request.POST.get('date')
+            abc.total = request.POST.get('total')
             abc.save()
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'Staff_viewedit_manpower.html',{'msg_success': msg_success})
@@ -1889,8 +1949,9 @@ def Staff_add_man_power_usage(request):
             m3 = request.POST['hours']
             m4 = request.POST['place']
             m5 = request.POST['date']
+            m6= request.POST['total']
             test = man_power_usage( job = m1,number_of_peoples = m2,working_hours = m3, place = m4,
-                date = m5, user_id = s_id)
+                date = m5,total = m6, user_id = s_id)
             test.save()
 
             msg_success = "Details added successfully, Refresh your page"

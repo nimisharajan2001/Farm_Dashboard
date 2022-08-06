@@ -62,6 +62,7 @@ class fertilizer_applications(models.Model):
     applied_quantity = models.CharField(max_length=200)
     applied_date = models.DateField(max_length=200)
     place = models.CharField(max_length=200,null=True, blank=True)
+    plant_name = models.CharField(max_length=200,null=True, blank=True)
 
 class periodic_tests(models.Model):
     user = models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)
@@ -86,6 +87,7 @@ class man_power_usage(models.Model):
     date = models.DateField(max_length=200,null=True, blank=True)
     number_of_peoples = models.CharField(max_length=200)
     working_hours = models.CharField(max_length=200)
+    total = models.CharField(max_length=200,null=True,blank=True)
 
 class farm_expenses(models.Model):
     user = models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)
