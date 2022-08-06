@@ -30,8 +30,11 @@
                     Number of Machines used
                 </th>
                 <th style="background-color: green; color: #fff;">
-                    Total Working hour
+                   Working Hours
                 </th>
+                <th style="background-color: green; color: #fff;">
+                  Total
+              </th>
               </tr>
             </thead>
             <tbody>
@@ -43,7 +46,8 @@
                 <td>{{i.place}}</td>
                 <td>{{i.date|date:"d-m-Y"}}</td>
                 <td>{{i.number_of_machines}}</td>
-                <td>{{i.working_hours}}</td>
+                <td>{{i.working_hours}} Hrs</td>
+                <td>{{i.total}} Hrs</td>
               </tr>
               {% endfor %}
               <!-- <tr style="background-color: rgb(241, 249, 252);">

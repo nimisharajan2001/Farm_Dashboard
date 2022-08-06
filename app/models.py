@@ -79,6 +79,7 @@ class farm_machineries(models.Model):
     date = models.DateField(max_length=200,null=True, blank=True)
     number_of_machines = models.CharField(max_length=200)
     working_hours = models.CharField(max_length=200)
+    total = models.CharField(max_length=200,null=True,blank=True)
 
 class man_power_usage(models.Model):
     user = models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)

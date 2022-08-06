@@ -976,6 +976,7 @@ def user_farmmachineries_update(request,id):
             abc.machine_id = request.POST.get('machine_id')
             abc.place = request.POST.get('place')
             abc.date = request.POST.get('date')
+            abc.total = request.POST.get('total')
             abc.save()
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'user_viewedit_farmmachineries.html',{'msg_success': msg_success})
@@ -998,8 +999,9 @@ def user_add_farm_machineries(request):
             f4 = request.POST['machine_id']
             f5 = request.POST['place']
             f6 = request.POST['date']
+            f7 = request.POST['total']
             test = farm_machineries( machine_name = f1,number_of_machines = f2,working_hours = f3,
-                machine_id = f4, place = f5, date =f6,user_id = c_id)
+                machine_id = f4, place = f5, date =f6, total = f7,user_id = c_id)
             test.save()
             msg_success = "Details added successfully, Refresh your page"
             return render(request,'user_add_farm_machineries.html',{'msg_success':msg_success})
@@ -1859,6 +1861,7 @@ def Staff_farmmachineries_update(request,id):
             abc.machine_id = request.POST.get('machine_id')
             abc.place = request.POST.get('place')
             abc.date = request.POST.get('date')
+            abc.total = request.POST.get('total')
             abc.save()
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'Staff_viewedit_farmmachineries.html',{'msg_success': msg_success})
@@ -1881,8 +1884,9 @@ def Staff_add_farm_machineries(request):
             f4 = request.POST['machine_id']
             f5 = request.POST['place']
             f6 = request.POST['date']
+            f7 = request.POST['total']
             test = farm_machineries( machine_name = f1,number_of_machines = f2,working_hours = f3,
-                machine_id = f4, place = f5, date =f6,user_id = s_id)
+                machine_id = f4, place = f5, date =f6, total = f7,user_id = s_id)
             test.save()
             msg_success = "Details added successfully, Refresh your page"
             return render(request,'Staff_add_farm_machineries.html',{'msg_success':msg_success})
