@@ -28,7 +28,16 @@
                             Location
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="location" value="" required>
+                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="location" value="{{i.location}}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                            Number of Plants
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control form-control-sm" autocomplete="off" name="number" value="{{i.number}}" required>
                         </div>
                     </div>
                     
@@ -73,7 +82,7 @@
                           Fertilization Date
                         </label>
                         <div class="col-sm-9">
-                            <input type="date" class="form-control form-control-sm" autocomplete="off" name="fertilization" value="{{i.fertilization_date|date:'Y-m-d'}}" required>
+                            <input type="date" class="form-control form-control-sm" autocomplete="off" name="fertilization" value="{{i.fertilization_date}}" required>
                         </div>
                     </div>
 
@@ -82,7 +91,7 @@
                           Harvesting Date
                         </label>
                         <div class="col-sm-9">
-                            <input type="date" class="form-control form-control-sm" autocomplete="off" name="harvesting" value="{{i.harvesting_date|date:'Y-m-d'}}" required>
+                            <input type="date" class="form-control form-control-sm" autocomplete="off" name="harvesting" value="{{i.harvesting_date}}" required>
                         </div>
                     </div>
 

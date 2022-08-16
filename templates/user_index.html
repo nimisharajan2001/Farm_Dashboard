@@ -53,9 +53,8 @@
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
               <img src="{{i.photo.url}}" alt="profile"/>
-              <!-- <img src="{% static 'face16.jpg' %}" alt="profile"/> -->
             </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown"  aria-expanded="true">
               <a class="dropdown-item">
                 <i class="icon-head menu-icon text-primary"></i>
                 User
@@ -149,13 +148,9 @@
 
         </ul>
       </nav>
-
-
-
-
       <!-- partial -->
       <div class="main-panel">
-        <div class="content-wrapper"  style="background-color: rgba(52, 196, 206, 0.137);">
+        <div class="content-wrapper"  style="background-color: rgba(181, 245, 245, 0.082);">
           {%block content%} {%endblock%}
         </div>
       </div>

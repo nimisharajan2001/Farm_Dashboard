@@ -29,15 +29,13 @@
                 <th style="background-color: green; color: #fff;">
                   Date
                 </th>
-                <th style="background-color: green; color: #fff;">
+                <!-- <th style="background-color: green; color: #fff;">
                     Number of Machines used
-                </th>
+                </th> -->
                 <th style="background-color: green; color: #fff;">
-                    Working Hours
+                   Total Working Hours
                 </th>
-                <th style="background-color: green; color: #fff;">
-                  Total
-              </th>
+               
                 <th style="background-color: green; color: #fff;">
                   Action
                 </th>
@@ -50,9 +48,9 @@
                 <td>{{i.machine_id}}</td>
                 <td>{{i.place}}</td>
                 <td>{{i.date|date:"d-m-Y"}}</td>
-                <td>{{i.number_of_machines}}</td>
+                <!-- <td>{{i.number_of_machines}}</td> -->
                 <td>{{i.working_hours}} Hrs</td>
-                <td>{{i.total}} Hrs</td>
+                <!-- <td>{{i.total}} Hrs</td> -->
                 <td>
                   <a href="{% url 'user_viewedit_farmmachineries' i.id%}">
                     <div class="btn  btn-sm" style="color: white;  background-color: maroon;"><i class="ti-reload pr-2"></i>View/Edit</div>

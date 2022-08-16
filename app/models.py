@@ -21,6 +21,8 @@ class register(models.Model):
     photo = models.FileField(upload_to='images/', null=True, blank=True)
     team = models.CharField(max_length=200, null=True, blank=True)
     date = models.DateField(auto_now_add=False, auto_now=False,  null=True, blank=True)
+    cpassword = models.CharField(max_length=200, null=True, blank=True)
+    pin = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
        return self.name
@@ -28,14 +30,15 @@ class register(models.Model):
 class plantdetails(models.Model):
     user = models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)
     plant_name = models.CharField(max_length=200)
-    flowering_date= models.DateField(max_length=200)
-    fruiting_date= models.DateField(max_length=200)
-    fertilization_date= models.CharField(max_length=200)
-    harvesting_date= models.CharField(max_length=200)
-    harvested_data= models.CharField(max_length=200)
+    flowering_date= models.CharField(max_length=200,null=True, blank=True)
+    fruiting_date= models.CharField(max_length=200,null=True, blank=True)
+    fertilization_date= models.CharField(max_length=200,null=True, blank=True)
+    harvesting_date= models.CharField(max_length=200,null=True, blank=True)
+    harvested_data= models.CharField(max_length=200,null=True, blank=True)
     planting_date = models.DateField(max_length=200,null=True, blank=True)
-    pest_control_date = models.DateField(max_length=200,null=True, blank=True)
+    pest_control_date = models.CharField(max_length=200,null=True, blank=True)
     location = models.CharField(max_length=200,null=True, blank=True)
+    number = models.CharField(max_length=200,null=True, blank=True)
     
 class farm_weather(models.Model):
     user = models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)

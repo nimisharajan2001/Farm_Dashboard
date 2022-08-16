@@ -29,7 +29,7 @@
                             Location
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="place" value="{{i.date}}" required>
+                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="place" value="{{i.place}}" required>
                         </div>
                     </div>
 
@@ -38,7 +38,7 @@
                             Date
                         </label>
                         <div class="col-sm-9">
-                            <input type="date" class="form-control form-control-sm" autocomplete="off" name="date" value="{{i.date}}" required>
+                            <input type="date" class="form-control form-control-sm" autocomplete="off" name="date" value="{{i.date|date:'Y-m-d'}}" required>
                         </div>
                     </div>
 
@@ -53,14 +53,14 @@
 
                     <div class="form-group row">
                         <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
-                           Working Hours
+                          Total Working Hours
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" id="temp2" class="form-control form-control-sm" autocomplete="off" name="hours" value="{{i.working_hours}}" required>
+                            <input type="number" id="temp2" class="form-control form-control-sm" autocomplete="off" name="hours" value="{{i.working_hours}}" required>
                         </div>
                     </div>
 
-                    <input type="hidden" id="avg" class="form-control form-control-sm" autocomplete="off" name="total" value="" required>
+                    <!-- <input type="hidden" id="avg" class="form-control form-control-sm" autocomplete="off" name="total" value="" required> -->
 
                     <div>
                         <center>
@@ -76,19 +76,7 @@
 
 {%endfor%}
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-    $(function() {
-    $("#temp1, #temp2").on("keyup", total);
- 	function total() {
- 	$("#avg").val(Number($("#temp1").val()) * Number($("#temp2").val()));
- 	
-	}
- });
-</script>
+
 
 <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

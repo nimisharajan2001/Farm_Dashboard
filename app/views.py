@@ -5,6 +5,7 @@ from .models import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import auth, User
 from django.contrib.auth import authenticate
+from django. contrib import messages
 from datetime import datetime,date
 from django.views.decorators.csrf import csrf_exempt
 
@@ -27,6 +28,8 @@ def registration(request):
         reg.email = request.POST['email']
         reg.address = request.POST['address']
         reg.password = request.POST['password']
+        reg.cpassword = request.POST['cpassword']
+        reg.pin = request.POST['pin']
         reg.photo = request.FILES['pic']
         reg.save()
         msg_success = "Registered successfully"
@@ -472,13 +475,14 @@ def user_dashboard(request):
         else:
             return redirect('/')
         mem1 = register.objects.filter(id=c_id)
+        var = register.objects.filter(id=c_id)
         labels = []
         data = []
         queryset = farm_expenses.objects.filter(user_id=c_id)
         for j in queryset:
             labels=[j.price,j.total_cost,j.quantity]
             data=[j.price,j.total_cost,j.quantity]
-        return render(request,'user_dashboard.html',{'mem1':mem1,'labels':labels,'data':data})
+        return render(request,'user_dashboard.html',{'mem1':mem1,'var':var,'labels':labels,'data':data})
     else:
         return redirect('/')
 
@@ -501,6 +505,7 @@ def user_chart(request):
     else:
         return redirect('/')
 
+
 def user_settings(request):
     if 'c_id' in request.session:
         if request.session.has_key('c_id'):
@@ -508,27 +513,79 @@ def user_settings(request):
         else:
             return redirect('/')
         mem1 = register.objects.filter(id=c_id)
-        var = register.objects.filter(id = c_id)
-        return render(request,'user_settings.html',{'mem1':mem1,'var':var})
+        mem = register.objects.filter(id = c_id)
+        if request.method == 'POST':
+            abc = register.objects.get(id=c_id)
+            abc.name = request.POST.get('name')
+            abc.username= request.POST.get('uname')
+            abc.mobile = request.POST.get('mobile')
+            abc.email = request.POST.get('email')
+            abc.address = request.POST.get('address')
+            abc.date = request.POST.get('date')
+            abc.pin = request.POST.get('pin')
+            abc.save()
+            msg_success = "Details changed successfully"
+            return render(request, 'user_settings.html', {'msg_success': msg_success})
+        return render(request,'user_settings.html',{'mem':mem,'mem1':mem1})
     else:
         return redirect('/')
 
+
+def user_Profile_Imagechange(request,id):
+    if request.method == 'POST':
+        ab = register.objects.get(id=id)
+        ab.photo = request.FILES['files']
+        ab.save()
+        msg_success = "Profile Picture changed successfully"
+        return render(request, 'user_settings.html', {'msg_success': msg_success})
+
 def user_change_password(request,id):
-    if 'c_id' in request.session:
-        if request.session.has_key('c_id'):
-            c_id = request.session['c_id']
+    if request.method == 'POST':
+        ac = register.objects.get(id=id)
+        oldps = request.POST['currentPassword']
+        newps = request.POST['newPassword']
+        cmps = request.POST.get('confirmPassword')
+        if oldps != newps:
+            if newps == cmps:
+                ac.password = request.POST.get('newPassword')
+                ac.cpassword = request.POST.get('confirmPassword')
+                ac.save()
+                msg_success = "Password changed successfully"
+                return render(request, 'user_settings.html', {'msg_success': msg_success})
+        elif oldps == newps:
+            messages.add_message(request, messages.INFO, 'Current and New password same')
         else:
-            return redirect('/')
-        mem1 = register.objects.filter(id=c_id)
-        if request.method == 'POST':
-            c1 = register.objects.get(id=id)
-            c1.password= request.POST.get('Password')
-            c1.save()
-            msg_success = "Password has been changed successfully"
-            return render(request,'user_settings.html',{'msg_success':msg_success})
-        return render(request,'user_settings.html',{'mem1':mem1})
-    else:
-        return redirect('/')
+            messages.info(request, 'Incorrect password same')
+        return redirect('user_settings')
+
+# def user_settings(request):
+#     if 'c_id' in request.session:
+#         if request.session.has_key('c_id'):
+#             c_id = request.session['c_id']
+#         else:
+#             return redirect('/')
+#         mem1 = register.objects.filter(id=c_id)
+#         var = register.objects.filter(id = c_id)
+#         return render(request,'user_settings.html',{'mem1':mem1,'var':var})
+#     else:
+#         return redirect('/')
+
+# def user_change_password(request,id):
+#     if 'c_id' in request.session:
+#         if request.session.has_key('c_id'):
+#             c_id = request.session['c_id']
+#         else:
+#             return redirect('/')
+#         mem1 = register.objects.filter(id=c_id)
+#         if request.method == 'POST':
+#             c1 = register.objects.get(id=id)
+#             c1.password= request.POST.get('Password')
+#             c1.save()
+#             msg_success = "Password has been changed successfully"
+#             return render(request,'user_settings.html',{'msg_success':msg_success})
+#         return render(request,'user_settings.html',{'mem1':mem1})
+#     else:
+#         return redirect('/')
 
 def user_plant_details(request):
     if 'c_id' in request.session:
@@ -559,9 +616,10 @@ def user_add_plant_details(request):
             p7 = request.POST['planting']
             p8 = request.POST['pest']
             p9 = request.POST['location']
+            p10 = request.POST['number']
             plant = plantdetails( plant_name = p1,flowering_date = p2,fruiting_date = p3,
                 fertilization_date = p4,harvesting_date = p5,harvested_data = p6,
-                planting_date = p7, pest_control_date = p8, location = p9,user_id = c_id)
+                planting_date = p7, pest_control_date = p8, location = p9, number = p10 ,user_id = c_id)
             plant.save()
             msg_success = "Details added successfully, Refresh your page"
             return render(request,'user_add_plant_details.html',{'msg_success':msg_success})
@@ -599,6 +657,7 @@ def user_plantdetails_update(request,id):
             abc.harvesting_date = request.POST.get('harvesting')
             abc.harvested_data = request.POST.get('harvesteddata')
             abc.location = request.POST.get('location')
+            abc.number = request.POST.get('number')
             abc.save()
             print(abc)
             msg_success = "Details updated successfully, Refresh your page"
@@ -616,6 +675,18 @@ def user_farm_weather(request):
         mem1 = register.objects.filter(id=c_id)
         var = farm_weather.objects.filter(user_id=c_id).order_by('-id')
         return render(request,'user_farm_weather.html',{'mem1':mem1,'var':var})
+    else:
+        return redirect('/')
+
+def user_weather_print(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        var = farm_weather.objects.filter(user_id=c_id).order_by('-id')
+        return render(request,'user_weather_print.html',{'mem1':mem1,'var':var})
     else:
         return redirect('/')
 
@@ -1333,38 +1404,52 @@ def Staff_settings(request):
         else:
             return redirect('/')
         mem1 = register.objects.filter(id=s_id)
-        var = register.objects.filter(id = s_id)
-        return render(request,'Staff_settings.html',{'mem1':mem1,'var':var})
+        mem = register.objects.filter(id = s_id)
+        if request.method == 'POST':
+            abc = register.objects.get(id=s_id)
+            abc.name = request.POST.get('name')
+            abc.username= request.POST.get('uname')
+            abc.mobile = request.POST.get('mobile')
+            abc.email = request.POST.get('email')
+            abc.address = request.POST.get('address')
+            abc.date = request.POST.get('date')
+            abc.pin = request.POST.get('pin')
+            abc.save()
+            msg_success = "Details changed successfully"
+            return render(request, 'Staff_settings.html', {'msg_success': msg_success})
+        return render(request,'Staff_settings.html',{'mem':mem,'mem1':mem1})
     else:
         return redirect('/')
+
+
+def Staff_Profile_Imagechange(request,id):
+    if request.method == 'POST':
+        ab = register.objects.get(id=id)
+        ab.photo = request.FILES['files']
+        ab.save()
+        msg_success = "Profile Picture changed successfully"
+        return render(request, 'Staff_settings.html', {'msg_success': msg_success})
+
 
 def Staff_change_password(request,id):
-    if 's_id' in request.session:
-        if request.session.has_key('s_id'):
-            s_id = request.session['s_id']
+    if request.method == 'POST':
+        ac = register.objects.get(id=id)
+        oldps = request.POST['currentPassword']
+        newps = request.POST['newPassword']
+        cmps = request.POST.get('confirmPassword')
+        if oldps != newps:
+            if newps == cmps:
+                ac.password = request.POST.get('newPassword')
+                ac.cpassword = request.POST.get('confirmPassword')
+                ac.save()
+                msg_success = "Password changed successfully"
+                return render(request, 'Staff_settings.html', {'msg_success': msg_success})
+        elif oldps == newps:
+            messages.add_message(request, messages.INFO, 'Current and New password same')
         else:
-            return redirect('/')
-        mem1 = register.objects.filter(id=s_id)
-        if request.method == 'POST':
-            c1 = register.objects.get(id=id)
-            c1.password= request.POST.get('Password')
-            c1.save()
-            msg_success = "Password has been changed successfully"
-            return render(request,'Staff_settings.html',{'msg_success':msg_success})
-        return render(request,'Staff_settings.html',{'mem1':mem1})
-    else:
-        return redirect('/')
+            messages.info(request, 'Incorrect password same')
+        return redirect('Staff_settings')
 
-def Staff_settings(request):
-    if 's_id' in request.session:
-        if request.session.has_key('s_id'):
-            s_id = request.session['s_id']
-        else:
-            return redirect('/')
-        mem = register.objects.filter(id=s_id)
-        return render(request,'Staff_settings.html',{'mem':mem})
-    else:
-        return redirect('/')
 
 def Staff_clients(request):
     if 's_id' in request.session:
@@ -1444,9 +1529,10 @@ def Staff_add_plant_details(request):
             p7 = request.POST['planting']
             p8 = request.POST['pest']
             p9 = request.POST['location']
+            p10 = request.POST['number']
             plant = plantdetails( plant_name = p1,flowering_date = p2,fruiting_date = p3,
                 fertilization_date = p4,harvesting_date = p5,harvested_data = p6,
-                planting_date = p7, pest_control_date = p8, location = p9,user_id = s_id)
+                planting_date = p7, pest_control_date = p8, location = p9, number =p10,user_id = s_id)
             plant.save()
             msg_success = "Details added successfully, Refresh your page"
             return render(request,'Staff_add_plant_details.html',{'msg_success':msg_success})
@@ -1484,6 +1570,7 @@ def Staff_plantdetails_update(request,id):
             abc.harvesting_date = request.POST.get('harvesting')
             abc.harvested_data = request.POST.get('harvesteddata')
             abc.location = request.POST.get('location')
+            abc.number = request.POST.get('number')
             abc.save()
             print(abc)
             msg_success = "Details updated successfully, Refresh your page"
@@ -1901,7 +1988,7 @@ def Staff_man_power_usage(request):
         else:
             return redirect('/')
         mem = register.objects.filter(id=s_id)
-        var = man_power_usage.objects.filter(user_id = s_id).order_by('-id')
+        var = man_power_usage.objects.filter(user_id = s_id).order_by('-date')
         return render(request,'Staff_man_power_usage.html',{'mem':mem,'var':var})
     else:
         return redirect('/')

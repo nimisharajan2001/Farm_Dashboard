@@ -1,7 +1,7 @@
 {% extends 'user_index.html'%}
 {% load static %}
 {% block content %}
-
+<form action="{% url 'user_weather_print'%}">
 <div class="row">
 
   <div class="col-lg-12 grid-margin stretch-card">
@@ -18,7 +18,9 @@
         </div> -->
         <div class="row">
           <div class="col-md-5"></div>
-          <div class="col-md-4"></div>
+          <div class="col-md-4">
+            <button >Print</button>
+          </div>
           <div class="col-md-3">
             <a href="{% url 'user_add_farm_weather' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>
             <a href="{% url 'user_find_weather' %}" class="btn" style="background-color: rgb(8, 26, 41); color: white;">Find</a>
@@ -78,7 +80,7 @@
                 {%endif%}
                 <td>
                   <a href="{% url 'user_viewedit_farmweather'  i.id%}">
-                    <div class="btn  btn-sm" style="color: white;  background-color: maroon;"><i class="ti-reload pr-2"></i>View/Edit</div>
+                    <div class="btn  btn-sm" style="color: white;  background-color: maroon;"><i class="ti-reload pr-2"></i>Update</div>
                   </a>
                 </td>
               </tr>
@@ -113,6 +115,5 @@
     </div>
   </div>
 </div>
-
-
+</form>
 {% endblock %}

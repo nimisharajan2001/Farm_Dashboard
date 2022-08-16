@@ -14,7 +14,12 @@
         </div> -->
         <div class="row">
           <div class="col-md-5"></div>
-          <div class="col-md-4"></div>
+          <div class="col-md-4">
+            <button type="submit " class="btn btn-outline-primary btn-icon-text" onclick="window.print()" style="width: 100px; margin-left: 50px; ">
+                
+              Print
+                 </button>
+          </div>
           <div class="col-md-3">
             <a href="{% url 'user_add_fertilizer_applications' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>
             <a href="{% url 'user_fertilizer'%}" class="btn" style="background-color: rgb(8, 26, 41); color: white;">Find</a>
