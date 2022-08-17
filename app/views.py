@@ -467,6 +467,17 @@ def user_index(request):
             return redirect('/')
         mem1 = register.objects.filter(id=c_id)
         return render(request,'user_index.html',{'mem1':mem1})
+    else:
+        return redirect('/')
+
+# def user_index(request):
+#     if 'c_id' in request.session:
+#         if request.session.has_key('c_id'):
+#             c_id = request.session['c_id']
+#         else:
+#             return redirect('/')
+#         mem1 = register.objects.filter(id=c_id)
+#         return render(request,'user_index.html',{'mem1':mem1})
 
 def user_dashboard(request):
     if 'c_id' in request.session:
@@ -558,34 +569,6 @@ def user_change_password(request,id):
             messages.info(request, 'Incorrect password same')
         return redirect('user_settings')
 
-# def user_settings(request):
-#     if 'c_id' in request.session:
-#         if request.session.has_key('c_id'):
-#             c_id = request.session['c_id']
-#         else:
-#             return redirect('/')
-#         mem1 = register.objects.filter(id=c_id)
-#         var = register.objects.filter(id = c_id)
-#         return render(request,'user_settings.html',{'mem1':mem1,'var':var})
-#     else:
-#         return redirect('/')
-
-# def user_change_password(request,id):
-#     if 'c_id' in request.session:
-#         if request.session.has_key('c_id'):
-#             c_id = request.session['c_id']
-#         else:
-#             return redirect('/')
-#         mem1 = register.objects.filter(id=c_id)
-#         if request.method == 'POST':
-#             c1 = register.objects.get(id=id)
-#             c1.password= request.POST.get('Password')
-#             c1.save()
-#             msg_success = "Password has been changed successfully"
-#             return render(request,'user_settings.html',{'msg_success':msg_success})
-#         return render(request,'user_settings.html',{'mem1':mem1})
-#     else:
-#         return redirect('/')
 
 def user_plant_details(request):
     if 'c_id' in request.session:
@@ -793,9 +776,9 @@ def user_viewedit_soilsampletest(request,id):
             c_id = request.session['c_id']
         else:
             return redirect('/')
-        mem = register.objects.filter(id=c_id)
+        mem1 = register.objects.filter(id=c_id)
         var = soil_sample_test.objects.filter(id=id)
-        return render(request,'user_viewedit_soilsampletest.html',{'mem':mem,'var':var})
+        return render(request,'user_viewedit_soilsampletest.html',{'mem1':mem1,'var':var})
     else:
         return redirect('/')
 
@@ -882,7 +865,7 @@ def user_fertilizer_list(request):
         if request.method == "POST":
             p1=request.POST.get('fertilizer')
             var = fertilizer_applications.objects.filter(user_id=c_id).filter(fertilizer=p1).order_by('-id')
-        return render(request,'Staff_fertilizer_list.html',{'mem1':mem1,'var':var})
+        return render(request,'user_fertilizer_list.html',{'mem1':mem1,'var':var})
     else:
         return redirect('/')
 
@@ -1140,10 +1123,13 @@ def user_add_man_power_usage(request):
             m3 = request.POST['hours']
             m4 = request.POST['place']
             m5 = request.POST['date']
-            m6 = request.POST['total']
+
             test = man_power_usage( job = m1,number_of_peoples = m2,working_hours = m3, place = m4,
-                date = m5, total =m6, user_id = c_id)
+                date = m5, user_id = c_id)
             test.save()
+            exp = farm_expenses(expenditure = "Operational Expenditure",expense = m1,quantity = m3,
+                date = m5, user_id = c_id)
+            exp.save()
             msg_success = "Details added successfully, Refresh your page"
             return render(request,'user_add_man_power_usage.html',{'msg_success':msg_success})
         return render(request,'user_add_man_power_usage.html',{'mem1':mem1})
