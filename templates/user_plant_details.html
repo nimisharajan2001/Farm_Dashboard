@@ -79,15 +79,15 @@
                 <td>{{i.location}}</td>
                 <td>{{i.number}}</td>
                 <td>{{i.planting_date|date:"d-m-Y"}}</td>
-                <td>{{i.flowering_date|date:"d-m-Y"}}</td>
-                <td>{{i.pest_control_date|date:"d-m-Y"}}</td>
-                <td>{{i.fruiting_date|date:"d-m-Y"}}</td>
+                <td>{{i.flowering_date}}</td>
+                <td>{{i.pest_control_date}}</td>
+                <td>{{i.fruiting_date}}</td>
                 <td>{{i.fertilization_date}}</td>
                 <td>{{i.harvesting_date}}</td>
                 <td>{{i.harvested_data}}</td>
                 <td>
                   <a href="{% url 'user_viewedit_plantdetails'  i.id%}">
-                    <div class="btn  btn-sm" style="color: white;  background-color: maroon;"><i class="ti-reload pr-2"></i>View/Edit</div>
+                    <div class="btn  btn-sm" style="color: white;  background-color: maroon;"><i class="ti-reload pr-2"></i>View/Update</div>
                   </a>
 
                 </td>

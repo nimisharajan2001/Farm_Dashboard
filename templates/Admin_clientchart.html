@@ -1,46 +1,43 @@
 {% extends 'Admin_index.html'%}
 {% load static %}
-{% block content %}
+{% block content %}   
 
-       
-          <div class="row">
-            
-            <div class="col-12 col-sm-6 col-md-6 col-lg-6  grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Farm Revenue</h4>
-                  <canvas id="chart" style="height: 230px"></canvas>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-sm-6 col-md-6 col-lg-6 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Over All</h4>
-                  <canvas id="pie-chart" style="height: 250px"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-          {% for i in var %}
-          <div>
-            <center>
-                <a href="{% url 'Admin_clientdashboard' i.id %}"><button type="button" style="background-color: green; color: #fff;" class="btn  btn-icon-text mb-4">BACK</button></a>
-                <!-- <a href="{% url 'user_fertilizer_applications' %}" class="btn btn-info mb-4"> BACK</a> -->
-            </center>
-        </div>
-        {%endfor%}
+<div class="row">     
+  <div class="col-12 col-sm-6 col-md-6 col-lg-6  grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Farm Revenue</h4>
+        <canvas id="chart" style="height: 230px"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6 col-md-6 col-lg-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Over All</h4>
+        <canvas id="pie-chart" style="height: 250px"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+{% for i in var %}
+  <div>
+    <center>
+      <a href="{% url 'Admin_clientdashboard' i.id %}"><button type="button" style="background-color: green; color: #fff;" class="btn  btn-icon-text mb-4">BACK</button></a>
+        <!-- <a href="{% url 'user_fertilizer_applications' %}" class="btn btn-info mb-4"> BACK</a> -->
+    </center>
+  </div>
+{%endfor%}
           
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-          <script src="{% static 'assets/vendors/js/vendor.bundle.base.js' %}"></script>
-          <script src="{% static 'assets/vendors/chart.js/Chart.min.js' %}"></script>
-          <script src="{% static 'assets/js/chart.js' %}"></script>
-          
-          <script>
-          
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{% static 'assets/vendors/js/vendor.bundle.base.js' %}"></script>
+<script src="{% static 'assets/vendors/chart.js/Chart.min.js' %}"></script>
+<script src="{% static 'assets/js/chart.js' %}"></script>
+
+<script>     
             var config = {
               type: 'pie',
               data: {
