@@ -508,21 +508,18 @@ form.sign-in-form {
               <input type="text" id="address" name="address" placeholder="Address" autocomplete="off" required>
             </div>  
             <div class="input-fi">
-              <input type="text" id="pin" name="pin" placeholder="PinCode" autocomplete="off" required>
-            </div>         
+              <input type="number" id="pin" name="pin" placeholder="PinCode" autocomplete="off" required>
+            </div>     
+            <div class="input-fi">
+              <input type="text" id="district" name="district" placeholder="District" autocomplete="off" required>
+            </div>    
             <div class="input-fi">
               <input type="password" id="txtPassword" pattern=".{6,}" name="password" placeholder="Password" autocomplete="off"  required>
             </div>
             <div class="input-fi">
               <input  type="password" id="txtConfirmPassword" pattern=".{6,}" name="cpassword" placeholder="Confirm Password" autocomplete="off" required>
-              <!--  -->
-            </div>
-            <div class="input-fi">
-              <input type="file" name="pic" placeholder="Photo" required >
-            </div>
+            </div>   
             <input type="submit" class="btn-s"  onclick="return Validate()" value="Sign up" />
-            <!-- <br>
-            {{m}} -->
           </form>
         </div>
       </div>

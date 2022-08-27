@@ -23,6 +23,7 @@ class register(models.Model):
     date = models.DateField(auto_now_add=False, auto_now=False,  null=True, blank=True)
     cpassword = models.CharField(max_length=200, null=True, blank=True)
     pin = models.CharField(max_length=200, null=True, blank=True)
+    district = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
        return self.name
@@ -66,6 +67,7 @@ class fertilizer_applications(models.Model):
     applied_date = models.DateField(max_length=200)
     place = models.CharField(max_length=200,null=True, blank=True)
     plant_name = models.CharField(max_length=200,null=True, blank=True)
+    unit = models.CharField(max_length=200,null=True, blank=True)
 
 class periodic_tests(models.Model):
     user = models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)

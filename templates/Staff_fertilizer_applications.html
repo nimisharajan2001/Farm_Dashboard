@@ -18,19 +18,17 @@
       });
     </script>
 
+<form action="{% url 'Staff_fertilizer_print'%}">
 <div class="row">
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <!-- <div class="row">
-          <div class="col-5 col-lg-10"></div>
-          <div class="col-7 col-sm-4 col-md-3 col-lg-2">
-              <a href="{% url 'Staff_add_fertilizer_applications' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>
-          </div>
-        </div> -->
+    
         <div class="row">
           <div class="col-md-5"></div>
-          <div class="col-md-4"></div>
+          <div class="col-md-4">
+            <button style="width: 100px; height: 40px; color: #fff; background-color: rgb(5, 4, 4);">Print</button>
+          </div>
           <div class="col-md-3">
             <a href="{% url 'Staff_add_fertilizer_applications' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>
             <a href="{% url 'Staff_fertilizer'%}" class="btn" style="background-color: rgb(8, 26, 41); color: white;">Find</a>
@@ -74,7 +72,7 @@
                 <td>{{i.plant_name}}</td>
                 <td>{{i.place}}</td>
                 <td>{{i.brand_name}}</td>
-                <td>{{i.applied_quantity}}</td>
+                <td>{{i.applied_quantity}}{{i.unit}}</td>
                 <td>{{i.applied_date|date:"d-m-Y"}}</td>
                 <td>
                   <a href="{% url 'Staff_viewedit_fertilizer'  i.id%}">
@@ -83,25 +81,6 @@
                 </td>
               </tr>
               {% endfor %}
-              <!-- <tr style="background-color: rgb(241, 249, 252);">
-                <td>NPK</td>
-                <td></td>
-                <td></td>
-
-              </tr>
-              <tr style="background-color: rgb(241, 249, 252);">
-                <td>MKP</td>
-                <td></td>
-                <td></td>
-
-              </tr>
-              <tr style="background-color: rgb(241, 249, 252);">
-                <td>130045</td>
-                <td></td>
-                <td></td>
-
-              </tr> -->
-
             </tbody>
           </table>
         </div>
@@ -109,6 +88,6 @@
     </div>
   </div>
 </div>
-
+</form>
 
 {% endblock %}

@@ -30,13 +30,13 @@ def registration(request):
         reg.password = request.POST['password']
         reg.cpassword = request.POST['cpassword']
         reg.pin = request.POST['pin']
-        reg.photo = request.FILES['pic']
+        reg.district = request.POST['district']
         reg.save()
         msg_success = "Registered successfully"
         m = "Registered successfully"
         return redirect('log')
         # return render(request, 'Registration.html', {'msg_success': msg_success,'m':m})
-    return render(request,'Registration.html')
+    return render(request,'Login.html')
 
 #**********Login**********
 
@@ -534,6 +534,7 @@ def user_settings(request):
             abc.address = request.POST.get('address')
             abc.date = request.POST.get('date')
             abc.pin = request.POST.get('pin')
+            abc.district = request.POST.get('district')
             abc.save()
             msg_success = "Details changed successfully"
             return render(request, 'user_settings.html', {'msg_success': msg_success})
@@ -579,6 +580,18 @@ def user_plant_details(request):
         mem1 = register.objects.filter(id=c_id)
         var = plantdetails.objects.filter(user_id=c_id).order_by('-id')
         return render(request,'user_plant_details.html',{'mem1':mem1,'var':var})
+    else:
+        return redirect('/')
+
+def user_plant_details_print(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        var = plantdetails.objects.filter(user_id=c_id).order_by('-id')
+        return render(request,'Plant_details_print.html',{'mem':mem1,'var':var})
     else:
         return redirect('/')
 
@@ -669,7 +682,7 @@ def user_weather_print(request):
             return redirect('/')
         mem1 = register.objects.filter(id=c_id)
         var = farm_weather.objects.filter(user_id=c_id).order_by('-id')
-        return render(request,'user_weather_print.html',{'mem1':mem1,'var':var})
+        return render(request,'weather_print.html',{'mem1':mem1,'var':var})
     else:
         return redirect('/')
 
@@ -770,6 +783,18 @@ def user_soil_sample_test(request):
     else:
         return redirect('/')
 
+def user_soil_sample_print(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        var = soil_sample_test.objects.filter(user_id=c_id).order_by('-id')
+        return render(request,'Soil_sample_print.html',{'mem':mem1,'var':var})
+    else:
+        return redirect('/')
+
 def user_viewedit_soilsampletest(request,id):
     if 'c_id' in request.session:
         if request.session.has_key('c_id'):
@@ -843,6 +868,18 @@ def user_fertilizer_applications(request):
     else:
         return redirect('/')
 
+def user_fertilizer_print(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        var = fertilizer_applications.objects.filter(user_id=c_id).order_by('-id')
+        return render(request,'Fertilizer_print.html',{'mem':mem1,'var':var})
+    else:
+        return redirect('/')
+
 def user_fertilizer(request):
     if 'c_id' in request.session:
         if request.session.has_key('c_id'):
@@ -896,6 +933,7 @@ def user_fertilizer_update(request,id):
             abc.brand_name = request.POST.get('brand_name')
             abc.place = request.POST.get('place')
             abc.plant_name = request.POST.get('plant_name')
+            abc.unit = request.POST.get('unit')
             abc.save()
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'user_viewedit_fertilizer.html',{'msg_success': msg_success})
@@ -917,8 +955,9 @@ def user_add_fertilizer_applications(request):
             f4 = request.POST['brand_name']
             f5 = request.POST['place']
             f6 = request.POST['plant_name']
+            f7 = request.POST['unit']
             fert = fertilizer_applications( fertilizer = f1,applied_quantity = f2,applied_date = f3,
-                brand_name = f4,place = f5,plant_name = f6,user_id = c_id)
+                brand_name = f4,place = f5,plant_name = f6, unit = f7, user_id = c_id)
             fert.save()
             msg_success = "Details added successfully, Refresh your page"
             return render(request,'user_add_fertilizer_applications.html',{'msg_success':msg_success})
@@ -935,6 +974,18 @@ def user_periodic_tests(request):
         mem1 = register.objects.filter(id=c_id)
         var = periodic_tests.objects.filter(user_id=c_id).order_by('-id')
         return render(request,'user_periodic_tests.html',{'mem1':mem1,'var':var})
+    else:
+        return redirect('/')
+
+def user_periodic_print(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        var = periodic_tests.objects.filter(user_id=c_id).order_by('-id')
+        return render(request,'Periodic_test_print.html',{'mem':mem1,'var':var})
     else:
         return redirect('/')
 
@@ -1000,6 +1051,18 @@ def user_farm_machineries(request):
         mem1 = register.objects.filter(id=c_id)
         var = farm_machineries.objects.filter(user_id=c_id).order_by('-id')
         return render(request,'user_farm_machineries.html',{'mem1':mem1,'var':var})
+    else:
+        return redirect('/')
+
+def user_machineries_print(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        var = farm_machineries.objects.filter(user_id=c_id).order_by('-id')
+        return render(request,'Farm_machineries_print.html',{'mem':mem1,'var':var})
     else:
         return redirect('/')
 
@@ -1075,6 +1138,18 @@ def user_man_power_usage(request):
     else:
         return redirect('/')
 
+def user_manpower_print(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        var = man_power_usage.objects.filter(user_id=c_id).order_by('-id')
+        return render(request,'Man_power_print.html',{'mem':mem1,'var':var})
+    else:
+        return redirect('/')
+
 def user_viewedit_manpower(request,id):
     if 'c_id' in request.session:
         if request.session.has_key('c_id'):
@@ -1127,9 +1202,7 @@ def user_add_man_power_usage(request):
             test = man_power_usage( job = m1,number_of_peoples = m2,working_hours = m3, place = m4,
                 date = m5, user_id = c_id)
             test.save()
-            exp = farm_expenses(expenditure = "Operational Expenditure",expense = m1,quantity = m3,
-                date = m5, user_id = c_id)
-            exp.save()
+            
             msg_success = "Details added successfully, Refresh your page"
             return render(request,'user_add_man_power_usage.html',{'msg_success':msg_success})
         return render(request,'user_add_man_power_usage.html',{'mem1':mem1})
@@ -1145,6 +1218,18 @@ def user_farm_expenses(request):
         mem1 = register.objects.filter(id=c_id)
         var = farm_expenses.objects.filter(user_id=c_id).order_by('-id')
         return render(request,'user_farm_expenses.html',{'mem1':mem1,'var':var})
+    else:
+        return redirect('/')
+
+def user_expense_print(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        var = farm_expenses.objects.filter(user_id=c_id).order_by('-id')
+        return render(request,'Expense_print.html',{'mem':mem1,'var':var})
     else:
         return redirect('/')
 
@@ -1244,6 +1329,18 @@ def user_farm_revenue(request):
         mem1 = register.objects.filter(id=c_id)
         var = farm_revenue.objects.filter(user_id=c_id).order_by('-id')
         return render(request,'user_farm_revenue.html',{'mem1':mem1,'var':var})
+    else:
+        return redirect('/')
+
+def user_revenue_print(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        var = farm_revenue.objects.filter(user_id=c_id).order_by('-id')
+        return render(request,'Revenue_print.html',{'mem':mem1,'var':var})
     else:
         return redirect('/')
 
@@ -1400,6 +1497,7 @@ def Staff_settings(request):
             abc.address = request.POST.get('address')
             abc.date = request.POST.get('date')
             abc.pin = request.POST.get('pin')
+            abc.district = request.POST.get('district')
             abc.save()
             msg_success = "Details changed successfully"
             return render(request, 'Staff_settings.html', {'msg_success': msg_success})
@@ -1497,6 +1595,18 @@ def Staff_plant_details(request):
     else:
         return redirect('/')
 
+def Staff_plant_details_print(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        var = plantdetails.objects.filter(user_id=s_id).order_by('-id')
+        return render(request,'Plant_details_print.html',{'mem':mem,'var':var})
+    else:
+        return redirect('/')
+
 
 def Staff_add_plant_details(request):
     if 's_id' in request.session:
@@ -1575,6 +1685,18 @@ def Staff_farm_weather(request):
         mem = register.objects.filter(id=s_id)
         var = farm_weather.objects.filter(user_id = s_id).order_by('-id')
         return render(request,'Staff_farm_weather.html',{'mem':mem,'var':var})
+    else:
+        return redirect('/')
+
+def Staff_weather_print(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        var = farm_weather.objects.filter(user_id=s_id).order_by('-id')
+        return render(request,'weather_print.html',{'mem':mem,'var':var})
     else:
         return redirect('/')
 
@@ -1674,6 +1796,19 @@ def Staff_soil_sample_test(request):
     else:
         return redirect('/')
 
+
+def Staff_soil_sample_print(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        var = soil_sample_test.objects.filter(user_id=s_id).order_by('-id')
+        return render(request,'Soil_sample_print.html',{'mem':mem,'var':var})
+    else:
+        return redirect('/')
+
 def Staff_viewedit_soilsampletest(request,id):
     if 's_id' in request.session:
         if request.session.has_key('s_id'):
@@ -1759,6 +1894,18 @@ def Staff_fertilizer(request):
     else:
         return redirect('/')
 
+def Staff_fertilizer_print(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        var = fertilizer_applications.objects.filter(user_id=s_id).order_by('-id')
+        return render(request,'Fertilizer_print.html',{'mem':mem,'var':var})
+    else:
+        return redirect('/')
+
 def Staff_fertilizer_list(request):
     if 's_id' in request.session:
         if request.session.has_key('s_id'):
@@ -1800,6 +1947,7 @@ def Staff_fertilizer_update(request,id):
             abc.brand_name = request.POST.get('brand_name')
             abc.place = request.POST.get('place')
             abc.plant_name = request.POST.get('plant_name')
+            abc.unit = request.POST.get('unit')
             abc.save()
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'Staff_viewedit_fertilizer.html',{'msg_success': msg_success})
@@ -1821,8 +1969,9 @@ def Staff_add_fertilizer_applications(request):
             f4 = request.POST['brand_name']
             f5 = request.POST['place']
             f6 = request.POST['plant_name']
+            f7 = request.POST['unit']
             fert = fertilizer_applications( fertilizer = f1,applied_quantity = f2,applied_date = f3,
-                brand_name = f4,place = f5, plant_name = f6,user_id = s_id)
+                brand_name = f4,place = f5, plant_name = f6, unit = f7, user_id = s_id)
             fert.save()
             msg_success = "Details added successfully, Refresh your page"
             return render(request,'Staff_add_fertilizer_applications.html',{'msg_success':msg_success})
@@ -1839,6 +1988,18 @@ def Staff_periodic_tests(request):
         mem = register.objects.filter(id=s_id)
         var = periodic_tests.objects.filter(user_id = s_id).order_by('-id')
         return render(request,'Staff_periodic_tests.html',{'mem':mem,'var':var})
+    else:
+        return redirect('/')
+
+def Staff_periodic_print(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        var = periodic_tests.objects.filter(user_id=s_id).order_by('-id')
+        return render(request,'Periodic_test_print.html',{'mem':mem,'var':var})
     else:
         return redirect('/')
 
@@ -1904,6 +2065,18 @@ def Staff_farm_machineries(request):
         mem = register.objects.filter(id=s_id)
         var = farm_machineries.objects.filter(user_id = s_id).order_by('-id')
         return render(request,'Staff_farm_machineries.html',{'mem':mem,'var':var})
+    else:
+        return redirect('/')
+
+def Staff_machineries_print(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        var = farm_machineries.objects.filter(user_id=s_id).order_by('-id')
+        return render(request,'Farm_machineries_print.html',{'mem':mem,'var':var})
     else:
         return redirect('/')
 
@@ -1979,6 +2152,18 @@ def Staff_man_power_usage(request):
     else:
         return redirect('/')
 
+def Staff_manpower_print(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        var = man_power_usage.objects.filter(user_id=s_id).order_by('-id')
+        return render(request,'Man_power_print.html',{'mem':mem,'var':var})
+    else:
+        return redirect('/')
+
 def Staff_viewedit_manpower(request,id):
     if 's_id' in request.session:
         if request.session.has_key('s_id'):
@@ -2019,7 +2204,7 @@ def Staff_add_man_power_usage(request):
             s_id = request.session['s_id']
         else:
             return redirect('/')
-        mem1 = register.objects.filter(id=s_id)
+        mem = register.objects.filter(id=s_id)
         if request.method == 'POST':
             m1 = request.POST['job']
             m2 = request.POST['number']
@@ -2033,7 +2218,7 @@ def Staff_add_man_power_usage(request):
 
             msg_success = "Details added successfully, Refresh your page"
             return render(request,'Staff_add_man_power_usage.html',{'msg_success':msg_success})
-        return render(request,'Staff_add_man_power_usage.html',{'mem1':mem1})
+        return render(request,'Staff_add_man_power_usage.html',{'mem':mem})
     else:
         return redirect('/')
 
@@ -2046,6 +2231,18 @@ def Staff_farm_expenses(request):
         mem = register.objects.filter(id=s_id)
         var = farm_expenses.objects.filter(user_id=s_id).order_by('-id')
         return render(request,'Staff_farm_expenses.html',{'mem':mem,'var':var})
+    else:
+        return redirect('/')
+
+def Staff_expense_print(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        var = farm_expenses.objects.filter(user_id=s_id).order_by('-id')
+        return render(request,'Expense_print.html',{'mem':mem,'var':var})
     else:
         return redirect('/')
 
@@ -2147,6 +2344,19 @@ def Staff_farm_revenue(request):
         return render(request,'Staff_farm_revenue.html',{'mem':mem,'var':var})
     else:
         return redirect('/')
+
+def Staff_revenue_print(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        var = farm_revenue.objects.filter(user_id=s_id).order_by('-id')
+        return render(request,'Revenue_print.html',{'mem':mem,'var':var})
+    else:
+        return redirect('/')
+
 
 def Staff_viewedit_farmrevenue(request,id):
     if 's_id' in request.session:

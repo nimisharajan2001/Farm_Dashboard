@@ -59,8 +59,18 @@
                         <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
                             Applied Quantity
                         </label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-4">
                             <input type="text" class="form-control form-control-sm" autocomplete="off" name="Applied" value="{{i.applied_quantity}}" required>
+                        </div>
+                        <label for="exampleInputUsernam2" class="col-sm-1 col-form-label">
+                            Unit
+                        </label>
+                        <div class="col-sm-4">
+                            <select class="form-control" name="unit" >
+                                <option value="{{i.unit}}" style="color: black;">{{i.unit}}</option> 
+                                <option>g</option>
+                                <option>ml</option>
+                            </select>
                         </div>
                     </div>
 

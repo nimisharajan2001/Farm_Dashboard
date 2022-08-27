@@ -2,17 +2,46 @@
 {% load static %}
 {% block content %}
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#myTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+    </script>
+
+<form action="{% url 'user_soil_sample_print'%}">
 <div class="row">
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-5 col-lg-10"></div>
           <div class="col-7 col-sm-4 col-md-3 col-lg-2">
               <a href="{% url 'user_add_soil_sample_test' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>
           </div>
+        </div> -->
+        <div class="row">
+          <div class="col-md-5"></div>
+          <div class="col-md-5">
+            <button style="width: 100px; height: 40px; color: #fff; background-color: rgb(5, 4, 4);">Print</button>
+          </div>
+          <div class="col-md-2">
+            <a href="{% url 'user_add_soil_sample_test' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>
+          </div>
         </div>
         <h4 class="card-title">Entered Details</h4>
+        <div class="form-group">
+          <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search Here.." title="Type in a name" >
+        </div>
         <div class="table-responsive">
           <table class="table table-bordered">
             <thead>
@@ -43,7 +72,7 @@
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="myTable">
               {% for i in var %}
               <tr style="background-color: rgb(241, 249, 252);">
                 <td>{{i.tests}}</td>
@@ -60,135 +89,7 @@
                 </td>
               </tr>
               {% endfor %}
-              <!-- <tr style="background-color: rgb(241, 249, 252);">
-                <td>EC</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr style="background-color: rgb(241, 249, 252);">
-                <td>Calcium</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr style="background-color: rgb(241, 249, 252);">
-                <td>Mg-Magnesium</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr style="background-color: rgb(241, 249, 252);">
-                <td>Sodium-Na</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr style="background-color: rgb(241, 249, 252);">
-                <td>Potassium-K</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr style="background-color: rgb(241, 249, 252);">
-                <td>Zinc-Zn</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-
-              <tr style="background-color: rgb(241, 249, 252);">
-                <td>Manganese-Mn</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr style="background-color: rgb(241, 249, 252);">
-                <td>Copper-Cu</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr style="background-color: rgb(241, 249, 252);">
-                <td>Nickel-Ni</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr style="background-color: rgb(241, 249, 252);">
-                <td>Nitrate-N3</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr style="background-color: rgb(241, 249, 252);">
-                <td>Sulphate</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr style="background-color: rgb(241, 249, 252);">
-                <td>Phosphate</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr style="background-color: rgb(241, 249, 252);">
-                <td>Boron-B</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr style="background-color: rgb(241, 249, 252);">
-                <td>Free Lime-FL</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr style="background-color: rgb(241, 249, 252);">
-                <td>ESP</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr style="background-color: rgb(241, 249, 252);">
-                <td>CEC</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr> -->
+              
             </tbody>
           </table>
         </div>
@@ -196,6 +97,6 @@
     </div>
   </div>
 </div>
-
+</form>
 
 {% endblock %}

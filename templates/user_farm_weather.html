@@ -68,6 +68,7 @@
               <tr style="background-color: rgb(241, 249, 252);">
                 <td>{{i.parameters}}</td>
                 <td>{{i.date|date:"d-m-Y"}}</td>
+                
                 {% if i.parameters == "Temperature"%}
                 <td>{{i.morning}}°C</td>
                 <td>{{i.evening}}°C</td>
@@ -96,28 +97,7 @@
                 </td>
               </tr>
               {% endfor %}
-              <!-- <tr style="background-color: rgb(241, 249, 252);">
-                <td>Temperature</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr style="background-color: rgb(241, 249, 252);">
-                <td>Humidity</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr style="background-color: rgb(241, 249, 252);">
-                <td>Sun Light</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-               -->
+              
             </tbody>
           </table>
           
