@@ -76,7 +76,13 @@
               {% for i in var %}
               <tr style="background-color: rgb(241, 249, 252);">
                 <td>{{i.tests}}</td>
-                <td>{{i.place}}</td>
+                <td>
+                  <!-- <a href="{{i.file}}">view file</a> -->
+                  {% for i in mem1%}
+                  <a href="{{i.photo.url}}">view file</a>
+                  {% endfor %}
+                </td>
+                <!-- <td>{{i.place}}</td> -->
                 <td>{{i.date|date:"d-m-Y"}}</td>
                 <td>{{i.result}}</td>
                 <td>{{i.unit}}</td>

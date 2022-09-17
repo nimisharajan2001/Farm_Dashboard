@@ -38,7 +38,26 @@
                             Revenue Type
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="revenue_type" value="{{i.revenue_type}}" required>
+                            <select class="form-control" name="revenue_type" >
+                                <!-- <option value="{{i.revenue_type}}">{{i.revenue_type}}</option>
+                                <option>Sale of Product</option>
+                                <option>Services</option> -->
+
+                                {% if i.revenue_type == "Sale of Product"%}
+                                <option value="{{i.revenue_type}}">{{i.revenue_type}}</option>
+                                <option>Services</option>   
+
+                                {% elif i.revenue_type == "Services"%}
+                                <option value="{{i.revenue_type}}">{{i.revenue_type}}</option>
+                                <option>Sale of Product</option>
+                                
+                                {%else%}
+                                <option value="{{i.revenue_type}}">{{i.revenue_type}}</option>
+                                <option>Sale of Product</option>
+                                <option>Services</option>
+                                {%endif%}
+                            </select>
+                            <!-- <input type="text" class="form-control form-control-sm" autocomplete="off" name="revenue_type" value="{{i.revenue_type}}" required> -->
                         </div>
                     </div>
 

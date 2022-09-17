@@ -18,16 +18,53 @@
       });
     </script>
 
-<form action="{% url 'user_weather_print'%}">
+<script>
+  function exportTableToExcel(tableID, filename = ''){
+    var downloadLink;
+    var dataType = 'application/vnd.ms-excel';
+    var tableSelect = document.getElementById(tableID);
+    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+    
+    // Specify file name
+    filename = filename?filename+'.xls':'excel_data.xls';
+    
+    // Create download link element
+    downloadLink = document.createElement("a");
+    
+    document.body.appendChild(downloadLink);
+    
+    if(navigator.msSaveOrOpenBlob){
+        var blob = new Blob(['\ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob( blob, filename);
+    }else{
+        // Create a link to the file
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+    
+        // Setting the file name
+        downloadLink.download = filename;
+        
+        //triggering the function
+        downloadLink.click();
+    }
+}
+</script>
+
+<form>
 <div class="row">
 
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
         <div class="row">
-          <div class="col-md-5"></div>
+          <div class="col-md-5">
+            <button onclick="exportTableToExcel('tblData')">Export Table Data To Excel File</button>
+          </div>
           <div class="col-md-4">
-            <button style="width: 100px; height: 40px; color: #fff; background-color: rgb(5, 4, 4);">Print</button>
+            <a href="{% url 'user_weather_print'%}">
+             <button style="width: 100px; height: 40px; color: #fff; background-color: rgb(5, 4, 4);">Print</button>
+            </a>
           </div>
           <div class="col-md-3">
             <a href="{% url 'user_add_farm_weather' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>
@@ -40,7 +77,7 @@
           <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search Here.." title="Type in a name" >
         </div>
         <div class="table-responsive ">
-          <table class="table table-bordered">
+          <table id="tblData" class="table table-bordered">
             <thead>
               <tr>
                 <th style="background-color: green; color: #fff;">

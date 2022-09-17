@@ -40,8 +40,16 @@
           </div>
         </div>
         <h4 class="card-title">Entered Details</h4>
-        <div class="form-group">
-          <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search Here.." title="Type in a name" >
+        <div class="form-group row">
+          <form action="{% url 'user_plant_details_search' %}" method="post">
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="input" id="myInput" onkeyup="myFunction()" placeholder="Search Here.." title="Type in a name" >
+          </div>
+          <div class="col-md-2">
+            <button style="background-color: rgb(58, 21, 92); color: white;">Search</button>
+          </div>
+          <!-- <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search Here.." title="Type in a name" > -->
+          </form>
         </div>
         <div class="table-responsive">
           <table class="table table-bordered">

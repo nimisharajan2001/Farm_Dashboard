@@ -26,10 +26,31 @@
                         <div class="col-sm-9">
                             <!-- <input type="text" class="form-control form-control-sm" autocomplete="off" name="parameter" value="{{i.parameters}}" required> -->
                             <select class="form-control" name="parameter" >
-                                <option value="{{i.parameters}}" style="color: black;">{{i.parameters}}</option> 
+                                <!-- <option value="{{i.parameters}}" style="color: black;">{{i.parameters}}</option> 
+                                <option>Temperature</option>
+                                <option>Humidity</option>
+                                <option>Sunlight</option> -->
+
+                                {% if i.parameters == "Temperature"%}
+                                <option value="{{i.parameters}}">{{i.parameters}}</option>
+                                <option>Humidity</option>
+                                <option>Sunlight</option>       
+
+                                {% elif i.parameters == "Humidity"%}
+                                <option value="{{i.parameters}}">{{i.parameters}}</option>
+                                <option>Temperature</option>
+                                <option>Sunlight</option>
+
+                                {% elif i.parameters == "Sunlight"%}
+                                <option value="{{i.parameters}}">{{i.parameters}}</option>
+                                <option>Temperature</option>
+                                <option>Humidity</option>
+                                
+                                {%else%}
                                 <option>Temperature</option>
                                 <option>Humidity</option>
                                 <option>Sunlight</option>
+                                {%endif%}
                             </select>
                         </div>
                     </div>

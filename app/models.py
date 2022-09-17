@@ -58,6 +58,7 @@ class soil_sample_test(models.Model):
     unit = models.CharField(max_length=200)
     method = models.CharField(max_length=200)
     level = models.CharField(max_length=200)
+    file = models.FileField(upload_to='images/', null=True, blank=True)
 
 class fertilizer_applications(models.Model):
     user = models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)
