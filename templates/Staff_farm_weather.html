@@ -52,6 +52,9 @@
                     Morning
                 </th>
                 <th style="background-color: green; color: #fff;">
+                  Noon
+              </th>
+                <th style="background-color: green; color: #fff;">
                     Evening
                 </th>
                 <th style="background-color: green; color: #fff;">
@@ -69,21 +72,25 @@
                 <td>{{i.date|date:"d-m-Y"}}</td>
                 {% if i.parameters == "Temperature"%}
                 <td>{{i.morning}}°C</td>
+                <td>{{i.noon}}°C</td>
                 <td>{{i.evening}}°C</td>
                 <td>{{i.average}}°C</td>
 
                 {% elif i.parameters == "Humidity"%}
                 <td>{{i.morning}}%</td>
+                <td>{{i.noon}}%</td>
                 <td>{{i.evening}}%</td>
                 <td>{{i.average}}%</td>
 
                 {% elif i.parameters == "Sunlight"%}
                 <td>{{i.morning}}Lx</td>
+                <td>{{i.noon}}Lx</td>
                 <td>{{i.evening}}Lx</td>
                 <td>{{i.average}}Lx</td>
 
                 {% else %}
                 <td>{{i.morning}}</td>
+                <td>{{i.noon}}</td>
                 <td>{{i.evening}}</td>
                 <td>{{i.average}}</td>
 

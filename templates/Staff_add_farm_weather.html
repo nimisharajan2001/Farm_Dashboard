@@ -50,22 +50,25 @@
 
                     <div class="form-group row">
                         <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
-                          Evening
+                          Noon
                         </label>
                         <div class="col-sm-9">
-                            <input type="number" id="temp2" class="form-control form-control-sm" autocomplete="off" name="evening" >
+                            <input type="number" step="any" id="temp2" class="form-control form-control-sm" autocomplete="off" name="noon" >
                         </div>
                     </div>
 
+
                     <div class="form-group row">
-                        <!-- <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
-                          Average
-                        </label> -->
+                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                          Evening
+                        </label>
                         <div class="col-sm-9">
-                            <input type="hidden" id="avg" class="form-control form-control-sm" autocomplete="off" name="average" value="" required>
+                            <input type="number" id="temp3" class="form-control form-control-sm" autocomplete="off" name="evening" >
                         </div>
                     </div>
-                    </div>           
+
+                    <input type="hidden" id="avg" class="form-control form-control-sm" autocomplete="off" name="average" value="" required>                     
+               
                     <div>
                         <center>
                             <button type="submit" style="background-color: green; color: #fff;" class="btn  btn-icon-text mb-4">SUBMIT</button>
@@ -101,9 +104,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
     $(function() {
-    $("#temp1, #temp2").on("keyup", total);
+    $("#temp1, #temp2 , #temp3").on("keyup", total);
  	function total() {
- 	$("#avg").val((Number($("#temp1").val()) + Number($("#temp2").val()))/2);
+ 	$("#avg").val((Number($("#temp1").val()) + Number($("#temp2").val()) + Number($("#temp3").val()) )/3);
  	
 	}
  });

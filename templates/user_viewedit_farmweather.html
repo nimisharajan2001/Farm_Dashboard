@@ -69,7 +69,16 @@
                           Morning
                         </label>
                         <div class="col-sm-9">
-                            <input type="number" id="temp1" class="form-control form-control-sm" autocomplete="off" name="morning" value="{{i.morning}}" required>
+                            <input type="number" id="temp1" step="any" class="form-control form-control-sm" autocomplete="off" name="morning" value="{{i.morning}}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                          Noon
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="number" id="temp2" step="any" class="form-control form-control-sm" autocomplete="off" name="noon" value="{{i.noon}}">
                         </div>
                     </div>
 
@@ -78,18 +87,13 @@
                           Evening
                         </label>
                         <div class="col-sm-9">
-                            <input type="number" id="temp2" class="form-control form-control-sm" autocomplete="off" name="evening" value="{{i.evening}}" required>
+                            <input type="number" step="any" id="temp3" class="form-control form-control-sm" autocomplete="off" name="evening" value="{{i.evening}}">
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <!-- <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
-                          Average
-                        </label> -->
-                        <div class="col-sm-9">
-                            <input type="hidden" id="avg" class="form-control form-control-sm" autocomplete="off" name="average" value="{{i.average}}" required>
-                        </div>
-                    </div>
+                    
+                    <input type="hidden" id="avg" class="form-control form-control-sm" autocomplete="off" name="average" value="{{i.average}}" required>
+                        
                     </div>           
                     <div>
                         <center>
@@ -126,9 +130,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
     $(function() {
-    $("#temp1, #temp2").on("keyup", total);
+    $("#temp1, #temp2, #temp3").on("keyup", total);
  	function total() {
- 	$("#avg").val((Number($("#temp1").val()) + Number($("#temp2").val()))/2);
+ 	$("#avg").val((Number($("#temp1").val()) + Number($("#temp2").val()) + Number($("#temp3").val()))/3);
  	
 	}
  });

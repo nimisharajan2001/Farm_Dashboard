@@ -48,6 +48,7 @@ class farm_weather(models.Model):
     morning = models.CharField(max_length=200)
     evening = models.CharField(max_length=200)
     average = models.CharField(max_length=200)
+    noon = models.CharField(max_length=200,null=True, blank=True)
 
 class soil_sample_test(models.Model):
     user = models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)

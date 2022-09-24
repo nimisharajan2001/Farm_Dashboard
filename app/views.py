@@ -727,9 +727,11 @@ def user_add_farm_weather(request):
             f3 = request.POST['morning']
             f4 = request.POST['evening']
             f5 = request.POST['average']
+            f6 = request.POST['noon']
             farm = farm_weather( parameters = f1,date = f2,morning = f3,
-                evening = f4,average = f5,user_id = c_id)
+                evening = f4,average = f5, noon = f6,user_id = c_id)
             farm.save()
+            print(f5)
             msg_success = "Details added successfully, Refresh your page"
             return render(request,'user_add_farm_weather.html',{'msg_success':msg_success})
         return render(request,'user_add_farm_weather.html',{'mem1':mem1})
@@ -761,10 +763,11 @@ def user_farmweather_update(request,id):
             abc.parameters = request.POST.get('parameter')
             abc.date = request.POST.get('date')
             abc.morning = request.POST.get('morning')
+            abc.noon = request.POST.get('noon')
             abc.evening = request.POST.get('evening')
             abc.average = request.POST.get('average')
             abc.save()
-            print(abc)
+            print('average')
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'user_viewedit_farmweather.html',{'msg_success': msg_success})
         return render(request,'user_viewedit_farmweather.html')
@@ -1790,6 +1793,7 @@ def Staff_farmweather_update(request,id):
             abc.parameters = request.POST.get('parameter')
             abc.date = request.POST.get('date')
             abc.morning = request.POST.get('morning')
+            abc.noon = request.POST.get('noon')
             abc.evening = request.POST.get('evening')
             abc.average = request.POST.get('average')
             abc.save()

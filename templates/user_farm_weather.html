@@ -18,40 +18,10 @@
       });
     </script>
 
-<script>
-  function exportTableToExcel(tableID, filename = ''){
-    var downloadLink;
-    var dataType = 'application/vnd.ms-excel';
-    var tableSelect = document.getElementById(tableID);
-    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
-    
-    // Specify file name
-    filename = filename?filename+'.xls':'excel_data.xls';
-    
-    // Create download link element
-    downloadLink = document.createElement("a");
-    
-    document.body.appendChild(downloadLink);
-    
-    if(navigator.msSaveOrOpenBlob){
-        var blob = new Blob(['\ufeff', tableHTML], {
-            type: dataType
-        });
-        navigator.msSaveOrOpenBlob( blob, filename);
-    }else{
-        // Create a link to the file
-        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
-    
-        // Setting the file name
-        downloadLink.download = filename;
-        
-        //triggering the function
-        downloadLink.click();
-    }
-}
-</script>
 
-<form>
+
+<form action="{% url 'user_weather_print'%}">
+
 <div class="row">
 
   <div class="col-lg-12 grid-margin stretch-card">
@@ -59,12 +29,12 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-5">
-            <button onclick="exportTableToExcel('tblData')">Export Table Data To Excel File</button>
+            <!-- <button onclick="exportTableToExcel('tblData')">Export Table Data To Excel File</button> -->
           </div>
           <div class="col-md-4">
-            <a href="{% url 'user_weather_print'%}">
+            <!-- <a href="{% url 'user_weather_print'%}"> -->
              <button style="width: 100px; height: 40px; color: #fff; background-color: rgb(5, 4, 4);">Print</button>
-            </a>
+            <!-- </a> -->
           </div>
           <div class="col-md-3">
             <a href="{% url 'user_add_farm_weather' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>
@@ -90,6 +60,9 @@
                     Morning
                 </th>
                 <th style="background-color: green; color: #fff;">
+                  Noon
+                </th>
+                <th style="background-color: green; color: #fff;">
                     Evening
                 </th>
                 <th style="background-color: green; color: #fff;">
@@ -108,21 +81,25 @@
                 
                 {% if i.parameters == "Temperature"%}
                 <td>{{i.morning}}°C</td>
+                <td>{{i.noon}}°C</td>
                 <td>{{i.evening}}°C</td>
                 <td>{{i.average}}°C</td>
 
                 {% elif i.parameters == "Humidity"%}
                 <td>{{i.morning}}%</td>
+                <td>{{i.noon}}%</td>
                 <td>{{i.evening}}%</td>
                 <td>{{i.average}}%</td>
 
                 {% elif i.parameters == "Sunlight"%}
                 <td>{{i.morning}}Lx</td>
+                <td>{{i.noon}}Lx</td>
                 <td>{{i.evening}}Lx</td>
                 <td>{{i.average}}Lx</td>
 
                 {% else %}
                 <td>{{i.morning}}</td>
+                <td>{{i.noon}}</td>
                 <td>{{i.evening}}</td>
                 <td>{{i.average}}</td>
 

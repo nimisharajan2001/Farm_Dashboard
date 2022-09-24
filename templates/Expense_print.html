@@ -92,10 +92,7 @@
                           <td>{{i.quantity}}</td>
                           <td>{{i.price}}</td>
                           <td>{{i.total_cost}}</td>
-          
-                          
-                        </tr>
-          
+                        </tr>    
                         {% endfor %}
           
                         <tr>
@@ -103,8 +100,7 @@
                               Total
                           </td>
                           <td id="totalsalary" colspan="1" class="text-black" style="padding-right: 20px;"></td>
-                        </tr>
-          
+                        </tr>        
                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
                         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -126,10 +122,7 @@
                                     
                                 });
                             });                  
-                          </script>
-          
-                        
-                       
+                          </script>                      
                       </tbody>
                     </table>
                   </div>
@@ -139,27 +132,18 @@
         </div>
         </form>
         {% endblock %}
-
-
     <script src="{% static 'assets/js/off-canvas.js' %} "></script>
     <script src="{% static 'assets/js/hoverable-collapse.js' %} "></script>
     <script src="{% static 'assets/js/misc.js' %} "></script>
     <script src="{% static 'assets/js/settings.js' %} "></script>
     <script src="{% static 'assets/js/todolist.js' %} "></script>
-
     <!-- endinject -->
     <!-- Custom js for this page -->
     <script src="{% static 'assets/js/dashboard.js' %} "></script>
     <!-- End custom js for this page -->
     <script src="{% static 'assets/vendors/js/vendor.bundle.base.js'%} "></script>
     <!-- endinject -->
-
     <!-- inject:js -->
     <script src="{% static 'assets/js/chart.js'%} "></script>
-
-
-
-
 </body>
-
 </html>
