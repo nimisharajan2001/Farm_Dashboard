@@ -1,19 +1,52 @@
 {% extends 'Admin_index.html'%}
 {% load static %}
 {% block content %}
+<!-- https://stackoverflow.com/questions/19605078/how-to-use-pagination-on-html-tables -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#myTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+    </script>
 
 <div class="row">
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
         <div class="row">
+          <div class="col-md-6"></div>
+          <div class="col-md-4"></div>
+          <div class="col-md-2">
+            <!-- rgb(211, 15, 136) -->
+            <button onclick="exportData()" style="background-color: rgb(58, 21, 92); color: white; border-radius: 15px;
+            height: 42px; width: 110px;" >
+              <span class="glyphicon glyphicon-download"></span>
+              Download</button>
+          </div>
           
-        </div> 
-        <h4 class="card-title">Entered Details</h4>
-        <div class="table-responsive ">
-          <table class="table table-bordered">
+        </div>
+        <br>
+        <div class="form-group">
+          <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search Here.." title="Type in a name" autocomplete="off">
+        </div>
+        <div class="table-responsive">
+          <table id="tblStocks" class="table table-bordered">
             <thead>
               <tr>
+                <th style="background-color: green; color: #fff;">
+                    User Name
+                </th>
                 <th style="background-color: green; color: #fff;">
                   Parameters
                 </th>
@@ -24,55 +57,107 @@
                     Morning
                 </th>
                 <th style="background-color: green; color: #fff;">
+                  Noon
+              </th>
+                <th style="background-color: green; color: #fff;">
                     Evening
                 </th>
                 <th style="background-color: green; color: #fff;">
                     Average
                 </th>
-                
               </tr>
             </thead>
-            <tbody>
+            <tbody id="myTable">
               {% for i in var %}
               <tr style="background-color: rgb(241, 249, 252);">
+                <td>{{i.user}}</td>
                 <td>{{i.parameters}}</td>
                 <td>{{i.date|date:"d-m-Y"}}</td>
-
+               
                 {% if i.parameters == "Temperature"%}
                 <td>{{i.morning}}°C</td>
+                <td>{{i.noon}}°C</td>
                 <td>{{i.evening}}°C</td>
                 <td>{{i.average}}°C</td>
 
                 {% elif i.parameters == "Humidity"%}
                 <td>{{i.morning}}%</td>
+                <td>{{i.noon}}%</td>
                 <td>{{i.evening}}%</td>
                 <td>{{i.average}}%</td>
 
                 {% elif i.parameters == "Sunlight"%}
                 <td>{{i.morning}}Lx</td>
+                <td>{{i.noon}}Lx</td>
                 <td>{{i.evening}}Lx</td>
                 <td>{{i.average}}Lx</td>
 
                 {% else %}
                 <td>{{i.morning}}</td>
+                <td>{{i.noon}}</td>
                 <td>{{i.evening}}</td>
                 <td>{{i.average}}</td>
 
                 {%endif%}
-                
               </tr>
               {% endfor %}
-            
-              <!--
-               -->
+    
             </tbody>
           </table>
-          
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<script>
+    function exportData(){
+/* Get the HTML data using Element by Id */
+var table = document.getElementById("tblStocks");
 
+/* Declaring array variable */
+var rows =[];
+
+  //iterate through rows of table
+for(var i=0,row; row = table.rows[i];i++){
+    //rows would be accessed using the "row" variable assigned in the for loop
+    //Get each cell value/column from the row
+    column1 = row.cells[0].innerText;
+    column2 = row.cells[1].innerText;
+    column3 = row.cells[2].innerText;
+    column4 = row.cells[3].innerText;
+    column5 = row.cells[4].innerText;
+    column6 = row.cells[5].innerText;
+    
+/* add a new records in the array */
+    rows.push(
+        [
+            column1,
+            column2,
+            column3,
+            column4,
+            column5,
+            column6
+           
+        ]
+    );
+
+    }
+    csvContent = "data:text/csv;charset=utf-8,";
+     /* add the column delimiter as comma(,) and each row splitted by new line character (\n) */
+    rows.forEach(function(rowArray){
+        row = rowArray.join(",");
+        csvContent += row + "\r\n";
+    });
+ 
+    /* create a hidden <a> DOM node and set its download attribute */
+    var encodedUri = encodeURI(csvContent);
+    var link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "Farm_Weather_Report.csv");
+    document.body.appendChild(link);
+     /* download the data file named "Stock_Price_Report.csv" */
+    link.click();
+    }
+</script>
 {% endblock %}

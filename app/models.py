@@ -59,7 +59,7 @@ class soil_sample_test(models.Model):
     unit = models.CharField(max_length=200)
     method = models.CharField(max_length=200)
     level = models.CharField(max_length=200)
-    file = models.FileField(upload_to='images/', null=True, blank=True)
+    photo = models.FileField(upload_to='images/', null=True, blank=True)
 
 class fertilizer_applications(models.Model):
     user = models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)
@@ -86,6 +86,7 @@ class farm_machineries(models.Model):
     date = models.DateField(max_length=200,null=True, blank=True)
     number_of_machines = models.CharField(max_length=200)
     working_hours = models.CharField(max_length=200)
+    cost = models.CharField(max_length = 200, null=True,blank=True)
     total = models.CharField(max_length=200,null=True,blank=True)
 
 class man_power_usage(models.Model):
@@ -95,6 +96,7 @@ class man_power_usage(models.Model):
     date = models.DateField(max_length=200,null=True, blank=True)
     number_of_peoples = models.CharField(max_length=200)
     working_hours = models.CharField(max_length=200)
+    cost = models.CharField(max_length = 200, null=True,blank=True)
     total = models.CharField(max_length=200,null=True,blank=True)
 
 class farm_expenses(models.Model):
@@ -115,3 +117,8 @@ class farm_revenue(models.Model):
     quantity = models.CharField(max_length=200,null=True,blank=True)
     revenue = models.CharField(max_length=200,null=True,blank=True)
     date = models.DateField(max_length=200,null=True, blank=True)
+
+class location(models.Model):
+    user = models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)
+    name = models.CharField(max_length=200,null=True,blank=True)
+    acers = models.CharField(max_length=200,null=True,blank=True)

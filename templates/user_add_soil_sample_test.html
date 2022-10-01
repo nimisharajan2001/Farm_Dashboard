@@ -6,7 +6,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<!-- <div class="row">
+<div class="row">
     <div class="col-md-9 grid-margin stretch-card">
         <div class="card" style="height: auto;">
 
@@ -31,7 +31,13 @@
                             Location
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="place" value="" required>
+                            <select class="form-control" name="place" >
+                                <option selected="true" disabled="disabled" value="">-Not Selected-</option>
+                                {%for i in loc%}
+                                <option>{{i.name}}</option>
+                                {%endfor%}
+                            </select>
+                            <!-- <input type="text" class="form-control form-control-sm" autocomplete="off" name="place" value="" required> -->
                         </div>
                     </div>
 
@@ -94,10 +100,10 @@
         </div>
     </div>
 
-</div> -->
+</div>
 
 
-<div class="row">
+<!-- <div class="row">
     <div class="col-md-9 grid-margin stretch-card">
         <div class="card" style="height: auto;">
 
@@ -140,7 +146,7 @@
         </div>
     </div>
 
-</div>
+</div> -->
 
 
 <script>

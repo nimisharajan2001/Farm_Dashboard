@@ -25,19 +25,18 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-6"></div>
-          <div class="col-md-2"></div>
-          <div class="col-md-2">
-            <button onclick="exportData()" style="background-color: gray; color: white;" >
+          <div class="col-md-6"></div>
+          <!-- <div class="col-md-2">
+            <button onclick="exportData()" style="background-color: rgb(190, 22, 126); color: white; border-radius: 15px;
+            height: 42px; width: 110px;" >
               <span class="glyphicon glyphicon-download"></span>
               Download</button>
-          </div>
-          <div class="col-md-2">
-            <a href="{% url 'Admin_excel' %}" class="btn" style="background-color: rgb(8, 26, 41); color: white;">Find</a>
-          </div>
+          </div> -->
+          
         </div>
         <h4 class="card-title">Plant Details</h4>
         <div class="form-group">
-          <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search Here.." title="Type in a name" >
+          <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search Here.." title="Type in a name" autocomplete="off">
         </div>
         <div class="table-responsive">
           <table id="tblStocks" class="table table-bordered">
@@ -103,7 +102,7 @@
   </div>
 </div>
 
-<script>
+<!-- <script>
     function exportData(){
 /* Get the HTML data using Element by Id */
 var table = document.getElementById("tblStocks");
@@ -161,5 +160,5 @@ for(var i=0,row; row = table.rows[i];i++){
      /* download the data file named "Stock_Price_Report.csv" */
     link.click();
     }
-</script>
+</script> -->
 {% endblock %}

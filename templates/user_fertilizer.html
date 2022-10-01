@@ -29,20 +29,33 @@
               <div class="card-body" id="personForm">
                 <form class="forms-sample" action="{% url 'user_fertilizer_list'%}" method="post">
                   {% csrf_token %}
-
-                  <div class="col-lg-12">
-                    <label class="text-muted">SELECT FERTILIZER</label>
-                    <div class="">                      
-                        <select class="form-control" name="fertilizer" >
-                          <option selected="true" disabled="disabled" value="">-Not Selected-</option>
-                          {% for i in var%}
-                            <option>{{i.fertilizer}}</option>
-                            {%endfor%}
-                        </select>
-                        
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <label class="text-muted">SELECT FERTILIZER</label>
+                      <div class="">                      
+                          <select class="form-control" name="fertilizer" >
+                            <option selected="true" disabled="disabled" value="">-Not Selected-</option>
+                            {% for i in var%}
+                              <option>{{i.fertilizer}}</option>
+                              {%endfor%}
+                          </select>                       
+                      </div>
                     </div>
-                </div>
-
+                  </div>
+                <br>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <label class="text-muted">SELECT PLANT NAME</label>
+                      <div class="">     
+                        <select class="form-control" name="plant" >
+                          <option selected="true" disabled="disabled" value="">-Not Selected-</option>
+                          {% for i in var1%}
+                            <option>{{i.plant_name}}</option>
+                            {%endfor%}
+                        </select>                  
+                      </div>
+                    </div>
+                  </div>
                   
                   <div class="row">
                   <div class="col-lg-9"></div>

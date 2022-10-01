@@ -42,7 +42,13 @@
                             Location
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="place" value="{{i.place}}" required>
+                            <select class="form-control" name="place" >           
+                                <option value="{{i.place}}">{{i.place}}</option>
+                                {%for c in loc%}
+                                <option>{{c.name}}</option>
+                                {%endfor%}
+                            </select>
+                            <!-- <input type="text" class="form-control form-control-sm" autocomplete="off" name="place" value="{{i.place}}" required> -->
                         </div>
                     </div>
 
@@ -73,15 +79,21 @@
 
                                 {% if i.unit == "g"%}
                                 <option value="{{i.unit}}">{{i.unit}}</option>
-                                <option>ml</option>                               
+                                <option>kg</option>
+                                <option>ml</option>  
+                                {% elif i.unit == "kg"%}
+                                <option value="{{i.unit}}">{{i.unit}}</option>
+                                <option>g</option> 
+                                <option>ml</option>                             
                                 {% elif i.unit == "ml"%}
                                 <option value="{{i.unit}}">{{i.unit}}</option>
                                 <option>g</option>
+                                <option>kg</option>
                                 {%else%}
                                 <option>g</option>
+                                <option>kg</option>
                                 <option>ml</option>
                                 {%endif%}
-
                             </select>
                         </div>
                     </div>

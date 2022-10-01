@@ -1,4 +1,6 @@
-{% extends 'Admin_index.html' %} {% load static %} {% block content %}
+{% extends 'Admin_index.html' %} 
+{% load static %} 
+{% block content %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -50,34 +52,6 @@
                                 <td>{{i.mobile}}</td>
                             </tr>   
                             {%endfor%}              
-                            <!-- <tr data-href="{% url 'Staff_dashboard' %}">
-                                <td>01</td>
-                                <td>Henry Klein</td>
-                                <td>henry@gmail.com</td>
-                                <td>31-03-2022</td>
-                                <td>9865612255</td>                               
-                            </tr>  
-                            <tr data-href="{% url 'Staff_dashboard' %}">
-                                <td>02</td>
-                                <td>Estella Bryan</td>
-                                <td>estella@gmail.com</td>
-                                <td>14-02-2022</td>
-                                <td>7563214098</td>                               
-                            </tr>  
-                            <tr data-href="{% url 'Staff_dashboard' %}">
-                                <td>03</td>
-                                <td>Lucy Abbott</td>
-                                <td>lucy@gmail.com</td>
-                                <td>21-08-2021</td>
-                                <td>88965321444</td>                               
-                            </tr> 
-                            <tr data-href="{% url 'Staff_dashboard' %}">
-                                <td>04</td>
-                                <td>Amal</td>
-                                <td>amal@gmail.com</td>
-                                <td>06-05-2021</td>
-                                <td>9635214087</td>                               
-                            </tr>                        -->
                         </tbody>
                     </table>
                 </div>

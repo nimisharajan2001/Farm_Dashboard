@@ -39,7 +39,13 @@
                             Location
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="place" value="" required>
+                            <select class="form-control" name="place" >
+                                <option selected="true" disabled="disabled" value="">-Not Selected-</option>
+                                {%for i in loc%}
+                                <option>{{i.name}}</option>
+                                {%endfor%}
+                            </select>
+                            <!-- <input type="text" class="form-control form-control-sm" autocomplete="off" name="place" value="" required> -->
                         </div>
                     </div>
 
@@ -58,9 +64,20 @@
                           Total Working Hours
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" id="temp2" class="form-control form-control-sm" autocomplete="off" name="hours" value="" required>
+                            <input type="text" id="temp1" class="form-control form-control-sm" autocomplete="off" name="hours" value="" required>
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                          Cost Per Unit
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="number" step="any" id="temp2" class="form-control form-control-sm" autocomplete="off" name="cost" value="{{i.cost}}" required>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="avg" class="form-control form-control-sm" autocomplete="off" name="total" value="" required>
 
 
                     <div>
@@ -75,6 +92,20 @@
     </div>
 </div>
 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(function() {
+    $("#temp1, #temp2").on("keyup", total);
+ 	function total() {
+ 	$("#avg").val(Number($("#temp1").val()) * Number($("#temp2").val()));
+ 	
+	}
+ });
+</script>
 <script>
     $(function() {
       var dtToday = new Date();

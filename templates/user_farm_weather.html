@@ -33,7 +33,7 @@
           </div>
           <div class="col-md-4">
             <!-- <a href="{% url 'user_weather_print'%}"> -->
-             <button style="width: 100px; height: 40px; color: #fff; background-color: rgb(5, 4, 4);">Print</button>
+             <button style="width: 100px; height: 40px; color: #fff; background-color: rgb(5, 4, 4);  border-radius: 15px;">Print</button>
             <!-- </a> -->
           </div>
           <div class="col-md-3">
@@ -44,7 +44,7 @@
        
         <h4 class="card-title">Entered Details</h4>
         <div class="form-group">
-          <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search Here.." title="Type in a name" >
+          <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search Here.." title="Type in a name" autocomplete="off">
         </div>
         <div class="table-responsive ">
           <table id="tblData" class="table table-bordered">
@@ -75,7 +75,7 @@
             </thead>
             <tbody id="myTable">
               {% for i in var %}
-              <tr style="background-color: rgb(241, 249, 252);">
+              <tr style="background-color: rgb(241, 249, 252);" class="paginate">
                 <td>{{i.parameters}}</td>
                 <td>{{i.date|date:"d-m-Y"}}</td>
                 
@@ -120,5 +120,51 @@
     </div>
   </div>
 </div>
+<div id="page-nav">
+
+</div>
 </form>
+
+<script>
+     
+function pagination(){
+    var req_num_row=3;
+    var $tr=jQuery('tbody tr');
+    var total_num_row=$tr.length;
+    var num_pages=0;
+    if(total_num_row % req_num_row ==0){
+        num_pages=total_num_row / req_num_row;
+    }
+    if(total_num_row % req_num_row >=1){
+        num_pages=total_num_row / req_num_row;
+        num_pages++;
+        num_pages=Math.floor(num_pages++);
+    }
+    for(var i=1; i<=num_pages; i++){
+        jQuery('#pagination').append("<a href='#' class='btn'>"+i+"</a>");
+    }
+    $tr.each(function(i){
+        jQuery(this).hide();
+        if(i+1 <= req_num_row){
+            $tr.eq(i).show();
+        }
+
+    });
+    jQuery('#pagination a').click(function(e){
+        e.preventDefault();
+        $tr.hide();
+        var page=jQuery(this).text();
+        var temp=page-1;
+        var start=temp*req_num_row;
+        //alert(start);
+
+        for(var i=0; i< req_num_row; i++){
+
+            $tr.eq(start+i).show();
+
+        }
+    });
+}
+</script>
+
 {% endblock %}

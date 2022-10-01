@@ -32,7 +32,7 @@
         <div class="row">
           <div class="col-md-5"></div>
           <div class="col-md-5">
-            <button style="width: 100px; height: 40px; color: #fff; background-color: rgb(5, 4, 4);">Print</button>
+            <button style="width: 100px; height: 40px; color: #fff; background-color: rgb(5, 4, 4);  border-radius: 15px;">Print</button>
           </div>
           <div class="col-md-2">
             <a href="{% url 'user_add_periodic_tests' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>
@@ -40,7 +40,7 @@
         </div>
         <h4 class="card-title">Entered Details</h4>
         <div class="form-group">
-          <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search Here.." title="Type in a name" >
+          <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search Here.." title="Type in a name" autocomplete="off">
         </div>
         <div class="table-responsive">
           <table class="table table-bordered">

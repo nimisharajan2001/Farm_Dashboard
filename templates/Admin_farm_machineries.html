@@ -26,14 +26,15 @@
           <div class="col-md-6"></div>
           <div class="col-md-4"></div>
           <div class="col-md-2">
-            <button onclick="exportData()" style="background-color: gray; color: white;" >
+            <!-- <button onclick="exportData()" style="background-color: rgb(190, 22, 126); color: white; border-radius: 15px;
+            height: 42px; width: 110px;" >
               <span class="glyphicon glyphicon-download"></span>
-              Download</button>
+              Download</button> -->
           </div>
         </div>
         <h4 class="card-title">Farm Machineries Details</h4>
         <div class="form-group">
-          <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search Here.." title="Type in a name" >
+          <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search Here.." title="Type in a name" autocomplete="off">
         </div>
         <div class="table-responsive">
           <table id="tblStocks" class="table table-bordered">
@@ -57,7 +58,12 @@
                 <th style="background-color: green; color: #fff;">
                    Working Hours
                 </th>
-               
+                <th style="background-color: green; color: #fff;">
+                  Cost Per Unit
+               </th>
+               <th style="background-color: green; color: #fff;">
+                Total
+             </th>
               </tr>
             </thead>
             <tbody id="myTable">
@@ -68,7 +74,9 @@
                 <td>{{i.machine_id}}</td>
                 <td>{{i.place}}</td>
                 <td>{{i.date|date:"d-m-Y"}}</td>
-                <td>{{i.working_hours}} Hrs</td>               
+                <td>{{i.working_hours}} Hrs</td>
+                <td>{{i.cost}}</td>
+                <td>{{i.total}}</td>               
               </tr>
               {% endfor %}
             </tbody>
@@ -79,7 +87,7 @@
   </div>
 </div>
 
-<script>
+<!-- <script>
     function exportData(){
 /* Get the HTML data using Element by Id */
 var table = document.getElementById("tblStocks");
@@ -128,5 +136,5 @@ for(var i=0,row; row = table.rows[i];i++){
      /* download the data file named "Stock_Price_Report.csv" */
     link.click();
     }
-</script>
+</script> -->
 {% endblock %}

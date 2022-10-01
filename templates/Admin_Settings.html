@@ -1,6 +1,7 @@
 {%extends 'Admin_index.html'%}
 {%load static%}
 {%block content%}
+
 <style>
 	@media (min-width: 576px){
 	
@@ -11,48 +12,63 @@
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
+{% for i in user %}
 			<div class="bg-white shadow rounded-lg d-block d-sm-flex ">
 				<div class="profile-tab-nav border-right ">
 					<div class="p-4">
 						<div class="img-circle text-center mb-3">
-							<img src="{% static 'face24.jpg' %}" alt="Image" class="circle-loader">
+							<img src="{{ i.photo.url }}" alt="Image" class="circle-loader">
 						</div>
-						<h4 class="text-center">Admin</h4>
+						<h4 class="text-center">{{ i.name }}</h4>
 					</div>
 					<div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
-						
-                        <a class="nav-link active pr-lg-5" id="password-tab" data-toggle="pill" href="#password" role="tab" aria-controls="password" aria-selected="true">
+						<a class="nav-link  pr-lg-5" id="profile-tab" data-toggle="pill" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+							<i class="fa fa-photo  mr-1"> Photo</i> 
+							
+						</a>
+                        <a class="nav-link  pr-lg-5" id="password-tab" data-toggle="pill" href="#password" role="tab" aria-controls="password" aria-selected="false">
 							<i class="fa fa-key mr-1">Password</i> 
 							
 						</a>
-						
                          
 					</div>
 				</div>
 
-					<div class="container">
-					<div class="tab-pane fade show active" id="password" role="tabpanel" aria-labelledby="password-tab">
-						<form action="" method="post" enctype="multipart/form-data">
+					<!-- <form method="POST" action="" enctype="multipart/form-data">
+						{% csrf_token %} -->
+
+				<div class="tab-content  " id="v-pills-tabContent"> 
+				<!-- </form>  -->
+			
+				
+					<div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+						<form action="{% url 'Admin_change_password' i.id%}" method="post" enctype="multipart/form-data">
 							{% csrf_token %} 
-						<h3 class="mb-4 mt-2 ml-3 mr-2">Password Settings</h3>
-						
+						<h3 class="mb-4">Password Settings</h3>
 						<div class="row">
-							<div class="col-md-6 ">
+							<div class="col-md-12">
 								<div class="form-group">
-								  	<label class="m-2">New password</label>
-								  	<input type="password" name="newPassword" class="form-control" id="newpass" >
+								  	<label>Old password</label>
+								  	<input type="text" name="currentPassword" value="{{i.password}}" class="form-control">
 								</div>
 							</div>
-							<div class="col-md-6 ">
+						</div>
+						<div class="row">
+							<div class="col-md-6">
 								<div class="form-group">
-									<label class="m-2">Confirm password</label>
+								  	<label>New password</label>
+								  	<input type="password" name="newPassword" class="form-control" id="newpass">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Confirm password</label>
 								  	<input type="password" name="confirmPassword" class="form-control" id="conpassword">
 								</div>
 							</div>
-							
-							<br>
-          <span id='message' class="ml-5"></span>
+						</div>
+						<br>
+          <span id='message'></span>
                 <br>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
      <script>
@@ -63,54 +79,88 @@
     $('#message').html('Not Matching').css('color', 'red');
 });
     </script>
-
-						</div>
-						<div class="text-center mb-3">
-							<button class="btn btn-primary mt-2">Update</button>
-							<button class="btn btn-warning mt-2">Cancel</button>
+						<div class="text-center">
+							<button class="btn btn-primary">Update</button>
+							<button class="btn btn-warning">Cancel</button>
 						</div>
 					</div>
 				
 				</form>
 					
-                   
-					
+                    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+						<form action="{% url 'Admin_Profile_Imagechange' i.id%}" method="post" enctype="multipart/form-data">
+							{% csrf_token %} 
+						<h3 class="mb-4">Change Profile Picture</h3>
+						<div class="row">
+							<div class="col-md-6">
+								<img src="{{ i.photo.url }}" alt="Image" >
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+								  	<label>Choose Picture</label>
+								  	<input type="file" name="files" class="form-control">
+								</div>
+							</div>							
+						</div>	
+						<div class="text-center mt-3">
+							<button class="btn btn-primary">Update</button>
+							<a href="{% url 'Admin_Settings'%}" class="btn btn-warning">Cancel</a>
+						</div>								
+					</div>			
 				</div>
-			</div></div>
+			</div>
+		</form>
 		
 
-
+{% endfor %}
             
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- {% if msg_success %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <script>
-Swal.fire({
-    position: 'center',
-    icon: 'success',
-    text: '{{ msg_success }}',
-    showConfirmButton: false,
-    timer: 1500
-}).then(function () {
-    javascript: history.go(-2);
-})
+    $(function() {
+        var dtToday = new Date();
+        var month = dtToday.getMonth() + 1;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+        var maxDate = year + '-' + month + '-' + day;
+        $('.txtDate').attr('max', maxDate);
+    })
+  </script>
 
-</script>
-{% endif %} -->
 
-<!-- {% if msg_error %}
-<script>
-Swal.fire({
-    position: 'center',
-    icon: 'success',
-    text: '{{ msg_error }}',
-    showConfirmButton: false,
-    timer: 1500
-}).then(function () {
-    javascript: history.go(-2);
-})
-
-</script>
-{% endif %} -->
-
+ <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        {% if msg_success %}
+    <script>
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            text: '{{ msg_success }}',
+            showConfirmButton: false,
+            timer: 3000
+        }).then(function () {
+            javascript: history.go(-2);
+        })
+        
+    </script>
+    {% endif %}
 
 {% endblock %}

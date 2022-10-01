@@ -33,7 +33,13 @@
                             Location
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="place" value="{{i.place}}" required>
+                            <select class="form-control" name="place" >           
+                                <option value="{{i.place}}">{{i.place}}</option>
+                                {%for c in loc%}
+                                <option>{{c.name}}</option>
+                                {%endfor%}
+                            </select>
+                            <!-- <input type="text" class="form-control form-control-sm" autocomplete="off" name="place" value="{{i.place}}" required> -->
                         </div>
                     </div>
 

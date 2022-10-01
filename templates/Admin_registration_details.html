@@ -27,11 +27,17 @@
                     Address
                 </th>
                 <th style="background-color: green; color: #fff;">
-                    Password
+                  Pincode
                 </th>
                 <th style="background-color: green; color: #fff;">
-                  Photo
+                  District
                 </th>
+                <th style="background-color: green; color: #fff;">
+                    Password
+                </th>
+                <!-- <th style="background-color: green; color: #fff;">
+                  Photo
+                </th> -->
                 <th style="background-color: green; color: #fff;">
                   Designation
                 </th>
@@ -55,12 +61,16 @@
               <td>{{i.mobile}}</td>
               <td>{{i.email}}</td>
               <td>{{i.address}}</td>
+              <td>{{i.pin}}</td>
+              <td>{{i.district}}</td>
               <td>{{i.password}}</td>
-              <td><img src="{{i.photo.url}}" alt="image" /></td>
+              <!-- <td><img src="{{i.photo.url}}" alt="image" /></td> -->
               <td><select class="btn btn-primary btn-sm" name="designation" required>
                 <option selected="true" disabled="disabled" value="">-Not Selected-</option>
                 {% for n in des%}
-                <option value="{{n.id}}">{{n.designation}}</option>
+                  {% if n.designation != 'Admin' %}
+                    <option value="{{n.id}}">{{n.designation}}</option>
+                  {% endif %}
                 {%endfor%}
               </select></td>
               <td><select class="btn btn-primary btn-sm" name="team">

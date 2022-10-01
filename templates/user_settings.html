@@ -34,6 +34,12 @@
 							<i class="fa fa-key mr-1">Password</i> 
 							
 						</a>
+
+						<a class="nav-link  pr-lg-5" id="location-tab" data-toggle="pill" href="#location" role="tab" aria-controls="location" aria-selected="false">
+							<i class="fa fa-map-marker mr-1">Locations</i> 
+							
+						</a>
+						
 						
                          
 					</div>
@@ -131,7 +137,7 @@
 						</div>
 						<br>
           <span id='message'></span>
-                <br>
+                <br> 
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
      <script>
  $('#conpassword').on('change', function () {
@@ -148,6 +154,59 @@
 					</div>
 				
 				</form>
+
+				<div class="tab-pane fade" id="location" role="tabpanel" aria-labelledby="location-tab">
+					<form action="{% url 'user_add_location' %}" method="post" enctype="multipart/form-data">
+						{% csrf_token %} 
+					<h3 class="mb-4">Add Locations</h3>
+					
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								  <label>Location Name</label>
+								  <input type="text" name="lname" class="form-control" autocomplete="off">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Acers</label>
+								  <input type="text" name="acers" class="form-control" autocomplete="off">
+							</div>
+						</div>
+					</div>
+ 
+					<div class="text-center">
+						<button class="btn btn-primary">Update</button>
+						<button class="btn btn-warning">Cancel</button>
+					</div>
+					<br>
+
+					<div class="row">
+						<h4 class="card-title">Entered Details</h4>
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>SlNo</th>
+									<th>Location Name</th>
+									<th>Acers</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for k in var %}
+								<tr>
+									<td>{{forloop.counter}}</td>
+									<td>{{k.name}}</td>
+									<td>{{k.acers}}</td>
+								</tr>
+								{%endfor%}
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+			</form>
+			
+
 					
                     <div class="tab-pane fade " id="profile" role="tabpanel" aria-labelledby="profile-tab">
 						<form action="{% url 'Staff_Profile_Imagechange' i.id%}" method="post" enctype="multipart/form-data">

@@ -20,43 +20,44 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="{% static 'css/vertical-layout-light/style.css' %}">
   <!-- endinject -->
-  <link rel="shortcut icon" href="{% static 'logo3.jpg' %}" />
-  
+  <link rel="shortcut icon" href="{% static 'images/logo.png' %}" />
 </head>
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class=" navbar-brand-wrapper ">
-        <a class=" " href="Trainee_index.html"></a><h3 class="n pt-3 pl-4">&nbsp;&nbsp;<b><i>Mythree</i></b></h3>
+        <!--<a class=" " href="Trainee_index.html"></a><h2 class="n pt-3 pl-2" style="color: #4b49ac;">&nbsp;&nbsp;&nbsp;<b><i>MYTHREE</i></b></h2>-->
+        <a class=" " href="Trainee_index.html"></a><h3 class="n pt-3 pl-2" style="color: #4b49ac;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><i>Smart&nbsp;Sensor</i></b></h3>
         <a class="navbar-brand brand-logo" href="Trainee_index.html"></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
           <span class="icon-menu"></span>
         </button>
-        
+
         <ul class="navbar-nav navbar-nav-right">
-         
+          {% for i in mem1%}
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="{% static 'face1.jpg' %}" alt="profile"/>
+              <img src="{{i.photo.url}}" alt="profile"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
-                <i class="icon-head menu-icon text-primary"></i>
-                Admin
-              </a>
               <a class="dropdown-item" href="">
+                <i class="icon-head menu-icon text-primary"></i>
+                User
+              </a>
+              <a class="dropdown-item" href="{% url 'user_settings'%}">
                 <i class="ti-settings text-primary"></i>
                 Settings
               </a>
-              <a class="dropdown-item" href="">
+              <a class="dropdown-item" href="{% url 'logout_user'%}">
                 <i class="ti-power-off text-primary"></i>
                 Logout
               </a>
             </div>
           </li>
+          {%endfor%}
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
           <span class="icon-menu"></span>
@@ -71,86 +72,116 @@
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link" href=''>
-                  <i class="icon-grid menu-icon"></i>
-                  <span class="menu-title">Headquarters</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href=''>
-                  <i class="icon-layout menu-icon"></i>
-                  <span class="menu-title">Quotes&Weather</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href=''>
-                  <i class="icon-head menu-icon"></i>
-                  <span class="menu-title">Manage Forms/Fields</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href=''>
-                  <i class="icon-open menu-icon"></i>
-                  <span class="menu-title">Farm Records</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href=''>
-                  <i class="icon-grid-2 menu-icon"></i>
-                  <span class="menu-title">Storage Records</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href=''>
-                  <i class="icon-columns menu-icon"></i>
-                  <span class="menu-title">Service Records</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href=''>
-                  <i class="icon-loader menu-icon"></i>
-                  <span class="menu-title">Planning</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href=''>
-                  <i class="icon-map menu-icon"></i>
-                  <span class="menu-title">Soil Test</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href=''>
-                  <i class="icon-contract menu-icon"></i>
-                  <span class="menu-title">Notifications</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="">
-                  <i class="icon-paper menu-icon"></i>
-                  <span class="menu-title">My Accounts</span>
-                </a>
-              </li>
-             
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="icon-layout menu-icon"></i>
+              <span class="menu-title">UI Elements</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{% static 'pages/ui-features/buttons.html' %}">Buttons</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% static 'pages/ui-features/dropdowns.html' %}">Dropdowns</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{% static 'pages/ui-features/typography.html' %}">Typography</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+              <i class="icon-columns menu-icon"></i>
+              <span class="menu-title">Form elements</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="form-elements">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" href="{% static 'pages/forms/basic_elements.html' %}">Basic Elements</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href='{% url "user_farm_weather"%}'>
+              <i class="icon-sun menu-icon"></i>
+              <span class="menu-title">Farm Weather</span>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href='{% url "user_plant_details"%}'>
+              <i class="icon-layout menu-icon"></i>
+              <span class="menu-title">Plant Details</span>
+            </a>
+          </li>
+         
+          <li class="nav-item">
+            <a class="nav-link" href='{% url "user_soil_sample_test"%}'>
+              <i class="icon-open menu-icon"></i>
+              <span class="menu-title">Soil Sample Test</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href='{% url "user_fertilizer_applications" %}'>
+              <i class="icon-grid-2 menu-icon"></i>
+              <span class="menu-title">Fertilizer Applications</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href='{% url "user_periodic_tests"%}'>
+              <i class="icon-columns menu-icon"></i>
+              <span class="menu-title">Periodic Tests-EC&PH</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href='{% url "user_farm_machineries"%}'>
+              <i class="icon-loader menu-icon"></i>
+              <span class="menu-title">Farm Machineries</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href='{% url "user_man_power_usage"%}'>
+              <i class="icon-map menu-icon"></i>
+              <span class="menu-title">Man Power Usage</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href='{% url "user_farm_expenses"%}'>
+              <i class="icon-contract menu-icon"></i>
+              <span class="menu-title">Farm Expenses</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'user_farm_revenue'%}">
+              <i class="icon-paper menu-icon"></i>
+              <span class="menu-title">Farm Revenue</span>
+            </a>
+          </li>
+
+
         </ul>
       </nav>
-    
-
-
-      
       <!-- partial -->
+      
       <div class="main-panel">
         <div class="content-wrapper">
           {%block content%} {%endblock%}
         </div>
       </div>
-      </div>
+        </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
-       
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
+          </div>
+        </footer>
         <!-- partial -->
       </div>
-     
       <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->
@@ -168,7 +199,7 @@
 
   <!-- End plugin js for this page -->
   <!-- inject:js -->
-  <script src="{% static 'js/off-canvas.js' %}"></script>
+  <script src="{% static 'js/off-canvas.js'%}"></script>
   <script src="{% static 'js/hoverable-collapse.js' %}"></script>
   <script src="{% static 'js/template.js' %}"></script>
   <script src="{% static 'js/settings.js' %}"></script>
@@ -181,4 +212,3 @@
 </body>
 
 </html>
-
