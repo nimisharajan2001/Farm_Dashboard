@@ -1,7 +1,45 @@
 {% extends 'Staff_index.html'%}
 {% load static %}
 {% block content %}
-    {% for i in var%}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{% static 'assets/vendors/js/vendor.bundle.base.js' %}"></script>
+<script src="{% static 'assets/vendors/chart.js/Chart.min.js' %}"></script>
+<script src="{% static 'assets/js/chart.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(function() {
+      var dtToday = new Date();
+      var month = dtToday.getMonth() + 1;
+      var day = dtToday.getDate();
+      var year = dtToday.getFullYear();
+      if (month < 10)
+          month = '0' + month.toString();
+      if (day < 10)
+          day = '0' + day.toString();
+      var maxDate = year + '-' + month + '-' + day;
+      $('#startdate').attr('max', maxDate);
+    })
+</script>
+<script>
+  $(function() {
+    var dtToday = new Date();
+    var month = dtToday.getMonth() + 1;
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+    if (month < 10)
+        month = '0' + month.toString();
+    if (day < 10)
+        day = '0' + day.toString();
+    var maxDate = year + '-' + month + '-' + day;
+    $('#enddate').attr('max', maxDate);
+  })
+</script>
+    {% for i in pr%}
         <div class="row">
             <div class="col-md-4 grid-margin stretch-card">
               <div class="card">
@@ -28,69 +66,37 @@
                 <div class="card-body">
                   <h4 class="text-muted" style="text-align: center;">DETAILS</h4>
                   <div class="d-flex flex-row justify-content-between">
-                    <!-- <h4 class="card-title">Details</h4> -->
-                    <!-- <p class="text-muted mb-1">Your data status</p> -->
+                   
                   </div>
                   <div class="row">
                     <div class="col-12">
                       <div class="preview-list">
-                        <!-- <div class="preview-item border-bottom">
-                          <div class="preview-thumbnail">
-                             <div class="preview-icon bg-primary">
-                              <i class="mdi mdi-file-document"></i>
-                            </div>
-                          </div>
-                          <div class="preview-item-content d-sm-flex flex-grow">
-                            <div class="flex-grow">
-                              <h5 class="preview-subject">NAME</56>
-                               <p class="text-muted mb-0">Broadcast web app mockup</p>
-                            </div>
-                            <div class="me-auto text-sm-right pt-2 pt-sm-0">
-                              <h5 class="preview-subject">HENRY KLEIN</h5>
-                               <p class="text-muted mb-0">30 tasks, 5 issues </p>
-                            </div>
-                          </div>
-                        </div> -->
+                        <!--  -->
                         
-                        <!-- <div class="preview-item border-bottom">
-                          <div class="preview-thumbnail">
-                          </div>
-                          <div class="preview-item-content d-sm-flex flex-grow">
-                            <div class="flex-grow">
-                              <h6 class="preview-subject">NAME</h6>
-                            </div>
-                            <div class="me-auto text-sm-right pt-2 pt-sm-0">
-                              <H5 class="preview-subject">{{i.name}}</H5>
-                            </div>
-                          </div>
-                        </div> -->
+                        <!-- -->
                         <div class="preview-item border-bottom">
                           <div class="preview-thumbnail">
-                            <!-- <div class="preview-icon bg-info">
-                              <i class="mdi mdi-clock"></i>
-                            </div> -->
+                            <!--  -->
                           </div>
                           <div class="preview-item-content d-sm-flex flex-grow">
                             <div class="flex-grow">
-                              <h5 class="preview-subject">Date of joining</h5>
-                              <!-- <p class="text-muted mb-0">New project discussion</p> -->
+                              <h5 class="preview-subject">Date of allocation</h5>
+                              <!--  -->
                             </div>
                             <div class="me-auto text-sm-right pt-2 pt-sm-0">
                               <h5 class="preview-subject">{{i.date|date:"d-m-Y"}}</h5>
-                              <!-- <p class="text-muted mb-0">15 tasks, 2 issues</p> -->
+                              <!-- -->
                             </div>
                           </div>
                         </div>
                         <div class="preview-item border-bottom">
                           <div class="preview-thumbnail">
-                            <!-- <div class="preview-icon bg-danger">
-                              <i class="mdi mdi-email-open"></i>
-                            </div> -->
+                            <!--  -->
                           </div>
                           <div class="preview-item-content d-sm-flex flex-grow">
                             <div class="flex-grow">
                               <h5 class="preview-subject">EMAIL</h5>
-                              <!-- <p class="text-muted mb-0">Sent release details to team</p> -->
+                              <!-- -->
                             </div>
                             <div class="me-auto text-sm-right pt-2 pt-sm-0">
                               <h5 class="preview-subject">{{i.email}}</h5>
@@ -134,132 +140,124 @@
               </div>
             </div>
           </div> 
-          
-          <!-- <div class="row">
-            <div class="col-lg-6 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Line chart</h4>
-                  <canvas id="lineChart"></canvas>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Bar chart</h4>
-                  <canvas id="barChart"></canvas>
-                </div>
-              </div>
-            </div>
-          </div> -->
+        
          
 
-          <div class="row">
-            
-            <div class="col-12 col-sm-6 col-md-6 col-lg-6  grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Farm Expense</h4>
-                  <canvas id="chart" style="height: 230px"></canvas>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-sm-6 col-md-6 col-lg-6 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Over View</h4>
-                  <canvas id="pie-chart" style="height: 250px"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <center>
-            <a href="{% url 'Staff_client_chart' i.id%}" style="text-decoration: none; color: white;">
-              <button type="button" class="btn btn-primary btn-icon-text " id="btnSearch" >Click Here to View Farm Revenue </button>
-            </a>
-          </center>
-          {%endfor%}
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-          <script src="{% static 'assets/vendors/js/vendor.bundle.base.js' %}"></script>
-          <script src="{% static 'assets/vendors/chart.js/Chart.min.js' %}"></script>
-          <script src="{% static 'assets/js/chart.js' %}"></script>
-          
-          <script>
-          
-            var config = {
-              type: 'pie',
-              data: {
-                
-                datasets: [{
-                  
-                  data: {{ data|safe }},
-                  backgroundColor: ['rgba(255, 99, 132, 0.8)',
-                  'rgba(54, 162, 235, 0.8)',
-                  'rgba(255, 206, 86, 0.8)'
-                  ],
-                }],
-                
-                labels: ['price','total','quantity'],
-          
-              },      
-              options: {
-                responsive: true
-              }
-            };
-          
-            window.onload = function() {
-              var ctx = document.getElementById('pie-chart').getContext('2d');
-              window.myPie = new Chart(ctx, config);
-            };
-          
-          </script>
-          <script>
-          
-          let ctx = document.getElementById("chart").getContext("2d");
-          let chart = new Chart(ctx, {
-          type: "bar",
-          data: {
-          labels: ['Price','Totalcost','Quantity'],
-          datasets: [
-          {
-            // label: "Performance",
-            // backgroundColor: "#79AEC8",
-            // borderColor: "#417690",
-          
-            data: {{ data|safe }},
-            backgroundColor: ['rgba(255, 99, 132, 0.6)',
-            'rgba(54, 162, 235, 0.6)',
-            'rgba(255, 206, 86, 0.6)'
-            
-            ],
-          
-            
-          }
-          ]
-          },
-          options: {   
-            legend: {
-            display: false
-            },
-           
-            scales: {
-              yAxes: [{
-                  ticks: {
-                      beginAtZero: true,
-                        max:100000
-                  }
-              }]
-          }
-             
-          }
-          });
-          </script>
-          
-          
 
-{% endblock %}
+          <div class="row">
+            <div class="col-md-6 my-4">
+                <form action="{% url 'Staff_client_chart' i.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="date" name="start" id="startdate">
+                    <input type="date" name="end" id="enddate">
+                    <button type="submit"  style="background-color: rgb(58, 21, 92); color: white; 
+                    border-radius: 10px; width: 95px; height: 40px;">Filter</button>
+                </form>
+            </div>
+        </div>
+
+        {%endfor%}
+        <div class="row ">
+            
+           
+            <div class="col-md-6 my-4">
+                <div class="bg-white">
+                    <div class="card-body">
+                      <h4 class="card-title">Farm Revenue</h4>
+                        <canvas id="myChart1" width="400" height="300"></canvas>
+                        <script>
+                            var ctx = document.getElementById('myChart1').getContext('2d');
+                            var myChart1 = new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                    labels: [{% for k in num %} '{{k.revenue_type}}',{% endfor %}],
+                            datasets: [{
+                                label: 'Values',
+                                data: [{% for k in num %} {{ k.revenue }}, {% endfor %}],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)'
+                                    ],
+                                        borderWidth: 1
+                            }]
+                                },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true
+                                        }
+                                    }]
+                                }
+                            }
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        
+        
+        <div class="col-md-6 my-4">
+          <div class="bg-white">
+              <div class="card-body">
+                <h4 class="card-title">Farm Expense</h4>
+                  <canvas id="myChart" width="400" height="300"></canvas>
+                  <script>
+                      var ctx = document.getElementById('myChart').getContext('2d');
+                      var myChart = new Chart(ctx, {
+                          type: 'bar',
+                          data: {
+                              labels: [{% for i in var %} '{{i.expense}}',{% endfor %}],
+                      datasets: [{
+                          label: 'Values',
+                          data: [{% for i in var %} {{ i.total_cost }}, {% endfor %}],
+                          backgroundColor: [
+                              'rgba(255, 99, 132, 1)',
+                              'rgba(54, 162, 235, 1)',
+                              'rgba(255, 206, 86, 1)',
+                              'rgba(75, 192, 192, 1)',
+                              'rgba(153, 102, 255, 1)',
+                              'rgba(255, 159, 64, 1)'
+                          ],
+                              borderColor: [
+                                  'rgba(255, 99, 132, 1)',
+                                  'rgba(54, 162, 235, 1)',
+                                  'rgba(255, 206, 86, 1)',
+                                  'rgba(75, 192, 192, 1)',
+                                  'rgba(153, 102, 255, 1)',
+                                  'rgba(255, 159, 64, 1)'
+                              ],
+                                  borderWidth: 1
+                      }]
+                          },
+                      options: {
+                          scales: {
+                              yAxes: [{
+                                  ticks: {
+                                      beginAtZero: true
+                                  }
+                              }]
+                          }
+                      }
+                      });
+                  </script>
+              </div>
+          </div>
+        </div>
+        </div>
+        
+        
+
+{%endblock%}

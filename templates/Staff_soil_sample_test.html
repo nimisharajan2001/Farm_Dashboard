@@ -18,7 +18,7 @@
       });
     </script>
 
-<form action="{% url 'Staff_soil_sample_print'%}">
+<!-- <form action="{% url 'Staff_soil_sample_print'%}"> -->
 <div class="row">
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
@@ -32,7 +32,7 @@
         <div class="row">
           <div class="col-md-5"></div>
           <div class="col-md-5">
-            <button style="width: 100px; height: 40px; color: #fff; background-color: rgb(5, 4, 4);  border-radius: 15px;">Print</button>
+            <!-- <button style="width: 100px; height: 40px; color: #fff; background-color: rgb(5, 4, 4);  border-radius: 15px;">Print</button> -->
           </div>
           <div class="col-md-2">
             <a href="{% url 'Staff_add_soil_sample_test' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>
@@ -46,16 +46,19 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th style="background-color: green; color: #fff;">
+                <!-- <th style="background-color: green; color: #fff;">
                     Tests
-                </th>
+                </th> -->
                 <th style="background-color: green; color: #fff;">
-                  Location
+                  SlNo
                 </th>
                 <th style="background-color: green; color: #fff;">
                     Date
                 </th>
                 <th style="background-color: green; color: #fff;">
+                  Location
+                </th>
+                <!-- <th style="background-color: green; color: #fff;">
                     Result
                 </th>
                 <th style="background-color: green; color: #fff;">
@@ -63,9 +66,12 @@
                 </th>
                 <th style="background-color: green; color: #fff;">
                     Method
-                </th>
+                </th> 
                 <th style="background-color: green; color: #fff;">
                     Level
+                </th>-->
+                <th style="background-color: green; color: #fff;">
+                  File
                 </th>
                 <th style="background-color: green; color: #fff;">
                   Action
@@ -75,13 +81,15 @@
             <tbody id="myTable">
               {% for i in var %}
               <tr style="background-color: rgb(241, 249, 252);">
-                <td>{{i.tests}}</td>
-                <td>{{i.place}}</td>
+                <td>{{forloop.counter}}</td>
+                <!-- <td>{{i.tests}}</td> -->
                 <td>{{i.date|date:"d-m-Y"}}</td>
-                <td>{{i.result}}</td>
+                <td>{{i.place}}</td>
+                <td><a href="{{i.photo.url}}">view file</a></td>
+                <!-- <td>{{i.result}}</td>
                 <td>{{i.unit}}</td>
                 <td>{{i.method}}</td>
-                <td>{{i.level}}</td>
+                <td>{{i.level}}</td> -->
                 <td>
                   <a href="{% url 'Staff_viewedit_soilsampletest'  i.id%}">
                     <div class="btn  btn-sm" style="color: white;  background-color: maroon;"><i class="ti-reload pr-2"></i>View/Update</div>
@@ -96,6 +104,6 @@
     </div>
   </div>
 </div>
-</form>
+<!-- </form> -->
 
 {% endblock %}

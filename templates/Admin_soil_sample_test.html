@@ -71,7 +71,8 @@
               {% for i in var %}
               <tr style="background-color: rgb(241, 249, 252);">
                 <td>{{i.user}}</td>
-                <td>{{i.tests}}</td>
+                <td><a href="{{i.photo.url}}">view file</a></td>
+                <!-- <td>{{i.tests}}</td> -->
                 <td>{{i.place}}</td>
                 <td>{{i.date|date:"d-m-Y"}}</td>
                 <td>{{i.result}}</td>

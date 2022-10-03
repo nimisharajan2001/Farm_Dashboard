@@ -6,34 +6,28 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-{% for i in var %}
-
 <div class="row">
     <div class="col-md-9 grid-margin stretch-card">
         <div class="card" style="height: auto;">
 
             <div class="card-body">
                 <div class="col-12 grid-margin">
-                    <h3>Edit Soil Sample Details</h3>
+                    <h3>Add Plant Details</h3>
                 </div>
-                <form method="post" action="{% url 'Staff_soilsampletest_update' i.id%}" enctype="multipart/form-data"> {% csrf_token %}
-
-
-                    <!-- <div class="form-group row">
-                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
-                            Tests
-                        </label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="tests" value="{{i.tests}}" required>
-                        </div>
-                    </div> -->
-
+                <form method="post" action="" enctype="multipart/form-data">
+                     {% csrf_token %}
                     <div class="form-group row">
                         <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
-                            Date
+                            Plant Name
                         </label>
                         <div class="col-sm-9">
-                            <input type="date" id="startdate" class="form-control form-control-sm" autocomplete="off" name="date" value="{{i.date|date:'Y-m-d'}}" required>
+                            <select class="form-control" name="plant" >
+                                <option selected="true" disabled="disabled" value="">-Not Selected-</option>
+                                {%for k in new%}
+                                <option>{{k.plant_name }}</option>
+                                {%endfor%}
+                            </select>
+                            <!-- <input type="text" class="form-control form-control-sm" autocomplete="off" name="plant" value="" required> -->
                         </div>
                     </div>
 
@@ -42,60 +36,41 @@
                             Location
                         </label>
                         <div class="col-sm-9">
-                            <select class="form-control" name="place" >           
-                                <option value="{{i.place}}">{{i.place}}</option>
-                                {%for c in loc%}
-                                <option>{{c.name}}</option>
+                            <select class="form-control" name="location" >
+                                <option selected="true" disabled="disabled" value="">-Not Selected-</option>
+                                {%for i in loc%}
+                                <option>{{i.name}}</option>
                                 {%endfor%}
                             </select>
-                            <!-- <input type="text" class="form-control form-control-sm" autocomplete="off" name="place" value="{{i.place}}" required> -->
+                            <!-- <input type="text" class="form-control form-control-sm" autocomplete="off" name="location" value="" required> -->
                         </div>
                     </div>
 
-                    
-
-                    <!-- <div class="form-group row">
+                    <div class="form-group row">
                         <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
-                          Result
+                            Planting Date
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="result" value="{{i.result}}" required>
+                            <input type="date" id="startdate" class="form-control form-control-sm"  name="planting" value="" required>
                         </div>
-                    </div> -->
+                    </div>
 
-                    <!-- <div class="form-group row">
-                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
-                         Unit
-                        </label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="unit" value="{{i.unit}}" required>
-                        </div>
-                    </div> -->
-
-                    <!-- <div class="form-group row">
-                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
-                         Method
-                        </label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="method" value="{{i.method}}" required>
-                        </div>
-                    </div> -->
-
-                    <!-- <div class="form-group row">
-                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
-                          Level
-                        </label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="level" value="{{i.level}}" required>
-                        </div>
-                    </div> -->
 
                     <div class="form-group row">
                         <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
-                          File
+                          Harvesting Date
                         </label>
                         <div class="col-sm-9">
-                            <input type="file" class="form-control form-control-sm" autocomplete="off" name="file" value="{{i.photo}}" required>
+                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="harvesting">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                          Harvested Data
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="harvesteddata" >
                         </div>
                     </div>
 
@@ -104,15 +79,16 @@
                     <div>
                         <center>
                             <button type="submit" style="background-color: green; color: #fff;" class="btn  btn-icon-text mb-4">SUBMIT</button>
-                            <a href="{% url 'Staff_soil_sample_test' %}" class="btn btn-info mb-4"> BACK</a>
+                            <a href="{% url 'Staff_plant_details' %}" class="btn btn-info mb-4"> BACK</a>
                         </center>
                     </div>
                 </form>
             </div>
+
         </div>
     </div>
+
 </div>
-{%endfor%}
 
 <script>
     $(function() {
@@ -128,6 +104,7 @@
       $('#startdate').attr('max', maxDate);
     })
 </script>
+
 <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

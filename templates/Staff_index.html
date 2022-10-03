@@ -95,18 +95,33 @@
                   <span class="menu-title">Clients</span>
                 </a>
               </li>
+              
               <li class="nav-item">
                 <a class="nav-link" href='{% url "Staff_farm_weather"%}'>
                   <i class="icon-sun menu-icon"></i>
                   <span class="menu-title">Farm Weather</span>
                 </a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link" href='{% url "Staff_plant_details"%}'>
                   <i class="icon-layout menu-icon"></i>
                   <span class="menu-title">Plant Details</span>
                 </a>
-              </li> 
+              </li>  -->
+
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+                  <i class="icon-columns menu-icon"></i>
+                  <span class="menu-title">Plant Details</span>
+                  <!-- <i class="menu-arrow"></i> -->
+                </a>
+                <div class="collapse" id="form-elements">
+                  <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href='{% url "Staff_plant_details"%}'>Details</a></li>
+                    <li class="nav-item"><a class="nav-link" href='{% url "Staff_plant_harvesting"%}'>Harvested Datas</a></li>
+                  </ul>
+                </div>
+              </li>
               <!-- <li class="nav-item">
                 <a class="nav-link" href='{% url "Staff_farm_weather"%}'>
                   <i class="icon-file menu-icon"></i>

@@ -52,13 +52,13 @@ class farm_weather(models.Model):
 
 class soil_sample_test(models.Model):
     user = models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)
-    tests = models.CharField(max_length=200)
+    tests = models.CharField(max_length=200,null=True, blank=True)
     place = models.CharField(max_length=200,null=True, blank=True)
-    date = models.DateField(max_length=200)
-    result = models.CharField(max_length=200)
-    unit = models.CharField(max_length=200)
-    method = models.CharField(max_length=200)
-    level = models.CharField(max_length=200)
+    date = models.DateField(max_length=200,null=True, blank=True)
+    result = models.CharField(max_length=200,null=True, blank=True)
+    unit = models.CharField(max_length=200,null=True, blank=True)
+    method = models.CharField(max_length=200,null=True, blank=True)
+    level = models.CharField(max_length=200,null=True, blank=True)
     photo = models.FileField(upload_to='images/', null=True, blank=True)
 
 class fertilizer_applications(models.Model):
@@ -122,3 +122,11 @@ class location(models.Model):
     user = models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)
     name = models.CharField(max_length=200,null=True,blank=True)
     acers = models.CharField(max_length=200,null=True,blank=True)
+
+class harvesting(models.Model):
+    user = models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)
+    plant_name = models.CharField(max_length=200)
+    harvesting_date= models.CharField(max_length=200,null=True, blank=True)
+    harvested_data= models.CharField(max_length=200,null=True, blank=True)
+    planting_date = models.DateField(max_length=200,null=True, blank=True)
+    location = models.CharField(max_length=200,null=True, blank=True)

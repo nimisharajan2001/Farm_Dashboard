@@ -1,3 +1,4 @@
+from ctypes import memset
 from tkinter.tix import FileEntry
 from unicodedata import name
 from django.shortcuts import redirect, render
@@ -187,17 +188,12 @@ def Admin_clientdashboard(request,id):
         else:
             return redirect('/')
         user = register.objects.filter(id=SAdm_id)
-        var= register.objects.filter(id=id)
-        labels = []
-        data = []
-        queryset = farm_expenses.objects.filter(user_id=id)
-        for j in queryset:
-            labels=[j.price,j.total_cost,j.quantity]
-            data=[j.price,j.total_cost,j.quantity]
-        return render(request,'Admin_clientdashboard.html',{'var':var,'user':user,'labels':labels,'data':data})
+        pr= register.objects.filter(id=id)
+        var =  farm_expenses.objects.filter(user_id=id)
+        num =  farm_revenue.objects.filter(user_id=id)
+        return render(request,'Admin_clientdashboard.html',{'user':user,'pr':pr,'var':var,'num':num})
     else:
         return redirect('/')
-
 
 def Admin_client_chart(request,id):
     if 'SAdm_id' in request.session:
@@ -206,17 +202,15 @@ def Admin_client_chart(request,id):
         else:
             return redirect('/')
         user = register.objects.filter(id=SAdm_id)
-        var = register.objects.filter(id = id)
-        labels = []
-        data = []
-        queryset = farm_revenue.objects.filter(user_id=id)
-        for j in queryset:
-            labels=[j.quantity,j.revenue]
-            data=[j.quantity,j.revenue]
-        return render(request,'Admin_clientchart.html',{'user':user,'var':var,'labels':labels,'data':data})
+        pr = register.objects.filter(id=id)
+        if request.method == "POST":
+            fromdate = request.POST.get('start')
+            todate = request.POST.get('end')
+            var = farm_expenses.objects.filter(date__range=[fromdate, todate]).filter(user_id=id)
+            num = farm_revenue.objects.filter(date__range=[fromdate, todate]).filter(user_id=id)
+        return render(request,'Admin_clientchart.html',{'user':user, 'var':var ,'num':num,'pr':pr})
     else:
         return redirect('/')
-
 
 def Admin_staffs(request):
     if 'SAdm_id' in request.session:
@@ -238,16 +232,13 @@ def Admin_staffdashboard(request,id):
         else:
             return redirect('/')
         user = register.objects.filter(id=SAdm_id)
-        var= register.objects.filter(id=id)
-        labels = []
-        data = []
-        queryset = farm_expenses.objects.filter(user_id=id)
-        for j in queryset:
-            labels=[j.price,j.total_cost,j.quantity]
-            data=[j.price,j.total_cost,j.quantity]
-        return render(request,'Admin_staffdashboard.html',{'var':var,'user':user,'labels':labels,'data':data})
+        pr= register.objects.filter(id=id)
+        var =  farm_expenses.objects.filter(user_id=id)
+        num =  farm_revenue.objects.filter(user_id=id)
+        return render(request,'Admin_staffdashboard.html',{'user':user,'pr':pr,'var':var,'num':num})
     else:
         return redirect('/')
+
 
 def Admin_Staff_chart(request,id):
     if 'SAdm_id' in request.session:
@@ -256,16 +247,52 @@ def Admin_Staff_chart(request,id):
         else:
             return redirect('/')
         user = register.objects.filter(id=SAdm_id)
-        var = register.objects.filter(id = id)
-        labels = []
-        data = []
-        queryset = farm_revenue.objects.filter(user_id=id)
-        for j in queryset:
-            labels=[j.quantity,j.revenue]
-            data=[j.quantity,j.revenue]
-        return render(request,'Admin_Staffchart.html',{'user':user,'var':var,'labels':labels,'data':data})
+        pr = register.objects.filter(id=id)
+        if request.method == "POST":
+            fromdate = request.POST.get('start')
+            todate = request.POST.get('end')
+            var = farm_expenses.objects.filter(date__range=[fromdate, todate]).filter(user_id=id)
+            num = farm_revenue.objects.filter(date__range=[fromdate, todate]).filter(user_id=id)
+        return render(request,'Admin_Staffchart.html',{'user':user, 'var':var ,'num':num,'pr':pr})
     else:
         return redirect('/')
+
+
+# def Admin_staffdashboard(request,id):
+#     if 'SAdm_id' in request.session:
+#         if request.session.has_key('SAdm_id'):
+#             SAdm_id = request.session['SAdm_id']
+#         else:
+#             return redirect('/')
+#         user = register.objects.filter(id=SAdm_id)
+#         var= register.objects.filter(id=id)
+#         labels = []
+#         data = []
+#         queryset = farm_expenses.objects.filter(user_id=id)
+#         for j in queryset:
+#             labels=[j.price,j.total_cost,j.quantity]
+#             data=[j.price,j.total_cost,j.quantity]
+#         return render(request,'Admin_staffdashboard.html',{'var':var,'user':user,'labels':labels,'data':data})
+#     else:
+#         return redirect('/')
+
+# def Admin_Staff_chart(request,id):
+#     if 'SAdm_id' in request.session:
+#         if request.session.has_key('SAdm_id'):
+#             SAdm_id = request.session['SAdm_id']
+#         else:
+#             return redirect('/')
+#         user = register.objects.filter(id=SAdm_id)
+#         var = register.objects.filter(id = id)
+#         labels = []
+#         data = []
+#         queryset = farm_revenue.objects.filter(user_id=id)
+#         for j in queryset:
+#             labels=[j.quantity,j.revenue]
+#             data=[j.quantity,j.revenue]
+#         return render(request,'Admin_Staffchart.html',{'user':user,'var':var,'labels':labels,'data':data})
+#     else:
+#         return redirect('/')
 
 
 def Admin_registration_details(request):
@@ -532,6 +559,24 @@ def user_index(request):
         return redirect('/')
      
 
+# def user_dashboard(request):
+#     if 'c_id' in request.session:
+#         if request.session.has_key('c_id'):
+#             c_id = request.session['c_id']
+#         else:
+#             return redirect('/')
+#         mem1 = register.objects.filter(id=c_id)
+#         var = register.objects.filter(id=c_id)
+#         labels = []
+#         data = []
+#         queryset = farm_expenses.objects.filter(user_id=c_id)
+#         for j in queryset:
+#             labels=[j.price,j.total_cost,j.quantity]
+#             data=[j.price,j.total_cost,j.quantity]
+#         return render(request,'user_dashboard.html',{'mem1':mem1,'var':var,'labels':labels,'data':data})
+#     else:
+#         return redirect('/')
+
 def user_dashboard(request):
     if 'c_id' in request.session:
         if request.session.has_key('c_id'):
@@ -539,18 +584,13 @@ def user_dashboard(request):
         else:
             return redirect('/')
         mem1 = register.objects.filter(id=c_id)
-        var = register.objects.filter(id=c_id)
-        labels = []
-        data = []
-        queryset = farm_expenses.objects.filter(user_id=c_id)
-        for j in queryset:
-            labels=[j.price,j.total_cost,j.quantity]
-            data=[j.price,j.total_cost,j.quantity]
-        return render(request,'user_dashboard.html',{'mem1':mem1,'var':var,'labels':labels,'data':data})
+        var =  farm_expenses.objects.filter(user_id=c_id)
+        num =  farm_revenue.objects.filter(user_id=c_id)
+        return render(request,'user_dashboard.html',{'mem1':mem1,'var':var,'num':num})
     else:
         return redirect('/')
 
-@csrf_exempt
+
 def user_chart(request):
     if 'c_id' in request.session:
         if request.session.has_key('c_id'):
@@ -558,16 +598,34 @@ def user_chart(request):
         else:
             return redirect('/')
         mem1 = register.objects.filter(id=c_id)
-        var = register.objects.filter(id = c_id)
-        labels = []
-        data = []
-        queryset = farm_revenue.objects.filter(user_id=c_id)
-        for j in queryset:
-            labels=[j.quantity,j.revenue]
-            data=[j.quantity,j.revenue]
-        return render(request,'user_chart.html',{'mem1':mem1,'var':var,'labels':labels,'data':data})
+        if request.method == "POST":
+            fromdate = request.POST.get('start')
+            todate = request.POST.get('end')
+            var = farm_expenses.objects.filter(date__range=[fromdate, todate]).filter(user_id=c_id)
+            num = farm_revenue.objects.filter(date__range=[fromdate, todate]).filter(user_id=c_id)
+        return render(request,'user_chart.html',{'mem1':mem1, 'var':var ,'num':num})
     else:
         return redirect('/')
+
+
+# @csrf_exempt
+# def user_chart(request):
+#     if 'c_id' in request.session:
+#         if request.session.has_key('c_id'):
+#             c_id = request.session['c_id']
+#         else:
+#             return redirect('/')
+#         mem1 = register.objects.filter(id=c_id)
+#         var = register.objects.filter(id = c_id)
+#         labels = []
+#         data = []
+#         queryset = farm_revenue.objects.filter(user_id=c_id)
+#         for j in queryset:
+#             labels=[j.quantity,j.revenue]
+#             data=[j.quantity,j.revenue]
+#         return render(request,'user_chart.html',{'mem1':mem1,'var':var,'labels':labels,'data':data})
+#     else:
+#         return redirect('/')
 
 
 def user_settings(request):
@@ -943,10 +1001,10 @@ def user_add_soil_sample_test(request):
             s5 = request.POST['method']
             s6 = request.POST['level']
             s7 = request.POST['place']
-            s8 = request.FILES['files']
+            s8 = request.FILES['file']
             # soil = soil_sample_test( date = s2, file = s8,user_id = c_id)
             # soil.save()
-            soil = soil_sample_test( tests = s1,date = s2,result = s3,
+            soil = soil_sample_test( tests = s1,date = s2,result = s3, photo = s8,
                 unit = s4,method= s5,level = s6, place = s7, file = s8,user_id = c_id)
             soil.save()
             msg_success = "Details added successfully, Refresh your page"
@@ -1363,7 +1421,7 @@ def user_expense_print(request):
             return redirect('/')
         mem1 = register.objects.filter(id=c_id)
         var = farm_expenses.objects.filter(user_id=c_id).order_by('-id')
-        return render(request,'Expense_print.html',{'mem':mem1,'var':var})
+        return render(request,'Expense_print.html',{'mem1':mem1,'var':var})
     else:
         return redirect('/')
 
@@ -1585,13 +1643,9 @@ def Staff_dashboard(request):
         else:
             return redirect('/')
         mem = register.objects.filter(id=s_id)
-        labels = []
-        data = []
-        queryset = farm_expenses.objects.filter(user_id=s_id)
-        for j in queryset:
-            labels=[j.price,j.total_cost,j.quantity]
-            data=[j.price,j.total_cost,j.quantity]
-        return render(request,'Staff_dashboard.html',{'mem':mem,'labels':labels,'data':data})
+        var =  farm_expenses.objects.filter(user_id=s_id)
+        num =  farm_revenue.objects.filter(user_id=s_id)
+        return render(request,'Staff_dashboard.html',{'mem':mem,'var':var,'num':num})
     else:
         return redirect('/')
 
@@ -1601,18 +1655,15 @@ def Staff_chart(request):
             s_id = request.session['s_id']
         else:
             return redirect('/')
-        mem1 = register.objects.filter(id=s_id)
-        var = register.objects.filter(id = s_id)
-        labels = []
-        data = []
-        queryset = farm_revenue.objects.filter(user_id=s_id)
-        for j in queryset:
-            labels=[j.quantity,j.revenue]
-            data=[j.quantity,j.revenue]
-        return render(request,'Staff_chart.html',{'mem1':mem1,'var':var,'labels':labels,'data':data})
+        mem = register.objects.filter(id=s_id)
+        if request.method == "POST":
+            fromdate = request.POST.get('start')
+            todate = request.POST.get('end')
+            var = farm_expenses.objects.filter(date__range=[fromdate, todate]).filter(user_id=s_id)
+            num = farm_revenue.objects.filter(date__range=[fromdate, todate]).filter(user_id=s_id)
+        return render(request,'Staff_chart.html',{'mem':mem, 'var':var ,'num':num})
     else:
         return redirect('/')
-
 
 def Staff_settings(request):
     if 's_id' in request.session:
@@ -1708,14 +1759,10 @@ def Staff_clientdashboard(request,id):
         else:
             return redirect('/')
         mem = register.objects.filter(id=s_id)
-        var= register.objects.filter(id=id)
-        labels = []
-        data = []
-        queryset = farm_expenses.objects.filter(user_id=id)
-        for j in queryset:
-            labels=[j.price,j.total_cost,j.quantity]
-            data=[j.price,j.total_cost,j.quantity]
-        return render(request,'Staff_clientdashboard.html',{'mem':mem,'var':var,'labels':labels,'data':data})
+        pr= register.objects.filter(id=id)
+        var =  farm_expenses.objects.filter(user_id=id)
+        num =  farm_revenue.objects.filter(user_id=id)
+        return render(request,'Staff_clientdashboard.html',{'mem':mem,'pr':pr,'var':var,'num':num})
     else:
         return redirect('/')
 
@@ -1725,15 +1772,14 @@ def Staff_client_chart(request,id):
             s_id = request.session['s_id']
         else:
             return redirect('/')
-        mem1 = register.objects.filter(id=s_id)
-        var = register.objects.filter(id =id)
-        labels = []
-        data = []
-        queryset = farm_revenue.objects.filter(user_id=id)
-        for j in queryset:
-            labels=[j.quantity,j.revenue]
-            data=[j.quantity,j.revenue]
-        return render(request,'Staff_client_chart.html',{'mem1':mem1,'var':var,'labels':labels,'data':data})
+        mem = register.objects.filter(id=s_id)
+        pr = register.objects.filter(id=id)
+        if request.method == "POST":
+            fromdate = request.POST.get('start')
+            todate = request.POST.get('end')
+            var = farm_expenses.objects.filter(date__range=[fromdate, todate]).filter(user_id=id)
+            num = farm_revenue.objects.filter(date__range=[fromdate, todate]).filter(user_id=id)
+        return render(request,'Staff_client_chart.html',{'mem':mem, 'var':var ,'num':num,'pr':pr})
     else:
         return redirect('/')
 
@@ -1825,12 +1871,48 @@ def Staff_plantdetails_update(request,id):
             abc.number = request.POST.get('number')
             abc.save()
             print(abc)
+            
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'Staff_viewedit_plantdetails.html',{'msg_success': msg_success})
         return render(request,'Staff_viewedit_plantdetails.html')
     else:
         return redirect('/')
 
+def Staff_plant_harvesting(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        var = harvesting.objects.filter(user_id=s_id).order_by('-planting_date')
+        return render(request,'Staff_Plant_Harvesting.html',{'mem':mem,'var':var})
+    else:
+        return redirect('/')
+
+def Staff_add_harvesting(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        new = plantdetails.objects.filter(user_id=s_id)
+        loc = location.objects.filter(user_id = s_id)
+        if request.method == 'POST':
+            p1 = request.POST['plant']
+            p5 = request.POST['harvesting']
+            p6 = request.POST['harvesteddata']
+            p7 = request.POST['planting']
+            p9 = request.POST['location']
+            plant = harvesting( plant_name = p1,harvesting_date = p5,harvested_data = p6,
+                planting_date = p7, location = p9,user_id = s_id)
+            plant.save()
+            msg_success = "Details added successfully, Refresh your page"
+            return render(request,'Staff_add_harvesting.html',{'msg_success':msg_success})
+        return render(request,'Staff_add_harvesting.html',{'mem':mem,'loc':loc,'new':new})
+    else:
+        return redirect('/')
 
 def Staff_farm_weather(request):
     if 's_id' in request.session:
@@ -1995,6 +2077,7 @@ def Staff_soilsampletest_update(request,id):
             abc.method = request.POST.get('method')
             abc.level = request.POST.get('level')
             abc.place = request.POST.get('place')
+            abc.photo = request.FILES['file']
             abc.save()
             print(abc)
             msg_success = "Details updated successfully, Refresh your page"
@@ -2020,7 +2103,8 @@ def Staff_add_soil_sample_test(request):
             s5 = request.POST['method']
             s6 = request.POST['level']
             s7 = request.POST['place']
-            soil = soil_sample_test( tests = s1,date = s2,result = s3,
+            s8 = request.FILES['file']
+            soil = soil_sample_test( tests = s1,date = s2,result = s3, photo = s8,
                 unit = s4,method= s5,level = s6, place = s7,user_id = s_id)
             soil.save()
             msg_success = "Details added successfully, Refresh your page"
