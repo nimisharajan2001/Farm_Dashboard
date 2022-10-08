@@ -6,6 +6,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<script>
+    $(document).on('click', '.addService', function(){
+  var html = '<div><input type="text" name="myInput"><button type="button" class="addService">Add More</button></div>';
+$(this).parent().append(html);
+});
+  </script>
+
 <div class="row">
     <div class="col-md-9 grid-margin stretch-card">
         <div class="card" style="height: auto;">
@@ -70,7 +77,9 @@
                           Harvested Data
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="harvesteddata" >
+                            <input type="text" name='+value+'[]>
+                            <button type="button" class="addService">Add More</button>
+                            <!-- <input type="text" class="form-control form-control-sm" autocomplete="off" name="harvesteddata" > -->
                         </div>
                     </div>
 
@@ -133,3 +142,24 @@
     {% endif %}
 
 {% endblock %}
+
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+  
+  </head>
+  <body>
+    
+      <div id="contain"> 
+  Choose Your Own service <br> <br>
+  <div>
+  <input type="text" name='+value+'[]>
+  <button type="button" class="addService">Add More</button>
+  </div>
+</div>
+  </body>
+</html> -->

@@ -18,15 +18,24 @@
       });
     </script>
 
+<!-- <form action="{% url 'Staff_plant_details_print'%}"> -->
 <div class="row">
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
+        <!-- <div class="row">
+          <div class="col-5 col-lg-10"></div>
+          <div class="col-7 col-sm-4 col-md-3 col-lg-2">
+              <a href="{% url 'Staff_add_plant_details' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>
+          </div>
+        </div> -->
         <div class="row">
           <div class="col-md-5"></div>
-          <div class="col-md-5"></div>
+          <div class="col-md-5">
+            <!-- <button style="width: 100px; height: 40px; color: #fff; background-color: rgb(5, 4, 4);  border-radius: 15px;">Print</button> -->
+          </div>
           <div class="col-md-2">
-            <a href="{% url 'Staff_add_harvesting' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>
+            <a href="{% url 'Staff_add_plant_details' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>
           </div>
         </div>
         <h4 class="card-title">Entered Details</h4>
@@ -44,7 +53,22 @@
                   Location
                 </th>
                 <th style="background-color: green; color: #fff;">
+                  Number of plants
+                </th>
+                <th style="background-color: green; color: #fff;">
                   Planting Date
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Flowering Date
+                </th>
+                <th style="background-color: green; color: #fff;">
+                  Pest Control Date
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Fruiting Date
+                </th>
+                <th style="background-color: green; color: #fff;">
+                    Fertilization date
                 </th>
                 <th style="background-color: green; color: #fff;">
                     Harvesting date
@@ -59,11 +83,16 @@
               </tr>
             </thead>
             <tbody id="myTable">
-              {% for i in var %}
+              {% for i in page_obj.object_list %}
               <tr style="background-color: rgb(241, 249, 252);">
                 <td>{{i.plant_name}}</td>
                 <td>{{i.location}}</td>
+                <td>{{i.number}}</td>
                 <td>{{i.planting_date|date:"d-m-Y"}}</td>
+                <td>{{i.flowering_date}}</td>
+                <td>{{i.pest_control_date}}</td>
+                <td>{{i.fruiting_date}}</td>
+                <td>{{i.fertilization_date}}</td>
                 <td>{{i.harvesting_date}}</td>
                 <td>{{i.harvested_data}}</td>
                 <td>
@@ -82,6 +111,17 @@
     </div>
   </div>
 </div>
-<!-- </form> -->
+	<center>
+		{%if page_obj.has_previous %} {# whether the previous page exists #}
+			<a href="?page={{page_obj.previous_page_number}}"><</a> {# link to the prev page #}
+		{% endif %}
+		<span>{{page_obj.number}}</span> {# the current page number #}
+		
+		{%if page_obj.has_next %} {# whether the next page exists #}
+			<a href="?page={{page_obj.next_page_number}}">></a> {# link to the next page #}
+		{% endif %}
+	</center>
+</body>
+</html>
 
 {% endblock %}

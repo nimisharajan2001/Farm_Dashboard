@@ -170,7 +170,7 @@
                             var myChart1 = new Chart(ctx, {
                                 type: 'bar',
                                 data: {
-                                    labels: [{% for k in num %} '{{k.revenue_type}}',{% endfor %}],
+                                    labels: [{% for k in num %} '{{k.type_description}}',{% endfor %}],
                             datasets: [{
                                 label: 'Values',
                                 data: [{% for k in num %} {{ k.revenue }}, {% endfor %}],

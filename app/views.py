@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate
 from django. contrib import messages
 from datetime import datetime,date
 from django.views.decorators.csrf import csrf_exempt
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
 # Create your views here.
 def index(request):
@@ -104,7 +105,9 @@ def Admin_Dashboard(request):
         else:
             return redirect('/')
         user = register.objects.filter(id=SAdm_id)
-        return render(request,'Admin_Dashboard.html',{'user':user})
+        Num= register.objects.filter(designation_id=2).count()
+        Num1= register.objects.filter(designation_id=1).count()
+        return render(request,'Admin_Dashboard.html',{'user':user,'Num':Num,'Num1':Num1})
     else:
         return redirect('/')
 
@@ -336,7 +339,16 @@ def Admin_plant_details(request):
             return redirect('/')
         user = register.objects.filter(id=SAdm_id)
         var = plantdetails.objects.all().order_by('-planting_date')
-        return render(request,'Admin_plant_details.html',{'var':var,'user':user})
+        posts = plantdetails.objects.all().order_by('-planting_date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'Admin_plant_details.html',{'page_obj': page_obj,'var':var,'user':user})
     else:
         return redirect('/')
 
@@ -361,7 +373,16 @@ def Admin_farm_weather(request):
             return redirect('/')
         user = register.objects.filter(id=SAdm_id)
         var = farm_weather.objects.all().order_by('-date')
-        return render(request,'Admin_farm_weather.html',{'var':var,'user':user})
+        posts = farm_weather.objects.all().order_by('-date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'Admin_farm_weather.html',{'page_obj':page_obj,'var':var,'user':user})
     else:
         return redirect('/')
 
@@ -403,7 +424,16 @@ def Admin_soil_sample_test(request):
             return redirect('/')
         user = register.objects.filter(id=SAdm_id)
         var = soil_sample_test.objects.all().order_by('-date')
-        return render(request,'Admin_soil_sample_test.html',{'var':var,'user':user})
+        posts = soil_sample_test.objects.all().order_by('-date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'Admin_soil_sample_test.html',{'page_obj':page_obj,'var':var,'user':user})
     else:
         return redirect('/')
 
@@ -415,7 +445,16 @@ def Admin_fertilizer_applications(request):
             return redirect('/')
         user = register.objects.filter(id=SAdm_id)
         var = fertilizer_applications.objects.all().order_by('-applied_date')
-        return render(request,'Admin_fertilizer_applications.html',{'var':var,'user':user})
+        posts = fertilizer_applications.objects.all().order_by('-applied_date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'Admin_fertilizer_applications.html',{'page_obj':page_obj,'var':var,'user':user})
     else:
         return redirect('/')
 
@@ -427,7 +466,16 @@ def Admin_periodic_tests(request):
             return redirect('/')
         user = register.objects.filter(id=SAdm_id)
         var = periodic_tests.objects.all().order_by('-date')
-        return render(request,'Admin_periodic_tests.html',{'var':var,'user':user})
+        posts = periodic_tests.objects.all().order_by('-date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'Admin_periodic_tests.html',{'page_obj':page_obj,'var':var,'user':user})
     else:
         return redirect('/')
 
@@ -439,7 +487,16 @@ def Admin_farm_machineries(request):
             return redirect('/')
         user = register.objects.filter(id=SAdm_id)
         var = farm_machineries.objects.all().order_by('-date')
-        return render(request,'Admin_farm_machineries.html',{'var':var,'user':user})
+        posts = farm_machineries.objects.all().order_by('-date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'Admin_farm_machineries.html',{'page_obj':page_obj,'var':var,'user':user})
     else:
         return redirect('/')
 
@@ -451,7 +508,16 @@ def Admin_man_power_usage(request):
             return redirect('/')
         user = register.objects.filter(id=SAdm_id)
         var = man_power_usage.objects.all().order_by('-date')
-        return render(request,'Admin_man_power_usage.html',{'var':var,'user':user})
+        posts = man_power_usage.objects.all().order_by('-date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'Admin_man_power_usage.html',{'page_obj':page_obj,'var':var,'user':user})
     else:
         return redirect('/')
 
@@ -463,7 +529,16 @@ def Admin_farm_expenses(request):
             return redirect('/')
         user = register.objects.filter(id=SAdm_id)
         var = farm_expenses.objects.all().order_by('-date')
-        return render(request,'Admin_farm_expenses.html',{'var':var,'user':user})
+        posts = farm_expenses.objects.all().order_by('-date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'Admin_farm_expenses.html',{'page_obj':page_obj,'var':var,'user':user})
     else:
         return redirect('/')
 
@@ -504,7 +579,16 @@ def Admin_farm_revenue(request):
             return redirect('/')
         user = register.objects.filter(id=SAdm_id)
         var = farm_revenue.objects.all().order_by('-date')
-        return render(request,'Admin_farm_revenue.html',{'var':var,'user':user})
+        posts = farm_revenue.objects.all().order_by('-date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'Admin_farm_revenue.html',{'page_obj':page_obj,'var':var,'user':user})
     else:
         return redirect('/')
 
@@ -557,25 +641,6 @@ def user_index(request):
         return render(request,'user_index.html',{'mem1':mem1})
     else:
         return redirect('/')
-     
-
-# def user_dashboard(request):
-#     if 'c_id' in request.session:
-#         if request.session.has_key('c_id'):
-#             c_id = request.session['c_id']
-#         else:
-#             return redirect('/')
-#         mem1 = register.objects.filter(id=c_id)
-#         var = register.objects.filter(id=c_id)
-#         labels = []
-#         data = []
-#         queryset = farm_expenses.objects.filter(user_id=c_id)
-#         for j in queryset:
-#             labels=[j.price,j.total_cost,j.quantity]
-#             data=[j.price,j.total_cost,j.quantity]
-#         return render(request,'user_dashboard.html',{'mem1':mem1,'var':var,'labels':labels,'data':data})
-#     else:
-#         return redirect('/')
 
 def user_dashboard(request):
     if 'c_id' in request.session:
@@ -606,27 +671,6 @@ def user_chart(request):
         return render(request,'user_chart.html',{'mem1':mem1, 'var':var ,'num':num})
     else:
         return redirect('/')
-
-
-# @csrf_exempt
-# def user_chart(request):
-#     if 'c_id' in request.session:
-#         if request.session.has_key('c_id'):
-#             c_id = request.session['c_id']
-#         else:
-#             return redirect('/')
-#         mem1 = register.objects.filter(id=c_id)
-#         var = register.objects.filter(id = c_id)
-#         labels = []
-#         data = []
-#         queryset = farm_revenue.objects.filter(user_id=c_id)
-#         for j in queryset:
-#             labels=[j.quantity,j.revenue]
-#             data=[j.quantity,j.revenue]
-#         return render(request,'user_chart.html',{'mem1':mem1,'var':var,'labels':labels,'data':data})
-#     else:
-#         return redirect('/')
-
 
 def user_settings(request):
     if 'c_id' in request.session:
@@ -709,8 +753,16 @@ def user_plant_details(request):
             return redirect('/')
         mem1 = register.objects.filter(id=c_id)
         var = plantdetails.objects.filter(user_id=c_id).order_by('-planting_date')
-        return render(request,'user_plant_details.html',{'mem1':mem1,'var':var})
-        # return render(request,'index.html',{'mem1':mem1,'var':var})
+        posts = plantdetails.objects.filter(user_id=c_id).order_by('-planting_date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'user_plant_details.html',{'page_obj':page_obj,'mem1':mem1,'var':var})
     else:
         return redirect('/')
 
@@ -736,7 +788,6 @@ def user_plant_details_search(request):
         if request.method == "POST":
             p1=request.POST.get('input')
             var = plantdetails.objects.filter(user_id=c_id).filter(plant_name=p1).order_by('-id')
-        
         return render(request,'Plant_details_print.html',{'mem':mem1,'var':var})
     else:
         return redirect('/')
@@ -818,7 +869,16 @@ def user_farm_weather(request):
             return redirect('/')
         mem1 = register.objects.filter(id=c_id)
         var = farm_weather.objects.filter(user_id=c_id).order_by('-date')
-        return render(request,'user_farm_weather.html',{'mem1':mem1,'var':var})
+        posts = farm_weather.objects.filter(user_id=c_id).order_by('-date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'user_farm_weather.html',{'page_obj':page_obj,'mem1':mem1,'var':var})
     else:
         return redirect('/')
 
@@ -930,7 +990,16 @@ def user_soil_sample_test(request):
             return redirect('/')
         mem1 = register.objects.filter(id=c_id)
         var = soil_sample_test.objects.filter(user_id=c_id).order_by('-date')
-        return render(request,'user_soil_sample_test.html',{'mem1':mem1,'var':var})
+        posts = soil_sample_test.objects.filter(user_id=c_id).order_by('-date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'user_soil_sample_test.html',{'page_obj':page_obj,'mem1':mem1,'var':var})
     else:
         return redirect('/')
 
@@ -968,12 +1037,12 @@ def user_soilsampletest_update(request,id):
         mem1 = register.objects.filter(id=c_id)
         if request.method == 'POST':
             abc = soil_sample_test.objects.get(id=id)
-            abc.tests = request.POST.get('tests')
+            # abc.tests = request.POST.get('tests')
             abc.date = request.POST.get('date')
-            abc.result = request.POST.get('result')
-            abc.unit = request.POST.get('unit')
-            abc.method = request.POST.get('method')
-            abc.level = request.POST.get('level')
+            # abc.result = request.POST.get('result')
+            # abc.unit = request.POST.get('unit')
+            # abc.method = request.POST.get('method')
+            # abc.level = request.POST.get('level')
             abc.place = request.POST.get('place')
             abc.photo = request.FILES['file']
             abc.save()
@@ -994,18 +1063,18 @@ def user_add_soil_sample_test(request):
         mem1 = register.objects.filter(id=c_id)
         loc = location.objects.filter(user_id = c_id)
         if request.method == 'POST':
-            s1 = request.POST['tests']
+            # s1 = request.POST['tests']
             s2 = request.POST['date']
-            s3 = request.POST['result']
-            s4 = request.POST['unit']
-            s5 = request.POST['method']
-            s6 = request.POST['level']
+            # s3 = request.POST['result']
+            # s4 = request.POST['unit']
+            # s5 = request.POST['method']
+            # s6 = request.POST['level']
             s7 = request.POST['place']
             s8 = request.FILES['file']
             # soil = soil_sample_test( date = s2, file = s8,user_id = c_id)
             # soil.save()
-            soil = soil_sample_test( tests = s1,date = s2,result = s3, photo = s8,
-                unit = s4,method= s5,level = s6, place = s7, file = s8,user_id = c_id)
+            soil = soil_sample_test( date = s2,photo = s8,
+                place = s7, file = s8,user_id = c_id)
             soil.save()
             msg_success = "Details added successfully, Refresh your page"
             return render(request,'user_add_soil_sample_test.html',{'msg_success':msg_success})
@@ -1021,7 +1090,16 @@ def user_fertilizer_applications(request):
             return redirect('/')
         mem1 = register.objects.filter(id=c_id)
         var = fertilizer_applications.objects.filter(user_id=c_id).order_by('-applied_date')
-        return render(request,'user_fertilizer_applications.html',{'mem1':mem1,'var':var})
+        posts = fertilizer_applications.objects.filter(user_id=c_id).order_by('applied_date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'user_fertilizer_applications.html',{'page_obj':page_obj,'mem1':mem1,'var':var})
     else:
         return redirect('/')
 
@@ -1146,7 +1224,16 @@ def user_periodic_tests(request):
             return redirect('/')
         mem1 = register.objects.filter(id=c_id)
         var = periodic_tests.objects.filter(user_id=c_id).order_by('-date')
-        return render(request,'user_periodic_tests.html',{'mem1':mem1,'var':var})
+        posts = periodic_tests.objects.filter(user_id=c_id).order_by('date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'user_periodic_tests.html',{'page_obj':page_obj,'mem1':mem1,'var':var})
     else:
         return redirect('/')
 
@@ -1225,7 +1312,16 @@ def user_farm_machineries(request):
             return redirect('/')
         mem1 = register.objects.filter(id=c_id)
         var = farm_machineries.objects.filter(user_id=c_id).order_by('-date')
-        return render(request,'user_farm_machineries.html',{'mem1':mem1,'var':var})
+        posts = farm_machineries.objects.filter(user_id=c_id).order_by('date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'user_farm_machineries.html',{'page_obj':page_obj,'mem1':mem1,'var':var})
     else:
         return redirect('/')
 
@@ -1272,7 +1368,7 @@ def user_farmmachineries_update(request,id):
             abc.cost = request.POST.get('cost')
             abc.total = request.POST.get('total')
             abc.save()
-            msg_success = "Details updated successfully, Refresh your page"
+            msg_success = "Details updated successfully, Refresh your page,Please Update on Farm Expense"
             return render(request,'user_viewedit_farmmachineries.html',{'msg_success': msg_success})
         return render(request,'user_viewedit_farmmachineries.html',{'mem1':mem1})
     else:
@@ -1318,7 +1414,16 @@ def user_man_power_usage(request):
             return redirect('/')
         mem1 = register.objects.filter(id=c_id)
         var = man_power_usage.objects.filter(user_id=c_id).order_by('-date')
-        return render(request,'user_man_power_usage.html',{'mem1':mem1,'var':var})
+        posts = man_power_usage.objects.filter(user_id=c_id).order_by('date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'user_man_power_usage.html',{'page_obj':page_obj,'mem1':mem1,'var':var})
     else:
         return redirect('/')
 
@@ -1364,7 +1469,7 @@ def user_manpower_update(request,id):
             abc.cost= request.POST.get('cost')
             abc.total = request.POST.get('total')
             abc.save()
-            msg_success = "Details updated successfully, Refresh your page"
+            msg_success = "Details updated successfully, Refresh your page,Please Update on Farm Expense"
             return render(request,'user_viewedit_manpower.html',{'msg_success': msg_success})
         return render(request,'user_viewedit_manpower.html',{'mem1':mem1})
     else:
@@ -1409,7 +1514,16 @@ def user_farm_expenses(request):
             return redirect('/')
         mem1 = register.objects.filter(id=c_id)
         var = farm_expenses.objects.filter(user_id=c_id).order_by('-date')
-        return render(request,'user_farm_expenses.html',{'mem1':mem1,'var':var})
+        posts = farm_expenses.objects.filter(user_id=c_id).order_by('date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'user_farm_expenses.html',{'page_obj':page_obj,'mem1':mem1,'var':var})
     else:
         return redirect('/')
 
@@ -1520,7 +1634,16 @@ def user_farm_revenue(request):
             return redirect('/')
         mem1 = register.objects.filter(id=c_id)
         var = farm_revenue.objects.filter(user_id=c_id).order_by('-date')
-        return render(request,'user_farm_revenue.html',{'mem1':mem1,'var':var})
+        posts = farm_revenue.objects.filter(user_id=c_id).order_by('date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'user_farm_revenue.html',{'page_obj':page_obj,'mem1':mem1,'var':var})
     else:
         return redirect('/')
 
@@ -1791,7 +1914,16 @@ def Staff_plant_details(request):
             return redirect('/')
         mem = register.objects.filter(id=s_id)
         var = plantdetails.objects.filter(user_id=s_id).order_by('-planting_date')
-        return render(request,'Staff_plant_details.html',{'mem':mem,'var':var})
+        posts = plantdetails.objects.filter(user_id=s_id).order_by('-planting_date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'Staff_plant_details.html',{'page_obj':page_obj,'mem':mem,'var':var})
     else:
         return redirect('/')
 
@@ -1878,17 +2010,42 @@ def Staff_plantdetails_update(request,id):
     else:
         return redirect('/')
 
+# def Staff_plant_harvesting(request):
+#     if 's_id' in request.session:
+#         if request.session.has_key('s_id'):
+#             s_id = request.session['s_id']
+#         else:
+#             return redirect('/')
+#         mem = register.objects.filter(id=s_id)
+#         var = harvesting.objects.filter(user_id=s_id).order_by('-planting_date')
+#         return render(request,'Staff_Plant_Harvesting.html',{'mem':mem,'var':var})
+#     else:
+#         return redirect('/')
+
 def Staff_plant_harvesting(request):
     if 's_id' in request.session:
         if request.session.has_key('s_id'):
             s_id = request.session['s_id']
         else:
-            return redirect('/')
+           return redirect('/')
         mem = register.objects.filter(id=s_id)
-        var = harvesting.objects.filter(user_id=s_id).order_by('-planting_date')
-        return render(request,'Staff_Plant_Harvesting.html',{'mem':mem,'var':var})
-    else:
-        return redirect('/')
+        var = harvesting.objects.filter(user_id=s_id)
+        posts = plantdetails.objects.filter(user_id=s_id).order_by('-planting_date') # fetching all post objects from database
+        p = Paginator(posts, 2)  # creating a paginator object
+        # getting the desired page number from url
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number)  # returns the desired page object
+        except PageNotAnInteger:
+            # if page_number is not an integer then assign the first page
+            page_obj = p.page(1)
+        except EmptyPage:
+            # if page is empty then return last page
+            page_obj = p.page(p.num_pages)
+        context = {'page_obj': page_obj,'mem':mem,'var':var}
+        # sending the page object to index.html
+        return render(request, 'Staff_Plant_Harvesting.html', context)
+
 
 def Staff_add_harvesting(request):
     if 's_id' in request.session:
@@ -1902,7 +2059,7 @@ def Staff_add_harvesting(request):
         if request.method == 'POST':
             p1 = request.POST['plant']
             p5 = request.POST['harvesting']
-            p6 = request.POST['harvesteddata']
+            p6 = request.POST['myInput']
             p7 = request.POST['planting']
             p9 = request.POST['location']
             plant = harvesting( plant_name = p1,harvesting_date = p5,harvested_data = p6,
@@ -1922,7 +2079,16 @@ def Staff_farm_weather(request):
             return redirect('/')
         mem = register.objects.filter(id=s_id)
         var = farm_weather.objects.filter(user_id = s_id).order_by('-date')
-        return render(request,'Staff_farm_weather.html',{'mem':mem,'var':var})
+        posts = farm_weather.objects.filter(user_id=s_id).order_by('-date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'Staff_farm_weather.html',{'page_obj':page_obj,'mem':mem,'var':var})
     else:
         return redirect('/')
 
@@ -2031,7 +2197,16 @@ def Staff_soil_sample_test(request):
             return redirect('/')
         mem = register.objects.filter(id=s_id)
         var = soil_sample_test.objects.filter(user_id= s_id).order_by('-date')
-        return render(request,'Staff_soil_sample_test.html',{'mem':mem,'var':var})
+        posts = soil_sample_test.objects.filter(user_id=s_id).order_by('-date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'Staff_soil_sample_test.html',{'page_obj':page_obj,'mem':mem,'var':var})
     else:
         return redirect('/')
 
@@ -2070,12 +2245,12 @@ def Staff_soilsampletest_update(request,id):
         mem = register.objects.filter(id=s_id)
         if request.method == 'POST':
             abc = soil_sample_test.objects.get(id=id)
-            abc.tests = request.POST.get('tests')
+            # abc.tests = request.POST.get('tests')
             abc.date = request.POST.get('date')
-            abc.result = request.POST.get('result')
-            abc.unit = request.POST.get('unit')
-            abc.method = request.POST.get('method')
-            abc.level = request.POST.get('level')
+            # abc.result = request.POST.get('result')
+            # abc.unit = request.POST.get('unit')
+            # abc.method = request.POST.get('method')
+            # abc.level = request.POST.get('level')
             abc.place = request.POST.get('place')
             abc.photo = request.FILES['file']
             abc.save()
@@ -2096,16 +2271,16 @@ def Staff_add_soil_sample_test(request):
         mem = register.objects.filter(id=s_id)
         loc = location.objects.filter(user_id = s_id)
         if request.method == 'POST':
-            s1 = request.POST['tests']
+            # s1 = request.POST['tests']
             s2 = request.POST['date']
-            s3 = request.POST['result']
-            s4 = request.POST['unit']
-            s5 = request.POST['method']
-            s6 = request.POST['level']
+            # s3 = request.POST['result']
+            # s4 = request.POST['unit']
+            # s5 = request.POST['method']
+            # s6 = request.POST['level']
             s7 = request.POST['place']
             s8 = request.FILES['file']
-            soil = soil_sample_test( tests = s1,date = s2,result = s3, photo = s8,
-                unit = s4,method= s5,level = s6, place = s7,user_id = s_id)
+            soil = soil_sample_test( date = s2, photo = s8,
+                place = s7,user_id = s_id)
             soil.save()
             msg_success = "Details added successfully, Refresh your page"
             return render(request,'Staff_add_soil_sample_test.html',{'msg_success':msg_success})
@@ -2121,7 +2296,16 @@ def Staff_fertilizer_applications(request):
             return redirect('/')
         mem = register.objects.filter(id=s_id)
         var = fertilizer_applications.objects.filter(user_id=s_id).order_by('-applied_date')
-        return render(request,'Staff_fertilizer_applications.html',{'mem':mem,'var':var})
+        posts = fertilizer_applications.objects.filter(user_id=s_id).order_by('-applied_date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'Staff_fertilizer_applications.html',{'page_obj':page_obj,'mem':mem,'var':var})
     else:
         return redirect('/')
 
@@ -2234,7 +2418,16 @@ def Staff_periodic_tests(request):
             return redirect('/')
         mem = register.objects.filter(id=s_id)
         var = periodic_tests.objects.filter(user_id = s_id).order_by('-date')
-        return render(request,'Staff_periodic_tests.html',{'mem':mem,'var':var})
+        posts = periodic_tests.objects.filter(user_id=s_id).order_by('-date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'Staff_periodic_tests.html',{'page_obj':page_obj,'mem':mem,'var':var})
     else:
         return redirect('/')
 
@@ -2313,7 +2506,16 @@ def Staff_farm_machineries(request):
             return redirect('/')
         mem = register.objects.filter(id=s_id)
         var = farm_machineries.objects.filter(user_id = s_id).order_by('-date')
-        return render(request,'Staff_farm_machineries.html',{'mem':mem,'var':var})
+        posts = farm_machineries.objects.filter(user_id=s_id).order_by('-date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'Staff_farm_machineries.html',{'page_obj':page_obj,'mem':mem,'var':var})
     else:
         return redirect('/')
 
@@ -2360,12 +2562,11 @@ def Staff_farmmachineries_update(request,id):
             abc.cost = request.POST.get('cost')
             abc.total = request.POST.get('total')
             abc.save()
-            msg_success = "Details updated successfully, Refresh your page"
+            msg_success = "Details updated successfully, Refresh your page,Please Update on Farm Expense"
             return render(request,'Staff_viewedit_farmmachineries.html',{'msg_success': msg_success})
         return render(request,'Staff_viewedit_farmmachineries.html')
     else:
         return redirect('/')
-
 
 def Staff_add_farm_machineries(request):
     if 's_id' in request.session:
@@ -2404,7 +2605,16 @@ def Staff_man_power_usage(request):
             return redirect('/')
         mem = register.objects.filter(id=s_id)
         var = man_power_usage.objects.filter(user_id = s_id).order_by('-date')
-        return render(request,'Staff_man_power_usage.html',{'mem':mem,'var':var})
+        posts = man_power_usage.objects.filter(user_id=s_id).order_by('-date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'Staff_man_power_usage.html',{'page_obj':page_obj,'mem':mem,'var':var})
     else:
         return redirect('/')
 
@@ -2450,7 +2660,7 @@ def Staff_manpower_update(request,id):
             abc.cost = request.POST.get('cost')
             abc.total = request.POST.get('total')
             abc.save()
-            msg_success = "Details updated successfully, Refresh your page"
+            msg_success = "Details updated successfully, Refresh your page,Please Update on Farm Expense"
             return render(request,'Staff_viewedit_manpower.html',{'msg_success': msg_success})
         return render(request,'Staff_viewedit_manpower.html')
     else:
@@ -2494,7 +2704,16 @@ def Staff_farm_expenses(request):
             return redirect('/')
         mem = register.objects.filter(id=s_id)
         var = farm_expenses.objects.filter(user_id=s_id).order_by('-date')
-        return render(request,'Staff_farm_expenses.html',{'mem':mem,'var':var})
+        posts = farm_expenses.objects.filter(user_id=s_id).order_by('-date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'Staff_farm_expenses.html',{'page_obj':page_obj,'mem':mem,'var':var})
     else:
         return redirect('/')
 
@@ -2605,7 +2824,16 @@ def Staff_farm_revenue(request):
             return redirect('/')
         mem = register.objects.filter(id=s_id)
         var = farm_revenue.objects.filter(user_id=s_id).order_by('-date')
-        return render(request,'Staff_farm_revenue.html',{'mem':mem,'var':var})
+        posts = farm_revenue.objects.filter(user_id=s_id).order_by('-date')
+        p = Paginator(posts, 5) 
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number) 
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        return render(request,'Staff_farm_revenue.html',{'page_obj':page_obj,'mem':mem,'var':var})
     else:
         return redirect('/')
 

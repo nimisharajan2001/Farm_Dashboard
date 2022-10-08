@@ -1,3 +1,5 @@
+<!-- https://github.com/nimisharajan2001/Farm_Dashboard/commit/795c59dc1fffdee7fedfd28c237d61c7243d7e15 :-- excel download-->
+<!-- https://github.com/nimisharajan2001/Farm_Dashboard/commit/7d7fb9ad374eb6106b5a0e8c3e06cfcb8f6e8a7f  :-- charts filtering by dates-->
 {% extends 'Staff_index.html'%}
 {% load static %}
 {% block content %}
@@ -64,7 +66,7 @@
               </tr>
             </thead>
             <tbody id="myTable">
-              {% for i in var %}
+              {% for i in page_obj.object_list %}
               <tr style="background-color: rgb(241, 249, 252);">
                 <td>{{i.tests}}</td>
                 <td>{{i.place}}</td>
@@ -86,5 +88,15 @@
   </div>
 </div>
 <!-- </form> -->
+<center>
+  {%if page_obj.has_previous %} {# whether the previous page exists #}
+    <a href="?page={{page_obj.previous_page_number}}"><</a> {# link to the prev page #}
+  {% endif %}
+  <span>{{page_obj.number}}</span> {# the current page number #}
+  
+  {%if page_obj.has_next %} {# whether the next page exists #}
+    <a href="?page={{page_obj.next_page_number}}">></a> {# link to the next page #}
+  {% endif %}
+</center>
 
 {% endblock %}

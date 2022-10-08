@@ -66,7 +66,7 @@
               </tr>
             </thead>
             <tbody id="myTable">
-              {% for i in var %}
+              {% for i in page_obj.object_list %}
               <tr style="background-color: rgb(241, 249, 252);">
                 <td>{{i.parameters}}</td>
                 <td>{{i.date|date:"d-m-Y"}}</td>
@@ -110,5 +110,15 @@
   </div>
 </div>
 </form>
+<center>
+  {%if page_obj.has_previous %} {# whether the previous page exists #}
+    <a href="?page={{page_obj.previous_page_number}}"><</a> {# link to the prev page #}
+  {% endif %}
+  <span>{{page_obj.number}}</span> {# the current page number #}
+  
+  {%if page_obj.has_next %} {# whether the next page exists #}
+    <a href="?page={{page_obj.next_page_number}}">></a> {# link to the next page #}
+  {% endif %}
+</center>
 
 {% endblock %}

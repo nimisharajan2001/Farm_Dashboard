@@ -44,42 +44,42 @@
                     User Name
                 </th>
                 <th style="background-color: green; color: #fff;">
-                    Tests
-                </th>
-                <th style="background-color: green; color: #fff;">
-                  Location
-                </th>
-                <th style="background-color: green; color: #fff;">
-                    Date
-                </th>
-                <th style="background-color: green; color: #fff;">
-                    Result
-                </th>
-                <th style="background-color: green; color: #fff;">
-                    Unit
-                </th>
-                <th style="background-color: green; color: #fff;">
-                    Method
-                </th>
-                <th style="background-color: green; color: #fff;">
-                    Level
-                </th>
+                  Date
+              </th>
+              <th style="background-color: green; color: #fff;">
+                Location
+              </th>
+              <!-- <th style="background-color: green; color: #fff;">
+                  Result
+              </th>
+              <th style="background-color: green; color: #fff;">
+                  Unit
+              </th>
+              <th style="background-color: green; color: #fff;">
+                  Method
+              </th> 
+              <th style="background-color: green; color: #fff;">
+                  Level
+              </th>-->
+              <th style="background-color: green; color: #fff;">
+                File
+              </th>
 
               </tr>
             </thead>
             <tbody id="myTable">
-              {% for i in var %}
+              {% for i in page_obj.object_list %}
               <tr style="background-color: rgb(241, 249, 252);">
                 <td>{{i.user}}</td>
-                <td><a href="{{i.photo.url}}">view file</a></td>
                 <!-- <td>{{i.tests}}</td> -->
-                <td>{{i.place}}</td>
                 <td>{{i.date|date:"d-m-Y"}}</td>
-                <td>{{i.result}}</td>
+                <td>{{i.place}}</td>
+                <td><a href="{{i.photo.url}}">view file</a></td>
+                <!-- <td>{{i.result}}</td>
                 <td>{{i.unit}}</td>
                 <td>{{i.method}}</td>
-                <td>{{i.level}}</td>
-              </tr>
+                <td>{{i.level}}</td> -->
+                
               {% endfor %}
              
             </tbody>
@@ -89,7 +89,16 @@
     </div>
   </div>
 </div>
-
+<center>
+  {%if page_obj.has_previous %} {# whether the previous page exists #}
+    <a href="?page={{page_obj.previous_page_number}}"><</a> {# link to the prev page #}
+  {% endif %}
+  <span>{{page_obj.number}}</span> {# the current page number #}
+  
+  {%if page_obj.has_next %} {# whether the next page exists #}
+    <a href="?page={{page_obj.next_page_number}}">></a> {# link to the next page #}
+  {% endif %}
+</center>
 <!-- <script>
     function exportData(){
 /* Get the HTML data using Element by Id */
