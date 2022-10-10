@@ -25,7 +25,7 @@ def registration(request):
     if request.method == 'POST':
         reg = register()
         reg.name = request.POST['name']
-        reg.username = request.POST['username']
+        # reg.username = request.POST['username']
         reg.mobile = request.POST['mobile']
         reg.email = request.POST['email']
         reg.address = request.POST['address']

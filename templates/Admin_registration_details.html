@@ -14,9 +14,9 @@
                 <th style="background-color: green; color: #fff;">
                     Name
                 </th> 
-                <th style="background-color: green; color: #fff;">
+                <!-- <th style="background-color: green; color: #fff;">
                   User Name
-                </th>
+                </th> -->
                 <th style="background-color: green; color: #fff;">
                     Mobile
                 </th>
@@ -57,7 +57,7 @@
                 <form action="{% url 'registersave' i.id %}" method="post" enctype="multipart/form-data">
                   {% csrf_token %}
               <td>{{i.name}}</td>
-              <td>{{i.username}}</td>
+              <!-- <td>{{i.username}}</td> -->
               <td>{{i.mobile}}</td>
               <td>{{i.email}}</td>
               <td>{{i.address}}</td>

@@ -38,8 +38,8 @@
                                 <th> SlNo</th>
                                 <th> Name </th>
                                 <th> Email </th>
-                                <th> User Name </th>
-                                <th> Mobile </th>                                
+                                <th> Mobile </th>      
+                                <th> District </th>                          
                             </tr>
                         </thead>
                         <tbody id="myTable"> 
@@ -48,8 +48,9 @@
                                 <td>{{forloop.counter}}</td>
                                 <td>{{i.name}}</td>
                                 <td>{{i.email}}</td>
-                                <td>{{i.username}}</td>
+                                <!-- <td>{{i.username}}</td> -->
                                 <td>{{i.mobile}}</td>
+                                <td>{{i.district}}</td>
                             </tr>   
                             {%endfor%}              
                         </tbody>
