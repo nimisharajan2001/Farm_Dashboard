@@ -68,7 +68,14 @@
                 <td>{{i.revenue_type}}</td>
                 <td>{{i.type_description}}</td>
                 <td>{{i.date|date:"d-m-Y"}}</td>
+                <!-- <td>{{i.quantity}}</td> -->
+                {% if i.revenue_type == "Sale of Product"%}
+                <td>{{i.quantity}} Kg</td>
+                {%elif i.revenue_type == "Services"%}
+                <td>{{i.quantity}} Hr</td>
+                {%else%}
                 <td>{{i.quantity}}</td>
+                {%endif%}
                 <td>{{i.revenue}}</td>
                 <td>
                   <a href="{% url 'user_viewedit_farmrevenue' i.id%}">
