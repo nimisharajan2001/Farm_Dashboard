@@ -1,4 +1,4 @@
-{% extends 'Staff_index.html'%}
+{% extends 'Admin_index.html'%}
 {% load static %}
 {% block content %}
 
@@ -25,11 +25,10 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-5"></div>
-          <div class="col-md-4">
+          <div class="col-md-5">
           </div>
-          <div class="col-md-3">
-            <a href="{% url 'Staff_add_harvesting' %}" class="btn" style="background-color: blueviolet; color: white;">Add New</a>
-            <a href="{% url 'Staff_find_harvesting' %}" class="btn" style="background-color: rgb(8, 26, 41); color: white;">Find</a>
+          <div class="col-md-2">
+            <a href="{% url 'Admin_find_harvesting' %}" class="btn" style="background-color: rgb(8, 26, 41); color: white;">Find</a>
           </div>
         </div>
         <h4 class="card-title">Entered Details</h4>
@@ -41,10 +40,16 @@
             <thead>
               <tr>
                 <th style="background-color: green; color: #fff;">
+                    User Name
+                  </th>
+                <th style="background-color: green; color: #fff;">
                   Plant Name
                 </th>
                 <th style="background-color: green; color: #fff;">
                   Location
+                </th>
+                <th style="background-color: green; color: #fff;">
+                  Acers
                 </th>
                 <th style="background-color: green; color: #fff;">
                   Planting Date
@@ -61,28 +66,25 @@
                 <th style="background-color: green; color: #fff;">
                   Total
                 </th>
-                <th style="background-color: green; color: #fff;">
-                  Action
-                </th>
 
               </tr>
             </thead>
             <tbody id="myTable">
               {% for i in page_obj.object_list %}
               <tr style="background-color: rgb(241, 249, 252);">
+                <td>{{i.user}}</td>
                 <td>{{i.plant_name}}</td>
                 <td>{{i.location}}</td>
+                {% for k in loc%}
+                {% if i.location == k.name%}
+                <td>{{k.acers}}</td>   
+                {%endif%}
+                {%endfor%}   
                 <td>{{i.planting_date|date:"d-m-Y"}}</td>
                 <td>{{i.harvesting_date|date:"d-m-Y"}}</td>
                 <td>{{i.harvested_data}}</td>
                 <td>{{i.cost}}</td>
                 <td>{{i.total}}</td>
-                <td>
-                  <a href="{% url 'Staff_viewedit_harvesting'  i.id%}">
-                    <div class="btn  btn-sm" style="color: white;  background-color: maroon;"><i class="ti-reload pr-2"></i>View/Update</div>
-                  </a>
-
-                </td>
               </tr>
               {%endfor%}
 

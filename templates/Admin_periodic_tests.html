@@ -49,6 +49,9 @@
                 <th style="background-color: green; color: #fff;">
                   Location
                  </th>
+                 <th style="background-color: green; color: #fff;">
+                 Acers
+                 </th>
                 <th style="background-color: green; color: #fff;">
                    Date Measured
                 </th>
@@ -63,6 +66,11 @@
                 <td>{{i.user}}</td>
                 <td>{{i.tests}}</td>
                 <td>{{i.place}}</td>
+                {% for k in loc%}
+                {% if i.place == k.name%}
+                <td>{{k.acers}}</td>
+                {%endif%}
+                {%endfor%}
                 <td>{{i.date|date:"d-m-Y"}}</td>
                 <td>{{i.measurement}}</td>
               </tr>

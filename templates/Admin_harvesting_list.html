@@ -18,75 +18,102 @@
       });
     </script>
 
+<!-- <form action="{% url 'Staff_plant_details_print'%}"> -->
 <div class="row">
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
         <div class="row">
-          <div class="col-md-6"></div>
-          <div class="col-md-4"></div>
+          <div class="col-md-5"></div>
+          <div class="col-md-5">
+          </div>
           <div class="col-md-2">
-            <!-- <button onclick="exportData()" style="background-color: rgb(190, 22, 126); color: white; border-radius: 15px;
+            <button onclick="exportData()" style="background-color: rgb(58, 21, 92); color: white; border-radius: 15px;
             height: 42px; width: 110px;" >
               <span class="glyphicon glyphicon-download"></span>
-              Download</button> -->
+              Download</button>
           </div>
         </div>
-        <h4 class="card-title">Farm Machineries Details</h4>
+<br>
         <div class="form-group">
           <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search Here.." title="Type in a name" autocomplete="off">
         </div>
         <div class="table-responsive">
-          <table id="tblStocks" class="table table-bordered">
+          <table class="table table-bordered" id="tblStocks">
             <thead>
               <tr>
                 <th style="background-color: green; color: #fff;">
                     User Name
                 </th>
                 <th style="background-color: green; color: #fff;">
-                  Name of Machine
-                </th>
-                <th style="background-color: green; color: #fff;">
-                  Machine ID
+                  Plant Name
                 </th>
                 <th style="background-color: green; color: #fff;">
                   Location
                 </th>
                 <th style="background-color: green; color: #fff;">
-                  Acers
+                  Planting Date
                 </th>
                 <th style="background-color: green; color: #fff;">
-                  Date
+                    Harvesting date
                 </th>
                 <th style="background-color: green; color: #fff;">
-                   Working Hours
+                    Harvested data
                 </th>
                 <th style="background-color: green; color: #fff;">
                   Cost Per Unit
-               </th>
-               <th style="background-color: green; color: #fff;">
-                Total
-             </th>
+                </th>
+                <th style="background-color: green; color: #fff;">
+                  Total
+                </th>
               </tr>
             </thead>
             <tbody id="myTable">
-              {% for i in page_obj.object_list %}
+              {% for i in var %}
               <tr style="background-color: rgb(241, 249, 252);">
                 <td>{{i.user}}</td>
-                <td>{{i.machine_name}}</td>
-                <td>{{i.machine_id}}</td>
-                <td>{{i.place}}</td>
-                {% for k in loc%}
-                {% if i.place == k.name%}
-                <td>{{k.acers}}</td>   
-                {%endif%}
-                {%endfor%} 
-                <td>{{i.date|date:"d-m-Y"}}</td>
-                <td>{{i.working_hours}} Hrs</td>
+                <td>{{i.plant_name}}</td>
+                <td>{{i.location}}</td>
+                <td>{{i.planting_date|date:"d-m-Y"}}</td>
+                <td>{{i.harvesting_date|date:"d-m-Y"}}</td>
+                <td>{{i.harvested_data}}</td>
                 <td>{{i.cost}}</td>
-                <td>{{i.total}}</td>               
+                <td>{{i.total}}</td>         
               </tr>
-              {% endfor %}
+              {%endfor%}
+              <!-- <tr>
+                <td colspan="6" class="text-black" style="text-align: center;">
+                    Total
+                </td>
+                <td id="totalsalary" colspan="1" class="text-black" style="padding-right: 20px;"></td>
+              </tr>
+              
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+              <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+              <script>
+                  $(document).ready(function () {
+                      var empsalary;
+                      var totalsalary =0;
+                     
+                      $('td:nth-child(7)').each(function () {
+                          empsalary = $(this).html();
+                          console.log(typeof(empsalary));
+                          a=parseInt(empsalary)
+                          totalsalary += a;
+                          console.log(a);
+                          console.log(totalsalary);
+                         
+                          $('#totalsalary').text(totalsalary);
+                          
+                      });
+                  });
+              
+              
+                          
+                </script> -->
+
             </tbody>
           </table>
         </div>
@@ -95,19 +122,10 @@
   </div>
 </div>
 
-<center>
-  {%if page_obj.has_previous %} {# whether the previous page exists #}
-    <a href="?page={{page_obj.previous_page_number}}"><</a> {# link to the prev page #}
-  {% endif %}
-  <span>{{page_obj.number}}</span> {# the current page number #}
-  
-  {%if page_obj.has_next %} {# whether the next page exists #}
-    <a href="?page={{page_obj.next_page_number}}">></a> {# link to the next page #}
-  {% endif %}
-</center>
+</body>
+</html>
 
-
-<!-- <script>
+<script>
     function exportData(){
 /* Get the HTML data using Element by Id */
 var table = document.getElementById("tblStocks");
@@ -125,6 +143,11 @@ for(var i=0,row; row = table.rows[i];i++){
     column4 = row.cells[3].innerText;
     column5 = row.cells[4].innerText;
     column6 = row.cells[5].innerText;
+    column7 = row.cells[6].innerText;
+    column8 = row.cells[7].innerText;
+    // column9 = row.cells[8].innerText;
+    // column10 = row.cells[9].innerText;
+    // column11 = row.cells[10].innerText;
 
 /* add a new records in the array */
     rows.push(
@@ -134,8 +157,12 @@ for(var i=0,row; row = table.rows[i];i++){
             column3,
             column4,
             column5,
-            column6
-           
+            column6,
+            column7,
+            column8
+            // column9,
+            // column10,
+            // column11
         ]
     );
 
@@ -151,10 +178,11 @@ for(var i=0,row; row = table.rows[i];i++){
     var encodedUri = encodeURI(csvContent);
     var link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "Farm_Machineries_Report.csv");
+    link.setAttribute("download", "Harvesting_Report.csv");
     document.body.appendChild(link);
      /* download the data file named "Stock_Price_Report.csv" */
     link.click();
     }
-</script> -->
+</script>
+
 {% endblock %}

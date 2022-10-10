@@ -49,6 +49,9 @@
               <th style="background-color: green; color: #fff;">
                 Location
               </th>
+              <th style="background-color: green; color: #fff;">
+                Acers
+              </th>
               <!-- <th style="background-color: green; color: #fff;">
                   Result
               </th>
@@ -74,6 +77,11 @@
                 <!-- <td>{{i.tests}}</td> -->
                 <td>{{i.date|date:"d-m-Y"}}</td>
                 <td>{{i.place}}</td>
+                {% for k in loc%}
+                {% if i.place == k.name%}
+                <td>{{k.acers}}</td>   
+                {%endif%}
+                {%endfor%}  
                 <td><a href="{{i.photo.url}}">view file</a></td>
                 <!-- <td>{{i.result}}</td>
                 <td>{{i.unit}}</td>

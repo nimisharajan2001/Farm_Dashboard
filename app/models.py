@@ -127,7 +127,9 @@ class location(models.Model):
 class harvesting(models.Model):
     user = models.ForeignKey(register, on_delete=models.DO_NOTHING,null=True, blank=True)
     plant_name = models.CharField(max_length=200)
-    harvesting_date= models.CharField(max_length=200,null=True, blank=True)
+    harvesting_date= models.DateField(max_length=200,null=True, blank=True)
     harvested_data= models.CharField(max_length=200,null=True, blank=True)
     planting_date = models.DateField(max_length=200,null=True, blank=True)
     location = models.CharField(max_length=200,null=True, blank=True)
+    cost = models.CharField(max_length=200,null=True, blank=True)
+    total = models.CharField(max_length=200,null=True, blank=True)

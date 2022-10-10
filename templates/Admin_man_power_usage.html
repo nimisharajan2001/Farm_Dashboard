@@ -53,6 +53,9 @@
                   Location
                 </th>
                 <th style="background-color: green; color: #fff;">
+                  Acers
+                </th>
+                <th style="background-color: green; color: #fff;">
                   Date
                 </th>
                 <th style="background-color: green; color: #fff;">
@@ -75,6 +78,11 @@
                 <td>{{i.user}}</td>
                 <td>{{i.job}}</td>
                 <td>{{i.place}}</td>
+                {% for k in loc%}
+                {% if i.place == k.name%}
+                <td>{{k.acers}}</td>   
+                {%endif%}
+                {%endfor%} 
                 <td>{{i.date|date:"d-m-Y"}}</td>
                 <td>{{i.number_of_peoples}}</td>
                 <td>{{i.working_hours}} Hrs</td>

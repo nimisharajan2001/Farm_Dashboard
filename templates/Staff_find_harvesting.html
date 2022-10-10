@@ -1,0 +1,84 @@
+{% extends 'Staff_index.html' %}
+{% load static %}
+{% block content %}
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<style>
+#tble{
+  margin-bottom: 5px;
+  color: white;
+  border-color: white;
+
+  width: 100%;
+  display: none;
+}
+
+</style>
+
+<body>
+  <div class="row ">
+      <h2><small style="color: blueviolet; margin-left: 15px;">Find Harvesting Details </small></h2>
+  </div>
+    <div class="row">
+        <div class="col-12 col-sm-10 col-md-10 col-lg-12 grid-margin">
+          <div class="card mt-3 mb-5">
+            <div class="card-body">
+              <div class="card-body" id="personForm">
+                <form class="forms-sample" action="{% url 'Staff_harvesting_list'%}" method="post">
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <label class="text-muted">SELECT PLANT NAME</label>
+                      <div class="">                      
+                        <select class="form-control" name="plant" >
+                          <option selected="true" disabled="disabled" value="">-Not Selected-</option>
+                          {% for i in var%}
+                            <option>{{i.plant_name}}</option>
+                            {%endfor%}
+                        </select>                  
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <label class="text-muted">SELECT PLANTING DATE</label>
+                      <div class="">     
+                        <input type="date" class="form-control"  id="startdate" name="date" required/>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-lg-9"></div>
+                    <div class="col-lg-3 mt-3">
+                      <button id="btnSearch" type="submit" class="btn btn-primary w-100" >Search</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </div>
+    </body>
+
+    <script>
+      $(function() {
+        var dtToday = new Date();
+        var month = dtToday.getMonth() + 1;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+        var maxDate = year + '-' + month + '-' + day;
+        $('#startdate').attr('max', maxDate);
+      })
+    </script>
+{% endblock %}

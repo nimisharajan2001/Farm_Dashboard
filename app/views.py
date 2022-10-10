@@ -338,6 +338,7 @@ def Admin_plant_details(request):
         else:
             return redirect('/')
         user = register.objects.filter(id=SAdm_id)
+        loc = location.objects.all()
         var = plantdetails.objects.all().order_by('-planting_date')
         posts = plantdetails.objects.all().order_by('-planting_date')
         p = Paginator(posts, 5) 
@@ -348,7 +349,57 @@ def Admin_plant_details(request):
             page_obj = p.page(1)
         except EmptyPage:
             page_obj = p.page(p.num_pages)
-        return render(request,'Admin_plant_details.html',{'page_obj': page_obj,'var':var,'user':user})
+        return render(request,'Admin_plant_details.html',{'page_obj': page_obj,'var':var,'user':user,'loc':loc})
+    else:
+        return redirect('/')
+
+def Admin_plant_harvesting(request):
+    if 'SAdm_id' in request.session:
+        if request.session.has_key('SAdm_id'):
+            SAdm_id = request.session['SAdm_id']
+        else:
+           return redirect('/')
+        user = register.objects.filter(id=SAdm_id)
+        loc = location.objects.all()
+        posts = harvesting.objects.all().order_by('-planting_date')
+        p = Paginator(posts, 5)
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number)
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        context = {'page_obj': page_obj,'user':user,'loc':loc}
+        return render(request, 'Admin_plant_harvesting.html', context)
+
+def Admin_find_harvesting(request):
+    if 'SAdm_id' in request.session:
+        if request.session.has_key('SAdm_id'):
+            SAdm_id = request.session['SAdm_id']
+        else:
+            return redirect('/')
+        user = register.objects.filter(id=SAdm_id)
+        var = harvesting.objects.values('user').distinct()
+        num = register.objects.all()
+        var1 = harvesting.objects.values('plant_name').distinct()     
+        return render(request,'Admin_find_harvesting.html',{'user':user,'var':var,'num':num,'var1':var1})
+    else:
+        return redirect('/')
+
+def Admin_harvesting_list(request):
+    if 'SAdm_id' in request.session:
+        if request.session.has_key('SAdm_id'):
+            SAdm_id = request.session['SAdm_id']
+        else:
+            return redirect('/')
+        user = register.objects.filter(id=SAdm_id)
+        if request.method == "POST":
+            fromdate = request.POST.get('date')
+            p1=request.POST.get('plant')
+            n1=request.POST.get('name')
+            var = harvesting.objects.filter(planting_date=fromdate).filter(user_id=n1).filter(plant_name=p1)
+        return render(request,'Admin_harvesting_list.html',{'user':user,'var':var})
     else:
         return redirect('/')
 
@@ -423,6 +474,7 @@ def Admin_soil_sample_test(request):
         else:
             return redirect('/')
         user = register.objects.filter(id=SAdm_id)
+        loc = location.objects.all()
         var = soil_sample_test.objects.all().order_by('-date')
         posts = soil_sample_test.objects.all().order_by('-date')
         p = Paginator(posts, 5) 
@@ -433,7 +485,7 @@ def Admin_soil_sample_test(request):
             page_obj = p.page(1)
         except EmptyPage:
             page_obj = p.page(p.num_pages)
-        return render(request,'Admin_soil_sample_test.html',{'page_obj':page_obj,'var':var,'user':user})
+        return render(request,'Admin_soil_sample_test.html',{'page_obj':page_obj,'var':var,'user':user,'loc':loc})
     else:
         return redirect('/')
 
@@ -444,6 +496,7 @@ def Admin_fertilizer_applications(request):
         else:
             return redirect('/')
         user = register.objects.filter(id=SAdm_id)
+        loc = location.objects.all()
         var = fertilizer_applications.objects.all().order_by('-applied_date')
         posts = fertilizer_applications.objects.all().order_by('-applied_date')
         p = Paginator(posts, 5) 
@@ -454,7 +507,7 @@ def Admin_fertilizer_applications(request):
             page_obj = p.page(1)
         except EmptyPage:
             page_obj = p.page(p.num_pages)
-        return render(request,'Admin_fertilizer_applications.html',{'page_obj':page_obj,'var':var,'user':user})
+        return render(request,'Admin_fertilizer_applications.html',{'page_obj':page_obj,'var':var,'user':user,'loc':loc})
     else:
         return redirect('/')
 
@@ -465,6 +518,7 @@ def Admin_periodic_tests(request):
         else:
             return redirect('/')
         user = register.objects.filter(id=SAdm_id)
+        loc = location.objects.all()
         var = periodic_tests.objects.all().order_by('-date')
         posts = periodic_tests.objects.all().order_by('-date')
         p = Paginator(posts, 5) 
@@ -475,7 +529,7 @@ def Admin_periodic_tests(request):
             page_obj = p.page(1)
         except EmptyPage:
             page_obj = p.page(p.num_pages)
-        return render(request,'Admin_periodic_tests.html',{'page_obj':page_obj,'var':var,'user':user})
+        return render(request,'Admin_periodic_tests.html',{'page_obj':page_obj,'var':var,'user':user,'loc':loc})
     else:
         return redirect('/')
 
@@ -486,6 +540,7 @@ def Admin_farm_machineries(request):
         else:
             return redirect('/')
         user = register.objects.filter(id=SAdm_id)
+        loc = location.objects.all()
         var = farm_machineries.objects.all().order_by('-date')
         posts = farm_machineries.objects.all().order_by('-date')
         p = Paginator(posts, 5) 
@@ -496,7 +551,7 @@ def Admin_farm_machineries(request):
             page_obj = p.page(1)
         except EmptyPage:
             page_obj = p.page(p.num_pages)
-        return render(request,'Admin_farm_machineries.html',{'page_obj':page_obj,'var':var,'user':user})
+        return render(request,'Admin_farm_machineries.html',{'page_obj':page_obj,'var':var,'user':user,'loc':loc})
     else:
         return redirect('/')
 
@@ -508,6 +563,7 @@ def Admin_man_power_usage(request):
             return redirect('/')
         user = register.objects.filter(id=SAdm_id)
         var = man_power_usage.objects.all().order_by('-date')
+        loc = location.objects.all()
         posts = man_power_usage.objects.all().order_by('-date')
         p = Paginator(posts, 5) 
         page_number = request.GET.get('page')
@@ -517,7 +573,7 @@ def Admin_man_power_usage(request):
             page_obj = p.page(1)
         except EmptyPage:
             page_obj = p.page(p.num_pages)
-        return render(request,'Admin_man_power_usage.html',{'page_obj':page_obj,'var':var,'user':user})
+        return render(request,'Admin_man_power_usage.html',{'page_obj':page_obj,'var':var,'user':user,'loc':loc})
     else:
         return redirect('/')
 
@@ -858,6 +914,122 @@ def user_plantdetails_update(request,id):
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'user_viewedit_plantdetails.html',{'msg_success': msg_success})
         return render(request,'user_viewedit_plantdetails.html',{'mem1':mem1})
+    else:
+        return redirect('/')
+
+def user_plant_harvesting(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+           return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        var = harvesting.objects.filter(user_id=c_id)
+        posts = harvesting.objects.filter(user_id=c_id).order_by('-planting_date')
+        p = Paginator(posts, 5)
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number)
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        context = {'page_obj': page_obj,'mem1':mem1,'var':var}
+        return render(request, 'user_plant_harvesting.html', context)
+
+def user_find_harvesting(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        var = harvesting.objects.values('plant_name').distinct().filter(user_id=c_id)      
+        return render(request,'user_find_harvesting.html',{'mem1':mem1,'var':var})
+    else:
+        return redirect('/')
+
+def user_harvesting_list(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        if request.method == "POST":
+            fromdate = request.POST.get('date')
+            p1=request.POST.get('plant')
+            var = harvesting.objects.filter(planting_date=fromdate).filter(user_id=c_id).filter(plant_name=p1)
+        return render(request,'user_harvesting_list.html',{'mem1':mem1,'var':var})
+    else:
+        return redirect('/')
+
+
+def user_add_harvesting(request):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        new = plantdetails.objects.filter(user_id=c_id)
+        loc = location.objects.filter(user_id = c_id)
+        if request.method == 'POST':
+            h1 = request.POST['plant']
+            h2 = request.POST['harvesting']
+            h3 = request.POST['harvested']
+            h4 = request.POST['planting']
+            h5 = request.POST['location']
+            h6 = request.POST['cost']
+            h7 = request.POST['total']
+            plant = harvesting( plant_name = h1,harvesting_date = h2,harvested_data = h3,
+                planting_date = h4, location = h5, cost = h6, total = h7,user_id = c_id)
+            plant.save()
+
+            rev = farm_revenue( revenue_type = "Sale Of Product", type_description = h1,
+                quantity = h3, date = h2, revenue= h7, user_id = c_id)
+            rev.save()
+            msg_success = "Details added successfully, Refresh your page"
+            return render(request,'user_add_harvesting.html',{'msg_success':msg_success})
+        return render(request,'user_add_harvesting.html',{'mem1':mem1,'loc':loc,'new':new})
+    else:
+        return redirect('/')
+
+def user_viewedit_harvesting(request,id):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        var = harvesting.objects.filter(id=id)
+        new = plantdetails.objects.filter(user_id=c_id)
+        loc = location.objects.filter(user_id = c_id)
+        return render(request,'user_viewedit_harvesting.html',{'mem1':mem1,'var':var,'loc':loc,'new':new})
+    else:
+        return redirect('/')
+
+def user_harvesting_update(request,id):
+    if 'c_id' in request.session:
+        if request.session.has_key('c_id'):
+            c_id = request.session['c_id']
+        else:
+            return redirect('/')
+        mem1 = register.objects.filter(id=c_id)
+        if request.method == 'POST':
+            abc = harvesting.objects.get(id=id)
+            abc.plant_name = request.POST.get('plant')
+            abc.planting_date = request.POST.get('planting')
+            abc.harvesting_date = request.POST.get('harvesting')
+            abc.harvested_data = request.POST.get('harvested')
+            abc.location = request.POST.get('location')
+            abc.cost = request.POST.get('cost')
+            abc.total = request.POST.get('total')
+            abc.save()
+            print(abc)         
+            msg_success = "Details updated successfully, Refresh your page,,Please Update on Farm Revenue"
+            return render(request,'user_viewedit_harvesting.html',{'msg_success': msg_success})
+        return render(request,'user_viewedit_harvesing.html')
     else:
         return redirect('/')
 
@@ -1953,14 +2125,14 @@ def Staff_add_plant_details(request):
             p2 = request.POST['flowering']
             p3 = request.POST['fruiting']
             p4 = request.POST['fertilization']
-            p5 = request.POST['harvesting']
-            p6 = request.POST['harvesteddata']
+            # p5 = request.POST['harvesting']
+            # p6 = request.POST['harvesteddata']
             p7 = request.POST['planting']
             p8 = request.POST['pest']
             p9 = request.POST['location']
             p10 = request.POST['number']
             plant = plantdetails( plant_name = p1,flowering_date = p2,fruiting_date = p3,
-                fertilization_date = p4,harvesting_date = p5,harvested_data = p6,
+                fertilization_date = p4,
                 planting_date = p7, pest_control_date = p8, location = p9, number =p10,user_id = s_id)
             plant.save()
             msg_success = "Details added successfully, Refresh your page"
@@ -1997,30 +2169,18 @@ def Staff_plantdetails_update(request,id):
             abc.pest_control_date = request.POST.get('pest')
             abc.fruiting_date = request.POST.get('fruiting')
             abc.fertilization_date = request.POST.get('fertilization')
-            abc.harvesting_date = request.POST.get('harvesting')
-            abc.harvested_data = request.POST.get('harvesteddata')
+            # abc.harvesting_date = request.POST.get('harvesting')
+            # abc.harvested_data = request.POST.get('harvesteddata')
             abc.location = request.POST.get('location')
             abc.number = request.POST.get('number')
             abc.save()
-            print(abc)
-            
+            print(abc)         
             msg_success = "Details updated successfully, Refresh your page"
             return render(request,'Staff_viewedit_plantdetails.html',{'msg_success': msg_success})
         return render(request,'Staff_viewedit_plantdetails.html')
     else:
         return redirect('/')
 
-# def Staff_plant_harvesting(request):
-#     if 's_id' in request.session:
-#         if request.session.has_key('s_id'):
-#             s_id = request.session['s_id']
-#         else:
-#             return redirect('/')
-#         mem = register.objects.filter(id=s_id)
-#         var = harvesting.objects.filter(user_id=s_id).order_by('-planting_date')
-#         return render(request,'Staff_Plant_Harvesting.html',{'mem':mem,'var':var})
-#     else:
-#         return redirect('/')
 
 def Staff_plant_harvesting(request):
     if 's_id' in request.session:
@@ -2030,21 +2190,44 @@ def Staff_plant_harvesting(request):
            return redirect('/')
         mem = register.objects.filter(id=s_id)
         var = harvesting.objects.filter(user_id=s_id)
-        posts = plantdetails.objects.filter(user_id=s_id).order_by('-planting_date') # fetching all post objects from database
-        p = Paginator(posts, 2)  # creating a paginator object
-        # getting the desired page number from url
+        posts = harvesting.objects.filter(user_id=s_id).order_by('-planting_date')
+        p = Paginator(posts, 5)
         page_number = request.GET.get('page')
         try:
-            page_obj = p.get_page(page_number)  # returns the desired page object
+            page_obj = p.get_page(page_number)
         except PageNotAnInteger:
-            # if page_number is not an integer then assign the first page
             page_obj = p.page(1)
         except EmptyPage:
-            # if page is empty then return last page
             page_obj = p.page(p.num_pages)
         context = {'page_obj': page_obj,'mem':mem,'var':var}
-        # sending the page object to index.html
         return render(request, 'Staff_Plant_Harvesting.html', context)
+
+def Staff_find_harvesting(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        var = harvesting.objects.values('plant_name').distinct().filter(user_id=s_id)      
+        return render(request,'Staff_find_harvesting.html',{'mem':mem,'var':var})
+    else:
+        return redirect('/')
+
+def Staff_harvesting_list(request):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        if request.method == "POST":
+            fromdate = request.POST.get('date')
+            p1=request.POST.get('plant')
+            var = harvesting.objects.filter(planting_date=fromdate).filter(user_id=s_id).filter(plant_name=p1)
+        return render(request,'Staff_harvesting_list.html',{'mem':mem,'var':var})
+    else:
+        return redirect('/')
 
 
 def Staff_add_harvesting(request):
@@ -2057,17 +2240,61 @@ def Staff_add_harvesting(request):
         new = plantdetails.objects.filter(user_id=s_id)
         loc = location.objects.filter(user_id = s_id)
         if request.method == 'POST':
-            p1 = request.POST['plant']
-            p5 = request.POST['harvesting']
-            p6 = request.POST['myInput']
-            p7 = request.POST['planting']
-            p9 = request.POST['location']
-            plant = harvesting( plant_name = p1,harvesting_date = p5,harvested_data = p6,
-                planting_date = p7, location = p9,user_id = s_id)
+            h1 = request.POST['plant']
+            h2 = request.POST['harvesting']
+            h3 = request.POST['harvested']
+            h4 = request.POST['planting']
+            h5 = request.POST['location']
+            h6 = request.POST['cost']
+            h7 = request.POST['total']
+            plant = harvesting( plant_name = h1,harvesting_date = h2,harvested_data = h3,
+                planting_date = h4, location = h5, cost = h6, total = h7,user_id = s_id)
             plant.save()
+
+            rev = farm_revenue( revenue_type = "Sale Of Product", type_description = h1,
+                quantity = h3, date = h2, revenue= h7, user_id = s_id)
+            rev.save()
             msg_success = "Details added successfully, Refresh your page"
             return render(request,'Staff_add_harvesting.html',{'msg_success':msg_success})
         return render(request,'Staff_add_harvesting.html',{'mem':mem,'loc':loc,'new':new})
+    else:
+        return redirect('/')
+
+def Staff_viewedit_harvesting(request,id):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        var = harvesting.objects.filter(id=id)
+        new = plantdetails.objects.filter(user_id=s_id)
+        loc = location.objects.filter(user_id = s_id)
+        return render(request,'Staff_viewedit_harvesting.html',{'mem':mem,'var':var,'loc':loc,'new':new})
+    else:
+        return redirect('/')
+
+def Staff_harvesting_update(request,id):
+    if 's_id' in request.session:
+        if request.session.has_key('s_id'):
+            s_id = request.session['s_id']
+        else:
+            return redirect('/')
+        mem = register.objects.filter(id=s_id)
+        if request.method == 'POST':
+            abc = harvesting.objects.get(id=id)
+            abc.plant_name = request.POST.get('plant')
+            abc.planting_date = request.POST.get('planting')
+            abc.harvesting_date = request.POST.get('harvesting')
+            abc.harvested_data = request.POST.get('harvested')
+            abc.location = request.POST.get('location')
+            abc.cost = request.POST.get('cost')
+            abc.total = request.POST.get('total')
+            abc.save()
+            print(abc)         
+            msg_success = "Details updated successfully, Refresh your page,,Please Update on Farm Revenue"
+            return render(request,'Staff_viewedit_harvesting.html',{'msg_success': msg_success})
+        return render(request,'Staff_viewedit_harvesing.html')
     else:
         return redirect('/')
 

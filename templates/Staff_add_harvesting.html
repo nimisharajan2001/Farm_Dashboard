@@ -6,12 +6,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<script>
-    $(document).on('click', '.addService', function(){
-  var html = '<div><input type="text" name="myInput"><button type="button" class="addService">Add More</button></div>';
-$(this).parent().append(html);
-});
-  </script>
 
 <div class="row">
     <div class="col-md-9 grid-margin stretch-card">
@@ -19,7 +13,7 @@ $(this).parent().append(html);
 
             <div class="card-body">
                 <div class="col-12 grid-margin">
-                    <h3>Add Plant Details</h3>
+                    <h3>Add Harvesting Details</h3>
                 </div>
                 <form method="post" action="" enctype="multipart/form-data">
                      {% csrf_token %}
@@ -68,7 +62,7 @@ $(this).parent().append(html);
                           Harvesting Date
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="harvesting">
+                            <input type="date" id="enddate" class="form-control form-control-sm" autocomplete="off" name="harvesting" required>
                         </div>
                     </div>
 
@@ -77,18 +71,27 @@ $(this).parent().append(html);
                           Harvested Data
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" name='+value+'[]>
-                            <button type="button" class="addService">Add More</button>
-                            <!-- <input type="text" class="form-control form-control-sm" autocomplete="off" name="harvesteddata" > -->
+                            <input type="number" step="any" id="temp1" class="form-control form-control-sm" autocomplete="off" name="harvested"  >
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                          Cost Per Unit
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="number" step="any" id="temp2" class="form-control form-control-sm" autocomplete="off" name="cost">
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="avg" class="form-control form-control-sm" autocomplete="off" name="total" value="" required> 
 
                     </div>
 
                     <div>
                         <center>
                             <button type="submit" style="background-color: green; color: #fff;" class="btn  btn-icon-text mb-4">SUBMIT</button>
-                            <a href="{% url 'Staff_plant_details' %}" class="btn btn-info mb-4"> BACK</a>
+                            <a href="{% url 'Staff_plant_harvesting' %}" class="btn btn-info mb-4"> BACK</a>
                         </center>
                     </div>
                 </form>
@@ -98,6 +101,35 @@ $(this).parent().append(html);
     </div>
 
 </div>
+
+<script>
+    $(function() {
+      var dtToday = new Date();
+      var month = dtToday.getMonth() + 1;
+      var day = dtToday.getDate();
+      var year = dtToday.getFullYear();
+      if (month < 10)
+          month = '0' + month.toString();
+      if (day < 10)
+          day = '0' + day.toString();
+      var maxDate = year + '-' + month + '-' + day;
+      $('#enddate').attr('max', maxDate);
+    })
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(function() {
+    $("#temp1, #temp2 ").on("keyup", total);
+ 	function total() {
+ 	$("#avg").val((Number($("#temp1").val()) * Number($("#temp2").val())  ));
+ 	
+	}
+ });
+</script>
 
 <script>
     $(function() {
@@ -142,24 +174,3 @@ $(this).parent().append(html);
     {% endif %}
 
 {% endblock %}
-
-<!-- <!DOCTYPE html>
-<html>
-  <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
-  
-  </head>
-  <body>
-    
-      <div id="contain"> 
-  Choose Your Own service <br> <br>
-  <div>
-  <input type="text" name='+value+'[]>
-  <button type="button" class="addService">Add More</button>
-  </div>
-</div>
-  </body>
-</html> -->

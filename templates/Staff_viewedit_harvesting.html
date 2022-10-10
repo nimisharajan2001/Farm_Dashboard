@@ -6,22 +6,28 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+{% for i in var %}
 <div class="row">
     <div class="col-md-9 grid-margin stretch-card">
         <div class="card" style="height: auto;">
 
             <div class="card-body">
                 <div class="col-12 grid-margin">
-                    <h3>Add Plant Details</h3>
+                    <h3>Edit Harvesting Details</h3>
                 </div>
-                <form method="post" action="" enctype="multipart/form-data">
+                <form method="post" action="{% url 'Staff_harvesting_update' i.id%}" enctype="multipart/form-data">
                      {% csrf_token %}
                     <div class="form-group row">
                         <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
                             Plant Name
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="plant" value="" required>
+                            <select class="form-control" name="plant" >
+                                <option value="{{i.plant_name}}">{{i.plant_name}}</option>
+                                {%for k in new%}
+                                <option>{{k.plant_name }}</option>
+                                {%endfor%}
+                            </select>
                         </div>
                     </div>
 
@@ -31,21 +37,11 @@
                         </label>
                         <div class="col-sm-9">
                             <select class="form-control" name="location" >
-                                <option selected="true" disabled="disabled" value="">-Not Selected-</option>
+                                <option value="{{i.location}}">{{i.location}}</option>
                                 {%for i in loc%}
                                 <option>{{i.name}}</option>
                                 {%endfor%}
                             </select>
-                            <!-- <input type="text" class="form-control form-control-sm" autocomplete="off" name="location" value="" required> -->
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
-                            Number of Plants
-                        </label>
-                        <div class="col-sm-9">
-                            <input type="number" class="form-control form-control-sm" autocomplete="off" name="number" value="" required>
                         </div>
                     </div>
 
@@ -54,70 +50,45 @@
                             Planting Date
                         </label>
                         <div class="col-sm-9">
-                            <input type="date" id="startdate" class="form-control form-control-sm"  name="planting" value="" required>
+                            <input type="date" id="startdate" class="form-control form-control-sm"  name="planting" value="{{i.planting_date|date:'Y-m-d'}}" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
-                            Flowering Date
-                        </label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="flowering">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
-                            Pest Control Date
-                        </label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm"  name="pest">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
-                          Fruiting Date
-                        </label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="fruiting">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
-                          Fertilization Date
-                        </label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="fertilization">
-                        </div>
-                    </div>
-
-                    <!-- <div class="form-group row">
                         <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
                           Harvesting Date
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="harvesting">
+                            <input type="date" id="enddate" class="form-control form-control-sm" autocomplete="off" name="harvesting" value="{{i.harvesting_date|date:'Y-m-d'}}" required>
                         </div>
-                    </div> -->
+                    </div>
 
-                    <!-- <div class="form-group row">
+                    <div class="form-group row">
                         <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
                           Harvested Data
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-sm" autocomplete="off" name="harvesteddata" >
+                            <input type="number" step="any" id="temp1" class="form-control form-control-sm" autocomplete="off" name="harvested" value="{{i.harvested_data}}" >
                         </div>
-                    </div> -->
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="exampleInputUsernam2" class="col-sm-3 col-form-label">
+                          Cost Per Unit
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="number" step="any" id="temp2" class="form-control form-control-sm" autocomplete="off" name="cost" value="{{i.cost}}">
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="avg" class="form-control form-control-sm" autocomplete="off" name="total" value="" required> 
 
                     </div>
 
                     <div>
                         <center>
                             <button type="submit" style="background-color: green; color: #fff;" class="btn  btn-icon-text mb-4">SUBMIT</button>
-                            <a href="{% url 'Staff_plant_details' %}" class="btn btn-info mb-4"> BACK</a>
+                            <a href="{% url 'Staff_plant_harvesting' %}" class="btn btn-info mb-4"> BACK</a>
                         </center>
                     </div>
                 </form>
@@ -127,6 +98,35 @@
     </div>
 
 </div>
+{%endfor%}
+<script>
+    $(function() {
+      var dtToday = new Date();
+      var month = dtToday.getMonth() + 1;
+      var day = dtToday.getDate();
+      var year = dtToday.getFullYear();
+      if (month < 10)
+          month = '0' + month.toString();
+      if (day < 10)
+          day = '0' + day.toString();
+      var maxDate = year + '-' + month + '-' + day;
+      $('#enddate').attr('max', maxDate);
+    })
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(function() {
+    $("#temp1, #temp2 ").on("keyup", total);
+ 	function total() {
+ 	$("#avg").val((Number($("#temp1").val()) * Number($("#temp2").val())  ));
+ 	
+	}
+ });
+</script>
 
 <script>
     $(function() {

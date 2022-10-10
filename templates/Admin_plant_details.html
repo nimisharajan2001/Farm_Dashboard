@@ -52,6 +52,9 @@
                   Location
                 </th>
                 <th style="background-color: green; color: #fff;">
+                  Acers
+                </th>
+                <th style="background-color: green; color: #fff;">
                   Number of plants
                 </th>
                 <th style="background-color: green; color: #fff;">
@@ -69,13 +72,6 @@
                 <th style="background-color: green; color: #fff;">
                     Fertilization date
                 </th>
-                <th style="background-color: green; color: #fff;">
-                    Harvesting date
-                </th>
-                <th style="background-color: green; color: #fff;">
-                    Harvested data
-                </th>
-
               </tr>
             </thead>
             <tbody id="myTable">
@@ -84,14 +80,17 @@
                 <td>{{i.user}}</td>
                 <td>{{i.plant_name}}</td>
                 <td>{{i.location}}</td>
+                {% for k in loc%}
+                {% if i.location == k.name%}
+                <td>{{k.acers}}</td>   
+                {%endif%}
+                {%endfor%}       
                 <td>{{i.number}}</td>
                 <td>{{i.planting_date|date:"d-m-Y"}}</td>
                 <td>{{i.flowering_date}}</td>
                 <td>{{i.pest_control_date}}</td>
                 <td>{{i.fruiting_date}}</td>
                 <td>{{i.fertilization_date}}</td>
-                <td>{{i.harvesting_date}}</td>
-                <td>{{i.harvested_data}}</td>
               </tr>
               {%endfor%}
             </tbody>

@@ -53,6 +53,9 @@
                   Location
                 </th>
                 <th style="background-color: green; color: #fff;">
+                  Acers
+                </th>
+                <th style="background-color: green; color: #fff;">
                   Brand Name
                 </th>
                 <th style="background-color: green; color: #fff;">
@@ -70,6 +73,11 @@
                 <td>{{i.fertilizer}}</td>
                 <td>{{i.plant_name}}</td>
                 <td>{{i.place}}</td>
+                {% for k in loc%}
+                {% if i.place == k.name%}
+                <td>{{k.acers}}</td>   
+                {%endif%}
+                {%endfor%}  
                 <td>{{i.brand_name}}</td>
                 <td>{{i.applied_quantity}}{{i.unit}}</td>
                 <td>{{i.applied_date|date:"d-m-Y"}}</td>
