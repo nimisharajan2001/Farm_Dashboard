@@ -1,5 +1,4 @@
 from ctypes import memset
-from tkinter.tix import FileEntry
 from unicodedata import name
 from django.shortcuts import redirect, render
 from .models import *
