@@ -318,13 +318,14 @@ def registersave(request,id):
             SAdm_id = request.session['SAdm_id']
         else:
             return redirect('/')
-        users = register.objects.filter(id=SAdm_id)
-        user = register.objects.get(id=id)
+        user = register.objects.filter(id=SAdm_id)
+        users = register.objects.get(id=id)
         if request.method == 'POST':
-            user.designation_id = request.POST.get('designation')
-            user.team = request.POST.get("team")
-            user.date = datetime.now()
-            user.save()
+            users.designation_id = request.POST.get('designation')
+            users.team = request.POST.get("team")
+            users.date = datetime.now()
+            users.save()
+            al = register.objects.filter(id=id).update(photo ='images/logo_t.png')
             msg_success = "Registered successfully"
         return render(request,'Admin_registration_details.html',{'user':user,'msg_success':msg_success,'users':users})
     else:
