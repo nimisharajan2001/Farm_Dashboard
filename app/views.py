@@ -259,44 +259,6 @@ def Admin_Staff_chart(request,id):
     else:
         return redirect('/')
 
-
-# def Admin_staffdashboard(request,id):
-#     if 'SAdm_id' in request.session:
-#         if request.session.has_key('SAdm_id'):
-#             SAdm_id = request.session['SAdm_id']
-#         else:
-#             return redirect('/')
-#         user = register.objects.filter(id=SAdm_id)
-#         var= register.objects.filter(id=id)
-#         labels = []
-#         data = []
-#         queryset = farm_expenses.objects.filter(user_id=id)
-#         for j in queryset:
-#             labels=[j.price,j.total_cost,j.quantity]
-#             data=[j.price,j.total_cost,j.quantity]
-#         return render(request,'Admin_staffdashboard.html',{'var':var,'user':user,'labels':labels,'data':data})
-#     else:
-#         return redirect('/')
-
-# def Admin_Staff_chart(request,id):
-#     if 'SAdm_id' in request.session:
-#         if request.session.has_key('SAdm_id'):
-#             SAdm_id = request.session['SAdm_id']
-#         else:
-#             return redirect('/')
-#         user = register.objects.filter(id=SAdm_id)
-#         var = register.objects.filter(id = id)
-#         labels = []
-#         data = []
-#         queryset = farm_revenue.objects.filter(user_id=id)
-#         for j in queryset:
-#             labels=[j.quantity,j.revenue]
-#             data=[j.quantity,j.revenue]
-#         return render(request,'Admin_Staffchart.html',{'user':user,'var':var,'labels':labels,'data':data})
-#     else:
-#         return redirect('/')
-
-
 def Admin_registration_details(request):
     if 'SAdm_id' in request.session:
         if request.session.has_key('SAdm_id'):
@@ -1209,12 +1171,7 @@ def user_soilsampletest_update(request,id):
         mem1 = register.objects.filter(id=c_id)
         if request.method == 'POST':
             abc = soil_sample_test.objects.get(id=id)
-            # abc.tests = request.POST.get('tests')
             abc.date = request.POST.get('date')
-            # abc.result = request.POST.get('result')
-            # abc.unit = request.POST.get('unit')
-            # abc.method = request.POST.get('method')
-            # abc.level = request.POST.get('level')
             abc.place = request.POST.get('place')
             abc.photo = request.FILES['file']
             abc.save()
@@ -1235,16 +1192,9 @@ def user_add_soil_sample_test(request):
         mem1 = register.objects.filter(id=c_id)
         loc = location.objects.filter(user_id = c_id)
         if request.method == 'POST':
-            # s1 = request.POST['tests']
             s2 = request.POST['date']
-            # s3 = request.POST['result']
-            # s4 = request.POST['unit']
-            # s5 = request.POST['method']
-            # s6 = request.POST['level']
             s7 = request.POST['place']
             s8 = request.FILES['file']
-            # soil = soil_sample_test( date = s2, file = s8,user_id = c_id)
-            # soil.save()
             soil = soil_sample_test( date = s2,photo = s8,
                 place = s7, file = s8,user_id = c_id)
             soil.save()
@@ -2125,8 +2075,6 @@ def Staff_add_plant_details(request):
             p2 = request.POST['flowering']
             p3 = request.POST['fruiting']
             p4 = request.POST['fertilization']
-            # p5 = request.POST['harvesting']
-            # p6 = request.POST['harvesteddata']
             p7 = request.POST['planting']
             p8 = request.POST['pest']
             p9 = request.POST['location']
@@ -2169,8 +2117,6 @@ def Staff_plantdetails_update(request,id):
             abc.pest_control_date = request.POST.get('pest')
             abc.fruiting_date = request.POST.get('fruiting')
             abc.fertilization_date = request.POST.get('fertilization')
-            # abc.harvesting_date = request.POST.get('harvesting')
-            # abc.harvested_data = request.POST.get('harvesteddata')
             abc.location = request.POST.get('location')
             abc.number = request.POST.get('number')
             abc.save()
@@ -2472,12 +2418,7 @@ def Staff_soilsampletest_update(request,id):
         mem = register.objects.filter(id=s_id)
         if request.method == 'POST':
             abc = soil_sample_test.objects.get(id=id)
-            # abc.tests = request.POST.get('tests')
             abc.date = request.POST.get('date')
-            # abc.result = request.POST.get('result')
-            # abc.unit = request.POST.get('unit')
-            # abc.method = request.POST.get('method')
-            # abc.level = request.POST.get('level')
             abc.place = request.POST.get('place')
             abc.photo = request.FILES['file']
             abc.save()
@@ -2498,12 +2439,7 @@ def Staff_add_soil_sample_test(request):
         mem = register.objects.filter(id=s_id)
         loc = location.objects.filter(user_id = s_id)
         if request.method == 'POST':
-            # s1 = request.POST['tests']
             s2 = request.POST['date']
-            # s3 = request.POST['result']
-            # s4 = request.POST['unit']
-            # s5 = request.POST['method']
-            # s6 = request.POST['level']
             s7 = request.POST['place']
             s8 = request.FILES['file']
             soil = soil_sample_test( date = s2, photo = s8,
